@@ -2,3 +2,21 @@
 1781856463 source:c:\users\annev\documents\github\rfid_project2\fuse.c
 	<avr/io.h>
 
+1781861863 source:c:\users\annev\documents\github\rfid_project2\initialisatie.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+
+1781862220 c:\users\annev\documents\github\rfid_project2\initialisatie.h
+
+1781859445 source:c:\users\annev\documents\github\rfid_project2\main.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+
+1781861138 source:c:\users\annev\documents\github\rfid_project2\display.c
+
+1781861087 source:c:\users\annev\documents\github\rfid_project2\rfid_sensor.c
+

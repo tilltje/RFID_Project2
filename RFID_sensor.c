@@ -4,14 +4,3 @@
 #include "Initialisatie.h"
 #include "RFID_sensor.h"
 #include "Display.h"
-
-int main(void)
-{
-
-    initialisatie();
-
-    while(1)
-    ;
-
-    return 0;
-}
