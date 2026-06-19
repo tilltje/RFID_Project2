@@ -4,3 +4,4 @@
 #include "Initialisatie.h"
 #include "RFID_sensor.h"
 #include "Display.h"
+#include "Sequence.h"

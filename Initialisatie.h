@@ -2,29 +2,32 @@
 #define INITIALISATIE_H_INCLUDED
 
 //Communicatiepinnen
-#define MODNUMMER           PG2
+#define MODNUMMER           PG0 // Arduino Pin 41
 #define MODNUMMER_DDR       DDRG
 #define MODNUMMER_PORT      PORTG
 
-#define VOLGENDE_MOD        PD7
-#define VOLGENDE_MOD_DDR    DDRD
-#define VOLGENDE_MOD_PORT   PORTD
+#define NEXT_MOD            PG1 // Arduino Pin 40
+#define NEXT_MOD_DDR        DDRG
+#define NEXT_MOD_PORT       PORTG
 
-#define ACK_MOD             PC0
-#define ACK_MOD_DDR         DDRC
-#define ACK_MOD_PORT        PORTC
+#define ACK_MOD             PG2 // Arduino Pin 39
+#define ACK_MOD_DDR         DDRG
+#define ACK_MOD_PORT        PORTG
 
-#define LIJN                PC1
-#define LIJN_DDR            DDRC
-#define LIJN_PIN            PINC
+#define LIJN                PD7 // Arduino Pin 38
+#define LIJN_DDR            DDRD
+#define LIJN_PIN            PIND
+#define LIJN_PORT           PORTD
 
-#define VOLGENDE_AGV        PC2
-#define VOLGENDE_AGV_DDR    DDRC
-#define VOLGENDE_AGV_PIN    PINC
+#define NEXT_AGV            PC0 // Arduino Pin 37
+#define NEXT_AGV_DDR        DDRC
+#define NEXT_AGV_PIN        PINC
+#define NEXT_AGV_PORT       PORTC
 
-#define ACK_AGV             PC3
-#define ACK_AGV_DDR             DDRC
-#define ACK_AGV_PIN             PINC
+#define ACK_AGV             PD0 //Arduino Pin 21 (externe interrupt)
+#define ACK_AGV_DDR         DDRD
+#define ACK_AGV_PIN         PIND
+#define ACK_AGV_PORT        PORTD
 
 //RFID protocol
 #define PCD_IDLE              0x00
@@ -72,13 +75,15 @@
 #define RSTL_PORT           PORTL
 
 //IR sensor pinnen
-#define IR_R                PL4 // Arduino Pin 45
-#define IR_R_DDR            DDRL
-#define IR_R_PIN            PINL
-
-#define IR_L                PL5 // Arduino Pin 44
+#define IR_L                PL4 // Arduino Pin 45
 #define IR_L_DDR            DDRL
 #define IR_L_PIN            PINL
+#define IR_L_PORT           PORTL
+
+#define IR_R                PL5 // Arduino Pin 44
+#define IR_R_DDR            DDRL
+#define IR_R_PIN            PINL
+#define IR_R_PORT           PORTL
 
 //Display
 #define CLK                 PL6 // Arduino pin 43
@@ -97,18 +102,19 @@
 #define DIO_INPUT()  (DIO_DDR  &= ~(1 << DIO))
 
 //LEDS
-#define LED_BLAUW           PG0 // Arduino pin 41
-#define LED_BLAUW_DDR       DDRG
-#define LED_BLAUW_PORT      PORTG
+#define LED_BLAUW           PC2 // Arduino pin 35
+#define LED_BLAUW_DDR       DDRC
+#define LED_BLAUW_PORT      PORTC
 
-#define LED_GROEN           PG1 // Arduino pin 40
-#define LED_GROEN_DDR       DDRG
-#define LED_GROEN_PORT      PORTG
+#define LED_GROEN           PC3 // Arduino pin 34
+#define LED_GROEN_DDR       DDRC
+#define LED_GROEN_PORT      PORTC
 
 // Knop
-#define KNOP                PC4
+#define KNOP                PC4 // Arduino pin 33
 #define KNOP_DDR            DDRC
 #define KNOP_PIN            PINC
+#define KNOP_PORT           PORTC
 
 void send_byte(uint8_t data);
 void tm_start();

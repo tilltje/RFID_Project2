@@ -4,18 +4,23 @@
 #include "Initialisatie.h"
 #include "RFID_sensor.h"
 #include "Display.h"
+#include "Sequence.h"
 
 void initialisatie_communicatie(void) {
     MODNUMMER_DDR |= (1 << MODNUMMER); // output
-    VOLGENDE_MOD_DDR |= (1 << VOLGENDE_MOD);
+    NEXT_MOD_DDR |= (1 << NEXT_MOD);
     ACK_MOD_DDR |= (1 << ACK_MOD);
-    LIJN_DDR &= ~(1 << LIJN);
-    VOLGENDE_AGV_DDR &= ~(1 << VOLGENDE_AGV);
+    LIJN_DDR &= ~(1 << LIJN); //input
+    NEXT_AGV_DDR &= ~(1 << NEXT_AGV);
     ACK_AGV_DDR &= ~(1 << ACK_AGV);
 
     MODNUMMER_PORT &= ~(1 << MODNUMMER); //Laag zetten, want detectiemodule
-    VOLGENDE_MOD_PORT &= ~(1 << MODNUMMER);
+    NEXT_MOD_PORT &= ~(1 << MODNUMMER);
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
+
+    LIJN_PORT |= (1 << LIJN); // PULL-UPS ACTIVEREN
+    NEXT_AGV_PORT |= (1 << NEXT_AGV);
+    ACK_AGV_PORT |= (1 << ACK_AGV);
 }
 
 void initialisatie_RFID(void) {
@@ -46,6 +51,9 @@ void initialisatie_RFID(void) {
 void initialisatie_IRsensor(void){
     IR_R_DDR &= ~(1 << IR_R); //input
     IR_L_DDR &= ~(1 << IR_L); //input
+
+    IR_R_PORT |= (1 << IR_R);
+    IR_L_PORT |= (1 << IR_L);
 }
 
 
@@ -109,7 +117,9 @@ void initialisatie_leds(void) {
 }
 
 void initialisatie_knop(void) {
-    KNOP_DDR &= ~(1 << KNOP);
+    KNOP_DDR &= ~(1 << KNOP); //INPUT
+
+    KNOP_PORT |= (1 << KNOP); //PULL-UP
 }
 
 void initialisatie(void) { //pinnen initialiseren
@@ -119,4 +129,5 @@ void initialisatie(void) { //pinnen initialiseren
     initialisatie_display();
     initialisatie_leds();
     initialisatie_knop();
+    sei();
 }
