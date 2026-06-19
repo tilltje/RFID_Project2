@@ -1,0 +1,4 @@
+# depslib dependency file v1.0
+1781856463 source:c:\users\annev\documents\github\rfid_project2\fuse.c
+	<avr/io.h>
+
