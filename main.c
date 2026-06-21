@@ -1,5 +1,6 @@
 /*
 Timer 1 wordt gebruikt voor het knipperen van de leds
+Timer 3 wordt gebruikt voor acknowledge van module
 */
 
 #include <avr/io.h>

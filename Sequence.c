@@ -6,7 +6,16 @@
 #include "Display.h"
 #include "Sequence.h"
 
+void acknowledge_module(void) {
+    ACK_MOD_PORT |= (1 << ACK_MOD);
+    TCNT3 = 0;
+    TIMSK3 |= (1 << TOIE3);
+}
 
+ISR(TIMER3_OVF_vect) { // acknowledge module
+    ACK_MOD_PORT &= ~(1 << ACK_MOD);
+    TIMSK3 &= ~(1 << TOIE3); // interrupt weer uitzetten
+}
 
 
 ISR(INT0_vect) { //AGV heeft commando geacknowledged
@@ -71,7 +80,7 @@ void sequence(void) {
         }
         if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
             stoppen();
-            links = 1
+            links = 1;
             if (RFID_scannen(1) != 0) { //doosje bevat tag
                 teller_rfid++;
                 display(teller_leeg, teller_rfid);
@@ -85,14 +94,14 @@ void sequence(void) {
         }
         if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
             rechts = 0;
-            delay_ms(50); // debouncen
+            _delay_ms(50); // debouncen
         }
         if (((IR_L_PIN & (1 << IR_L)) != 0) && (links == 1)) { // links doosje niet meer gedetecteerd
             links = 0;
-            delay_ms(50); // debouncen
+            _delay_ms(50); // debouncen
         }
 
     }
-    ACK_MOD_PORT |= (1 << ACK_MOD); // agv acknowledgen
+    acknowledge_module();
 
 }

@@ -21,6 +21,8 @@ void initialisatie_communicatie(void) {
     LIJN_PORT |= (1 << LIJN); // PULL-UPS ACTIVEREN
     NEXT_AGV_PORT |= (1 << NEXT_AGV);
     ACK_AGV_PORT |= (1 << ACK_AGV);
+
+
 }
 
 void initialisatie_RFID(void) {
