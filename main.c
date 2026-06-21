@@ -1,3 +1,7 @@
+/*
+Timer 1 wordt gebruikt voor het knipperen van de leds
+*/
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>

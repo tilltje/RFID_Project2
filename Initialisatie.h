@@ -116,10 +116,6 @@
 #define KNOP_PIN            PINC
 #define KNOP_PORT           PORTC
 
-void send_byte(uint8_t data);
-void tm_start();
-void tm_stop();
-
 void initialisatie_communicatie(void);
 void initialisatie_RFID(void);
 void initialisatie_IRsensor(void);

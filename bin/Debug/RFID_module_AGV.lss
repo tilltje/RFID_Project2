@@ -3,40 +3,40 @@ bin\Debug\RFID_module_AGV.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000a  00800200  0000064c  000006e0  2**0
+  0 .data         0000000a  00800200  00000812  000008a6  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000064c  00000000  00000000  00000094  2**1
+  1 .text         00000812  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .fuse         00000003  00820000  00820000  000006ea  2**0
+  2 .fuse         00000003  00820000  00820000  000008b0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .comment      00000012  00000000  00000000  000006ed  2**0
+  3 .comment      00000012  00000000  00000000  000008b3  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000700  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000008c8  2**2
                   CONTENTS, READONLY, OCTETS
-  5 .debug_aranges 000000f0  00000000  00000000  00000740  2**3
+  5 .debug_aranges 00000118  00000000  00000000  00000908  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  6 .debug_info   00001bab  00000000  00000000  00000830  2**0
+  6 .debug_info   00001ef5  00000000  00000000  00000a20  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  7 .debug_abbrev 000010d9  00000000  00000000  000023db  2**0
+  7 .debug_abbrev 000011ea  00000000  00000000  00002915  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  8 .debug_line   00001408  00000000  00000000  000034b4  2**0
+  8 .debug_line   00001805  00000000  00000000  00003aff  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  9 .debug_frame  00000230  00000000  00000000  000048bc  2**2
+  9 .debug_frame  000002a4  00000000  00000000  00005304  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 10 .debug_str    000006f3  00000000  00000000  00004aec  2**0
+ 10 .debug_str    00000724  00000000  00000000  000055a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_line_str 000001dd  00000000  00000000  000051df  2**0
+ 11 .debug_line_str 000001e7  00000000  00000000  00005ccc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_loclists 000004ca  00000000  00000000  000053bc  2**0
+ 12 .debug_loclists 000005e6  00000000  00000000  00005eb3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_rnglists 00000017  00000000  00000000  00005886  2**0
+ 13 .debug_rnglists 00000013  00000000  00000000  00006499  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
    0:	0c 94 72 00 	jmp	0xe4	; 0xe4 <__ctors_end>
-   4:	0c 94 0c 03 	jmp	0x618	; 0x618 <__vector_1>
+   4:	0c 94 98 03 	jmp	0x730	; 0x730 <__vector_1>
    8:	0c 94 8b 00 	jmp	0x116	; 0x116 <__bad_interrupt>
    c:	0c 94 8b 00 	jmp	0x116	; 0x116 <__bad_interrupt>
   10:	0c 94 8b 00 	jmp	0x116	; 0x116 <__bad_interrupt>
@@ -113,10 +113,10 @@ Disassembly of section .text:
   f8:	b2 e0       	ldi	r27, 0x02	; 2
 
 000000fa <.Loc.3>:
-  fa:	ec e4       	ldi	r30, 0x4C	; 76
+  fa:	e2 e1       	ldi	r30, 0x12	; 18
 
 000000fc <.Loc.4>:
-  fc:	f6 e0       	ldi	r31, 0x06	; 6
+  fc:	f8 e0       	ldi	r31, 0x08	; 8
 
 000000fe <.Loc.5>:
   fe:	00 e0       	ldi	r16, 0x00	; 0
@@ -143,1577 +143,2044 @@ Disassembly of section .text:
  10c:	d9 f7       	brne	.-10     	; 0x104 <.L__do_copy_data_loop>
 
 0000010e <L0^A>:
- 10e:	0e 94 87 01 	call	0x30e	; 0x30e <main>
- 112:	0c 94 24 03 	jmp	0x648	; 0x648 <_exit>
+ 10e:	0e 94 0f 02 	call	0x41e	; 0x41e <main>
+ 112:	0c 94 07 04 	jmp	0x80e	; 0x80e <_exit>
 
 00000116 <__bad_interrupt>:
  116:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-0000011a <initialisatie_communicatie>:
-#include "RFID_sensor.h"
-#include "Display.h"
-#include "Sequence.h"
-
-void initialisatie_communicatie(void) {
-    MODNUMMER_DDR |= (1 << MODNUMMER); // output
- 11a:	98 9a       	sbi	0x13, 0	; 19
-
-0000011c <.Loc.3>:
-    NEXT_MOD_DDR |= (1 << NEXT_MOD);
- 11c:	99 9a       	sbi	0x13, 1	; 19
-
-0000011e <.Loc.5>:
-    ACK_MOD_DDR |= (1 << ACK_MOD);
- 11e:	9a 9a       	sbi	0x13, 2	; 19
-
-00000120 <.Loc.7>:
-    LIJN_DDR &= ~(1 << LIJN); //input
- 120:	57 98       	cbi	0x0a, 7	; 10
-
-00000122 <.Loc.10>:
-    NEXT_AGV_DDR &= ~(1 << NEXT_AGV);
- 122:	38 98       	cbi	0x07, 0	; 7
-
-00000124 <.Loc.11>:
-    ACK_AGV_DDR &= ~(1 << ACK_AGV);
- 124:	50 98       	cbi	0x0a, 0	; 10
-
-00000126 <.Loc.13>:
-
-    MODNUMMER_PORT &= ~(1 << MODNUMMER); //Laag zetten, want detectiemodule
- 126:	a0 98       	cbi	0x14, 0	; 20
-
-00000128 <.Loc.15>:
-    NEXT_MOD_PORT &= ~(1 << MODNUMMER);
- 128:	a0 98       	cbi	0x14, 0	; 20
-
-0000012a <.Loc.17>:
-    ACK_MOD_PORT &= ~(1 << ACK_MOD);
- 12a:	a2 98       	cbi	0x14, 2	; 20
-
-0000012c <.Loc.19>:
-
-    LIJN_PORT |= (1 << LIJN); // PULL-UPS ACTIVEREN
- 12c:	5f 9a       	sbi	0x0b, 7	; 11
-
-0000012e <.Loc.21>:
-    NEXT_AGV_PORT |= (1 << NEXT_AGV);
- 12e:	40 9a       	sbi	0x08, 0	; 8
-
-00000130 <.Loc.23>:
-    ACK_AGV_PORT |= (1 << ACK_AGV);
- 130:	58 9a       	sbi	0x0b, 0	; 11
-
-00000132 <.Loc.25>:
-}
- 132:	08 95       	ret
-
-00000134 <initialisatie_RFID>:
-
-void initialisatie_RFID(void) {
-    SSR_DDR |= (1 << SSR);//SS output
- 134:	ea e0       	ldi	r30, 0x0A	; 10
- 136:	f1 e0       	ldi	r31, 0x01	; 1
- 138:	80 81       	ld	r24, Z
-
-0000013a <.Loc.28>:
- 13a:	81 60       	ori	r24, 0x01	; 1
- 13c:	80 83       	st	Z, r24
-
-0000013e <.Loc.29>:
-    SSL_DDR |= (1 << SSL);
- 13e:	80 81       	ld	r24, Z
-
-00000140 <.Loc.30>:
- 140:	84 60       	ori	r24, 0x04	; 4
- 142:	80 83       	st	Z, r24
-
-00000144 <.Loc.31>:
-    SCK_DDR |= (1 << SCK);//SCK output
- 144:	21 9a       	sbi	0x04, 1	; 4
-
-00000146 <.Loc.33>:
-    MOSI_DDR |= (1 << MOSI);//MOSI output
- 146:	22 9a       	sbi	0x04, 2	; 4
-
-00000148 <.Loc.35>:
-    MISO_DDR &= ~(1 << MISO);//MISO input
- 148:	23 98       	cbi	0x04, 3	; 4
-
-0000014a <.Loc.37>:
-    RSTR_DDR |= (1 << RSTR);//RST output
- 14a:	80 81       	ld	r24, Z
-
-0000014c <.Loc.38>:
- 14c:	82 60       	ori	r24, 0x02	; 2
- 14e:	80 83       	st	Z, r24
-
-00000150 <.Loc.39>:
-    RSTL_DDR |= (1 << RSTL);
- 150:	80 81       	ld	r24, Z
-
-00000152 <.Loc.40>:
- 152:	88 60       	ori	r24, 0x08	; 8
- 154:	80 83       	st	Z, r24
-
-00000156 <.Loc.41>:
-
-    SSR_PORT |= (1 << SSR); // slave niet selecten
- 156:	eb e0       	ldi	r30, 0x0B	; 11
- 158:	f1 e0       	ldi	r31, 0x01	; 1
- 15a:	80 81       	ld	r24, Z
-
-0000015c <.Loc.42>:
- 15c:	81 60       	ori	r24, 0x01	; 1
- 15e:	80 83       	st	Z, r24
-
-00000160 <.Loc.43>:
-    SSL_PORT |= (1 << SSL);
- 160:	80 81       	ld	r24, Z
-
-00000162 <.Loc.44>:
- 162:	84 60       	ori	r24, 0x04	; 4
- 164:	80 83       	st	Z, r24
-
-00000166 <.Loc.45>:
-    RSTR_PORT |= (1 << RSTR);
- 166:	80 81       	ld	r24, Z
-
-00000168 <.Loc.46>:
- 168:	82 60       	ori	r24, 0x02	; 2
- 16a:	80 83       	st	Z, r24
-
-0000016c <.Loc.47>:
-    RSTL_PORT |= (1 << RSTL);
- 16c:	80 81       	ld	r24, Z
-
-0000016e <.Loc.48>:
- 16e:	88 60       	ori	r24, 0x08	; 8
- 170:	80 83       	st	Z, r24
-
-00000172 <.Loc.49>:
-
-    SPCR |= (1 << SPE);
- 172:	8c b5       	in	r24, 0x2c	; 44
-
-00000174 <.Loc.50>:
- 174:	80 64       	ori	r24, 0x40	; 64
- 176:	8c bd       	out	0x2c, r24	; 44
-
-00000178 <.Loc.51>:
-    SPCR &= ~(1 << DORD);
- 178:	8c b5       	in	r24, 0x2c	; 44
- 17a:	8f 7d       	andi	r24, 0xDF	; 223
- 17c:	8c bd       	out	0x2c, r24	; 44
-
-0000017e <.Loc.53>:
-    SPCR |= (1 << MSTR);
- 17e:	8c b5       	in	r24, 0x2c	; 44
-
-00000180 <.Loc.54>:
- 180:	80 61       	ori	r24, 0x10	; 16
- 182:	8c bd       	out	0x2c, r24	; 44
-
-00000184 <.Loc.55>:
-    SPCR &= ~(1 << CPOL);
- 184:	8c b5       	in	r24, 0x2c	; 44
- 186:	87 7f       	andi	r24, 0xF7	; 247
- 188:	8c bd       	out	0x2c, r24	; 44
-
-0000018a <.Loc.57>:
-    SPCR &= ~(1 << CPHA);
- 18a:	8c b5       	in	r24, 0x2c	; 44
- 18c:	8b 7f       	andi	r24, 0xFB	; 251
- 18e:	8c bd       	out	0x2c, r24	; 44
-
-00000190 <.Loc.59>:
-    SPCR &= ~(1 << SPR1);
- 190:	8c b5       	in	r24, 0x2c	; 44
- 192:	8d 7f       	andi	r24, 0xFD	; 253
- 194:	8c bd       	out	0x2c, r24	; 44
-
-00000196 <.Loc.61>:
-    SPCR &= ~(1 << SPR0);
- 196:	8c b5       	in	r24, 0x2c	; 44
- 198:	8e 7f       	andi	r24, 0xFE	; 254
- 19a:	8c bd       	out	0x2c, r24	; 44
-
-0000019c <.Loc.63>:
-
-    SPSR &= ~(1 << SPI2X);
- 19c:	8d b5       	in	r24, 0x2d	; 45
- 19e:	8e 7f       	andi	r24, 0xFE	; 254
- 1a0:	8d bd       	out	0x2d, r24	; 45
-
-000001a2 <.Loc.65>:
-}
- 1a2:	08 95       	ret
-
-000001a4 <initialisatie_IRsensor>:
-
-void initialisatie_IRsensor(void){
-    IR_R_DDR &= ~(1 << IR_R); //input
- 1a4:	ea e0       	ldi	r30, 0x0A	; 10
- 1a6:	f1 e0       	ldi	r31, 0x01	; 1
- 1a8:	80 81       	ld	r24, Z
- 1aa:	8f 7d       	andi	r24, 0xDF	; 223
- 1ac:	80 83       	st	Z, r24
-
-000001ae <.Loc.69>:
-    IR_L_DDR &= ~(1 << IR_L); //input
- 1ae:	80 81       	ld	r24, Z
- 1b0:	8f 7e       	andi	r24, 0xEF	; 239
- 1b2:	80 83       	st	Z, r24
-
-000001b4 <.Loc.71>:
-
-    IR_R_PORT |= (1 << IR_R);
- 1b4:	eb e0       	ldi	r30, 0x0B	; 11
- 1b6:	f1 e0       	ldi	r31, 0x01	; 1
- 1b8:	80 81       	ld	r24, Z
-
-000001ba <.Loc.72>:
- 1ba:	80 62       	ori	r24, 0x20	; 32
- 1bc:	80 83       	st	Z, r24
-
-000001be <.Loc.73>:
-    IR_L_PORT |= (1 << IR_L);
- 1be:	80 81       	ld	r24, Z
-
-000001c0 <.Loc.74>:
- 1c0:	80 61       	ori	r24, 0x10	; 16
- 1c2:	80 83       	st	Z, r24
-
-000001c4 <.Loc.75>:
-}
- 1c4:	08 95       	ret
-
-000001c6 <send_byte>:
+0000011a <send_byte>:
 const uint8_t segmentMap[] = {
     0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F
 };
 
 // Display
 void send_byte(uint8_t data) {
- 1c6:	28 e0       	ldi	r18, 0x08	; 8
+ 11a:	28 e0       	ldi	r18, 0x08	; 8
 
-000001c8 <.Loc.81>:
+0000011c <.Loc.5>:
     for (uint8_t i = 0; i < 8; i++) {
         CLK_LOW();
- 1c8:	eb e0       	ldi	r30, 0x0B	; 11
- 1ca:	f1 e0       	ldi	r31, 0x01	; 1
- 1cc:	16 c0       	rjmp	.+44     	; 0x1fa <.L7>
+ 11c:	eb e0       	ldi	r30, 0x0B	; 11
+ 11e:	f1 e0       	ldi	r31, 0x01	; 1
+ 120:	16 c0       	rjmp	.+44     	; 0x14e <.L4>
 
-000001ce <.L5>:
+00000122 <.L2>:
         if (data & 0x01) DIO_HIGH(); else DIO_LOW();
- 1ce:	90 81       	ld	r25, Z
- 1d0:	9f 77       	andi	r25, 0x7F	; 127
- 1d2:	90 83       	st	Z, r25
+ 122:	90 81       	ld	r25, Z
+ 124:	9f 77       	andi	r25, 0x7F	; 127
+ 126:	90 83       	st	Z, r25
 
-000001d4 <.L6>:
+00000128 <.L3>:
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 1d4:	a7 ec       	ldi	r26, 0xC7	; 199
- 1d6:	b0 e0       	ldi	r27, 0x00	; 0
+ 128:	a7 ec       	ldi	r26, 0xC7	; 199
+ 12a:	b0 e0       	ldi	r27, 0x00	; 0
 
-000001d8 <.L1^B1>:
- 1d8:	11 97       	sbiw	r26, 0x01	; 1
- 1da:	f1 f7       	brne	.-4      	; 0x1d8 <.L1^B1>
- 1dc:	00 c0       	rjmp	.+0      	; 0x1de <L0^A>
+0000012c <.L1^B1>:
+ 12c:	11 97       	sbiw	r26, 0x01	; 1
+ 12e:	f1 f7       	brne	.-4      	; 0x12c <.L1^B1>
+ 130:	00 c0       	rjmp	.+0      	; 0x132 <L0^A>
 
-000001de <L0^A>:
+00000132 <L0^A>:
 	...
 
-000001e0 <.LBE20>:
+00000134 <.LBE20>:
         _delay_us(50);
         CLK_HIGH();
- 1e0:	90 81       	ld	r25, Z
- 1e2:	90 64       	ori	r25, 0x40	; 64
- 1e4:	90 83       	st	Z, r25
+ 134:	90 81       	ld	r25, Z
+ 136:	90 64       	ori	r25, 0x40	; 64
+ 138:	90 83       	st	Z, r25
 
-000001e6 <.LBB22>:
- 1e6:	a7 ec       	ldi	r26, 0xC7	; 199
- 1e8:	b0 e0       	ldi	r27, 0x00	; 0
+0000013a <.LBB22>:
+ 13a:	a7 ec       	ldi	r26, 0xC7	; 199
+ 13c:	b0 e0       	ldi	r27, 0x00	; 0
 
-000001ea <.L1^B2>:
- 1ea:	11 97       	sbiw	r26, 0x01	; 1
- 1ec:	f1 f7       	brne	.-4      	; 0x1ea <.L1^B2>
- 1ee:	00 c0       	rjmp	.+0      	; 0x1f0 <L0^A>
+0000013e <.L1^B2>:
+ 13e:	11 97       	sbiw	r26, 0x01	; 1
+ 140:	f1 f7       	brne	.-4      	; 0x13e <.L1^B2>
+ 142:	00 c0       	rjmp	.+0      	; 0x144 <L0^A>
 
-000001f0 <L0^A>:
+00000144 <L0^A>:
 	...
 
-000001f2 <.LBE22>:
+00000146 <.LBE22>:
         _delay_us(50);
         data >>= 1;
- 1f2:	86 95       	lsr	r24
+ 146:	86 95       	lsr	r24
 
-000001f4 <.Loc.104>:
+00000148 <.Loc.28>:
     for (uint8_t i = 0; i < 8; i++) {
- 1f4:	21 50       	subi	r18, 0x01	; 1
+ 148:	21 50       	subi	r18, 0x01	; 1
 
-000001f6 <.Loc.106>:
- 1f6:	22 23       	and	r18, r18
- 1f8:	49 f0       	breq	.+18     	; 0x20c <.L9>
+0000014a <.Loc.30>:
+ 14a:	22 23       	and	r18, r18
+ 14c:	49 f0       	breq	.+18     	; 0x160 <.L6>
 
-000001fa <.L7>:
+0000014e <.L4>:
         CLK_LOW();
- 1fa:	90 81       	ld	r25, Z
- 1fc:	9f 7b       	andi	r25, 0xBF	; 191
- 1fe:	90 83       	st	Z, r25
+ 14e:	90 81       	ld	r25, Z
+ 150:	9f 7b       	andi	r25, 0xBF	; 191
+ 152:	90 83       	st	Z, r25
 
-00000200 <.Loc.108>:
+00000154 <.Loc.32>:
         if (data & 0x01) DIO_HIGH(); else DIO_LOW();
- 200:	80 ff       	sbrs	r24, 0
- 202:	e5 cf       	rjmp	.-54     	; 0x1ce <.L5>
+ 154:	80 ff       	sbrs	r24, 0
+ 156:	e5 cf       	rjmp	.-54     	; 0x122 <.L2>
 
-00000204 <.Loc.110>:
- 204:	90 81       	ld	r25, Z
- 206:	90 68       	ori	r25, 0x80	; 128
- 208:	90 83       	st	Z, r25
- 20a:	e4 cf       	rjmp	.-56     	; 0x1d4 <.L6>
+00000158 <.Loc.34>:
+ 158:	90 81       	ld	r25, Z
+ 15a:	90 68       	ori	r25, 0x80	; 128
+ 15c:	90 83       	st	Z, r25
+ 15e:	e4 cf       	rjmp	.-56     	; 0x128 <.L3>
 
-0000020c <.L9>:
+00000160 <.L6>:
     }
     // Wachten op ACK (Acknowledgement)
     CLK_LOW();
- 20c:	eb e0       	ldi	r30, 0x0B	; 11
- 20e:	f1 e0       	ldi	r31, 0x01	; 1
- 210:	80 81       	ld	r24, Z
+ 160:	eb e0       	ldi	r30, 0x0B	; 11
+ 162:	f1 e0       	ldi	r31, 0x01	; 1
+ 164:	80 81       	ld	r24, Z
 
-00000212 <.Loc.113>:
- 212:	8f 7b       	andi	r24, 0xBF	; 191
- 214:	80 83       	st	Z, r24
+00000166 <.Loc.37>:
+ 166:	8f 7b       	andi	r24, 0xBF	; 191
+ 168:	80 83       	st	Z, r24
 
-00000216 <.Loc.114>:
+0000016a <.Loc.38>:
     DIO_INPUT();
- 216:	aa e0       	ldi	r26, 0x0A	; 10
- 218:	b1 e0       	ldi	r27, 0x01	; 1
- 21a:	8c 91       	ld	r24, X
- 21c:	8f 77       	andi	r24, 0x7F	; 127
- 21e:	8c 93       	st	X, r24
+ 16a:	aa e0       	ldi	r26, 0x0A	; 10
+ 16c:	b1 e0       	ldi	r27, 0x01	; 1
+ 16e:	8c 91       	ld	r24, X
+ 170:	8f 77       	andi	r24, 0x7F	; 127
+ 172:	8c 93       	st	X, r24
 
-00000220 <.LBB25>:
- 220:	87 ec       	ldi	r24, 0xC7	; 199
- 222:	90 e0       	ldi	r25, 0x00	; 0
+00000174 <.LBB25>:
+ 174:	87 ec       	ldi	r24, 0xC7	; 199
+ 176:	90 e0       	ldi	r25, 0x00	; 0
 
-00000224 <.L1^B3>:
- 224:	01 97       	sbiw	r24, 0x01	; 1
- 226:	f1 f7       	brne	.-4      	; 0x224 <.L1^B3>
- 228:	00 c0       	rjmp	.+0      	; 0x22a <L0^A>
+00000178 <.L1^B3>:
+ 178:	01 97       	sbiw	r24, 0x01	; 1
+ 17a:	f1 f7       	brne	.-4      	; 0x178 <.L1^B3>
+ 17c:	00 c0       	rjmp	.+0      	; 0x17e <L0^A>
 
-0000022a <L0^A>:
+0000017e <L0^A>:
 	...
 
-0000022c <.LBE25>:
+00000180 <.LBE25>:
     _delay_us(50);
     CLK_HIGH();
- 22c:	80 81       	ld	r24, Z
- 22e:	80 64       	ori	r24, 0x40	; 64
- 230:	80 83       	st	Z, r24
+ 180:	80 81       	ld	r24, Z
+ 182:	80 64       	ori	r24, 0x40	; 64
+ 184:	80 83       	st	Z, r24
 
-00000232 <.LBB27>:
- 232:	87 ec       	ldi	r24, 0xC7	; 199
- 234:	90 e0       	ldi	r25, 0x00	; 0
+00000186 <.LBB27>:
+ 186:	87 ec       	ldi	r24, 0xC7	; 199
+ 188:	90 e0       	ldi	r25, 0x00	; 0
 
-00000236 <.L1^B4>:
- 236:	01 97       	sbiw	r24, 0x01	; 1
- 238:	f1 f7       	brne	.-4      	; 0x236 <.L1^B4>
- 23a:	00 c0       	rjmp	.+0      	; 0x23c <L0^A>
+0000018a <.L1^B4>:
+ 18a:	01 97       	sbiw	r24, 0x01	; 1
+ 18c:	f1 f7       	brne	.-4      	; 0x18a <.L1^B4>
+ 18e:	00 c0       	rjmp	.+0      	; 0x190 <L0^A>
 
-0000023c <L0^A>:
+00000190 <L0^A>:
 	...
 
-0000023e <.LBE27>:
+00000192 <.LBE27>:
     _delay_us(50);
     CLK_LOW();
- 23e:	80 81       	ld	r24, Z
- 240:	8f 7b       	andi	r24, 0xBF	; 191
- 242:	80 83       	st	Z, r24
+ 192:	80 81       	ld	r24, Z
+ 194:	8f 7b       	andi	r24, 0xBF	; 191
+ 196:	80 83       	st	Z, r24
 
-00000244 <.Loc.135>:
+00000198 <.Loc.59>:
     DIO_OUTPUT();
- 244:	8c 91       	ld	r24, X
- 246:	80 68       	ori	r24, 0x80	; 128
- 248:	8c 93       	st	X, r24
+ 198:	8c 91       	ld	r24, X
+ 19a:	80 68       	ori	r24, 0x80	; 128
+ 19c:	8c 93       	st	X, r24
 
-0000024a <.Loc.136>:
+0000019e <.Loc.60>:
 }
- 24a:	08 95       	ret
+ 19e:	08 95       	ret
 
-0000024c <tm_start>:
+000001a0 <tm_start>:
 
 // Display
 void tm_start() {
     DIO_OUTPUT(); DIO_HIGH(); CLK_HIGH(); _delay_us(50);
- 24c:	ea e0       	ldi	r30, 0x0A	; 10
- 24e:	f1 e0       	ldi	r31, 0x01	; 1
- 250:	80 81       	ld	r24, Z
- 252:	80 68       	ori	r24, 0x80	; 128
- 254:	80 83       	st	Z, r24
+ 1a0:	ea e0       	ldi	r30, 0x0A	; 10
+ 1a2:	f1 e0       	ldi	r31, 0x01	; 1
+ 1a4:	80 81       	ld	r24, Z
+ 1a6:	80 68       	ori	r24, 0x80	; 128
+ 1a8:	80 83       	st	Z, r24
 
-00000256 <.Loc.139>:
- 256:	eb e0       	ldi	r30, 0x0B	; 11
- 258:	f1 e0       	ldi	r31, 0x01	; 1
- 25a:	80 81       	ld	r24, Z
- 25c:	80 68       	ori	r24, 0x80	; 128
- 25e:	80 83       	st	Z, r24
+000001aa <.Loc.63>:
+ 1aa:	eb e0       	ldi	r30, 0x0B	; 11
+ 1ac:	f1 e0       	ldi	r31, 0x01	; 1
+ 1ae:	80 81       	ld	r24, Z
+ 1b0:	80 68       	ori	r24, 0x80	; 128
+ 1b2:	80 83       	st	Z, r24
 
-00000260 <.Loc.140>:
- 260:	80 81       	ld	r24, Z
- 262:	80 64       	ori	r24, 0x40	; 64
- 264:	80 83       	st	Z, r24
+000001b4 <.Loc.64>:
+ 1b4:	80 81       	ld	r24, Z
+ 1b6:	80 64       	ori	r24, 0x40	; 64
+ 1b8:	80 83       	st	Z, r24
 
-00000266 <.LBB29>:
- 266:	87 ec       	ldi	r24, 0xC7	; 199
- 268:	90 e0       	ldi	r25, 0x00	; 0
+000001ba <.LBB29>:
+ 1ba:	87 ec       	ldi	r24, 0xC7	; 199
+ 1bc:	90 e0       	ldi	r25, 0x00	; 0
 
-0000026a <.L1^B5>:
- 26a:	01 97       	sbiw	r24, 0x01	; 1
- 26c:	f1 f7       	brne	.-4      	; 0x26a <.L1^B5>
- 26e:	00 c0       	rjmp	.+0      	; 0x270 <L0^A>
+000001be <.L1^B5>:
+ 1be:	01 97       	sbiw	r24, 0x01	; 1
+ 1c0:	f1 f7       	brne	.-4      	; 0x1be <.L1^B5>
+ 1c2:	00 c0       	rjmp	.+0      	; 0x1c4 <L0^A>
 
-00000270 <L0^A>:
+000001c4 <L0^A>:
 	...
 
-00000272 <.LBE29>:
+000001c6 <.LBE29>:
     DIO_LOW(); _delay_us(50); CLK_LOW();
- 272:	80 81       	ld	r24, Z
- 274:	8f 77       	andi	r24, 0x7F	; 127
- 276:	80 83       	st	Z, r24
+ 1c6:	80 81       	ld	r24, Z
+ 1c8:	8f 77       	andi	r24, 0x7F	; 127
+ 1ca:	80 83       	st	Z, r24
 
-00000278 <.LBB31>:
- 278:	87 ec       	ldi	r24, 0xC7	; 199
- 27a:	90 e0       	ldi	r25, 0x00	; 0
+000001cc <.LBB31>:
+ 1cc:	87 ec       	ldi	r24, 0xC7	; 199
+ 1ce:	90 e0       	ldi	r25, 0x00	; 0
 
-0000027c <.L1^B6>:
- 27c:	01 97       	sbiw	r24, 0x01	; 1
- 27e:	f1 f7       	brne	.-4      	; 0x27c <.L1^B6>
- 280:	00 c0       	rjmp	.+0      	; 0x282 <L0^A>
+000001d0 <.L1^B6>:
+ 1d0:	01 97       	sbiw	r24, 0x01	; 1
+ 1d2:	f1 f7       	brne	.-4      	; 0x1d0 <.L1^B6>
+ 1d4:	00 c0       	rjmp	.+0      	; 0x1d6 <L0^A>
 
-00000282 <L0^A>:
+000001d6 <L0^A>:
 	...
 
-00000284 <.LBE31>:
- 284:	80 81       	ld	r24, Z
- 286:	8f 7b       	andi	r24, 0xBF	; 191
- 288:	80 83       	st	Z, r24
+000001d8 <.LBE31>:
+ 1d8:	80 81       	ld	r24, Z
+ 1da:	8f 7b       	andi	r24, 0xBF	; 191
+ 1dc:	80 83       	st	Z, r24
 
-0000028a <.Loc.161>:
+000001de <.Loc.85>:
 }
- 28a:	08 95       	ret
+ 1de:	08 95       	ret
 
-0000028c <tm_stop>:
+000001e0 <tm_stop>:
 
 // Display
 void tm_stop() {
     CLK_LOW(); DIO_LOW(); _delay_us(50);
- 28c:	eb e0       	ldi	r30, 0x0B	; 11
- 28e:	f1 e0       	ldi	r31, 0x01	; 1
- 290:	80 81       	ld	r24, Z
- 292:	8f 7b       	andi	r24, 0xBF	; 191
- 294:	80 83       	st	Z, r24
+ 1e0:	eb e0       	ldi	r30, 0x0B	; 11
+ 1e2:	f1 e0       	ldi	r31, 0x01	; 1
+ 1e4:	80 81       	ld	r24, Z
+ 1e6:	8f 7b       	andi	r24, 0xBF	; 191
+ 1e8:	80 83       	st	Z, r24
 
-00000296 <.Loc.164>:
- 296:	80 81       	ld	r24, Z
- 298:	8f 77       	andi	r24, 0x7F	; 127
- 29a:	80 83       	st	Z, r24
+000001ea <.Loc.88>:
+ 1ea:	80 81       	ld	r24, Z
+ 1ec:	8f 77       	andi	r24, 0x7F	; 127
+ 1ee:	80 83       	st	Z, r24
 
-0000029c <.LBB33>:
- 29c:	87 ec       	ldi	r24, 0xC7	; 199
- 29e:	90 e0       	ldi	r25, 0x00	; 0
+000001f0 <.LBB33>:
+ 1f0:	87 ec       	ldi	r24, 0xC7	; 199
+ 1f2:	90 e0       	ldi	r25, 0x00	; 0
 
-000002a0 <.L1^B7>:
- 2a0:	01 97       	sbiw	r24, 0x01	; 1
- 2a2:	f1 f7       	brne	.-4      	; 0x2a0 <.L1^B7>
- 2a4:	00 c0       	rjmp	.+0      	; 0x2a6 <L0^A>
+000001f4 <.L1^B7>:
+ 1f4:	01 97       	sbiw	r24, 0x01	; 1
+ 1f6:	f1 f7       	brne	.-4      	; 0x1f4 <.L1^B7>
+ 1f8:	00 c0       	rjmp	.+0      	; 0x1fa <L0^A>
 
-000002a6 <L0^A>:
+000001fa <L0^A>:
 	...
 
-000002a8 <.LBE33>:
+000001fc <.LBE33>:
     CLK_HIGH(); _delay_us(50); DIO_HIGH();
- 2a8:	80 81       	ld	r24, Z
- 2aa:	80 64       	ori	r24, 0x40	; 64
- 2ac:	80 83       	st	Z, r24
+ 1fc:	80 81       	ld	r24, Z
+ 1fe:	80 64       	ori	r24, 0x40	; 64
+ 200:	80 83       	st	Z, r24
 
-000002ae <.LBB35>:
- 2ae:	87 ec       	ldi	r24, 0xC7	; 199
- 2b0:	90 e0       	ldi	r25, 0x00	; 0
+00000202 <.LBB35>:
+ 202:	87 ec       	ldi	r24, 0xC7	; 199
+ 204:	90 e0       	ldi	r25, 0x00	; 0
 
-000002b2 <.L1^B8>:
- 2b2:	01 97       	sbiw	r24, 0x01	; 1
- 2b4:	f1 f7       	brne	.-4      	; 0x2b2 <.L1^B8>
- 2b6:	00 c0       	rjmp	.+0      	; 0x2b8 <L0^A>
+00000206 <.L1^B8>:
+ 206:	01 97       	sbiw	r24, 0x01	; 1
+ 208:	f1 f7       	brne	.-4      	; 0x206 <.L1^B8>
+ 20a:	00 c0       	rjmp	.+0      	; 0x20c <L0^A>
 
-000002b8 <L0^A>:
+0000020c <L0^A>:
 	...
 
-000002ba <.LBE35>:
- 2ba:	80 81       	ld	r24, Z
- 2bc:	80 68       	ori	r24, 0x80	; 128
- 2be:	80 83       	st	Z, r24
+0000020e <.LBE35>:
+ 20e:	80 81       	ld	r24, Z
+ 210:	80 68       	ori	r24, 0x80	; 128
+ 212:	80 83       	st	Z, r24
 
-000002c0 <.Loc.185>:
+00000214 <.Loc.109>:
 }
- 2c0:	08 95       	ret
+ 214:	08 95       	ret
 
-000002c2 <initialisatie_display>:
+00000216 <display>:
+
+// Print cijfers op display
+void display(uint16_t teller_leeg, uint16_t teller_rfid) {
+ 216:	bf 92       	push	r11
+ 218:	cf 92       	push	r12
+ 21a:	df 92       	push	r13
+ 21c:	ef 92       	push	r14
+ 21e:	ff 92       	push	r15
+ 220:	0f 93       	push	r16
+ 222:	1f 93       	push	r17
+ 224:	cf 93       	push	r28
+ 226:	df 93       	push	r29
+ 228:	08 2f       	mov	r16, r24
+ 22a:	19 2f       	mov	r17, r25
+ 22c:	c6 2f       	mov	r28, r22
+ 22e:	d7 2f       	mov	r29, r23
+
+00000230 <.Loc.112>:
+    uint8_t digits[4];
+    digits[0] = teller_leeg / 10;
+ 230:	98 01       	movw	r18, r16
+ 232:	ad ec       	ldi	r26, 0xCD	; 205
+ 234:	bc ec       	ldi	r27, 0xCC	; 204
+ 236:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <__umulhisi3>
+
+0000023a <.Loc.115>:
+ 23a:	6c 01       	movw	r12, r24
+ 23c:	d6 94       	lsr	r13
+ 23e:	c7 94       	ror	r12
+ 240:	d6 94       	lsr	r13
+ 242:	c7 94       	ror	r12
+ 244:	d6 94       	lsr	r13
+ 246:	c7 94       	ror	r12
+
+00000248 <.Loc.116>:
+    digits[1] = teller_leeg % 10;
+ 248:	c6 01       	movw	r24, r12
+ 24a:	88 0f       	add	r24, r24
+ 24c:	99 1f       	adc	r25, r25
+ 24e:	88 0f       	add	r24, r24
+ 250:	99 1f       	adc	r25, r25
+ 252:	8c 0d       	add	r24, r12
+ 254:	9d 1d       	adc	r25, r13
+ 256:	88 0f       	add	r24, r24
+ 258:	99 1f       	adc	r25, r25
+ 25a:	08 1b       	sub	r16, r24
+ 25c:	19 0b       	sbc	r17, r25
+
+0000025e <.Loc.118>:
+    digits[2] = teller_rfid / 10;
+ 25e:	9e 01       	movw	r18, r28
+ 260:	0e 94 f8 03 	call	0x7f0	; 0x7f0 <__umulhisi3>
+ 264:	7c 01       	movw	r14, r24
+ 266:	f6 94       	lsr	r15
+ 268:	e7 94       	ror	r14
+ 26a:	f6 94       	lsr	r15
+ 26c:	e7 94       	ror	r14
+ 26e:	f6 94       	lsr	r15
+ 270:	e7 94       	ror	r14
+
+00000272 <.Loc.120>:
+ 272:	be 2c       	mov	r11, r14
+
+00000274 <.Loc.121>:
+    digits[3] = teller_rfid % 10;
+ 274:	c7 01       	movw	r24, r14
+ 276:	88 0f       	add	r24, r24
+ 278:	99 1f       	adc	r25, r25
+ 27a:	88 0f       	add	r24, r24
+ 27c:	99 1f       	adc	r25, r25
+ 27e:	8e 0d       	add	r24, r14
+ 280:	9f 1d       	adc	r25, r15
+ 282:	88 0f       	add	r24, r24
+ 284:	99 1f       	adc	r25, r25
+ 286:	c8 1b       	sub	r28, r24
+ 288:	d9 0b       	sbc	r29, r25
+
+0000028a <.Loc.123>:
+
+    tm_start(); send_byte(0x40); tm_stop(); // Data command (auto increment)
+ 28a:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <tm_start>
+
+0000028e <.LVL28>:
+ 28e:	80 e4       	ldi	r24, 0x40	; 64
+ 290:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+00000294 <.LVL29>:
+ 294:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <tm_stop>
+
+00000298 <.LVL30>:
+    tm_start(); send_byte(0xC0);            // Start adres (eerste digit)
+ 298:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <tm_start>
+
+0000029c <.LVL31>:
+ 29c:	80 ec       	ldi	r24, 0xC0	; 192
+ 29e:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+000002a2 <.LVL32>:
+
+    if (digits[0] == 0) {
+ 2a2:	c1 10       	cpse	r12, r1
+ 2a4:	1f c0       	rjmp	.+62     	; 0x2e4 <.L10>
+
+000002a6 <.Loc.130>:
+        send_byte(0x00);
+ 2a6:	80 e0       	ldi	r24, 0x00	; 0
+ 2a8:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+000002ac <.L11>:
+    }
+    else {
+        send_byte(segmentMap[digits[0]]);
+    }
+    send_byte(segmentMap[digits[1]]);
+ 2ac:	f8 01       	movw	r30, r16
+ 2ae:	e0 50       	subi	r30, 0x00	; 0
+ 2b0:	fe 4f       	sbci	r31, 0xFE	; 254
+
+000002b2 <.Loc.133>:
+ 2b2:	80 81       	ld	r24, Z
+ 2b4:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+000002b8 <.LVL34>:
+    if (digits[2] == 0) {
+ 2b8:	b1 10       	cpse	r11, r1
+ 2ba:	1c c0       	rjmp	.+56     	; 0x2f4 <.L12>
+
+000002bc <.Loc.136>:
+        send_byte(0x00);
+ 2bc:	80 e0       	ldi	r24, 0x00	; 0
+ 2be:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+000002c2 <.L13>:
+    }
+    else {
+        send_byte(segmentMap[digits[2]]);
+    }
+    send_byte(segmentMap[digits[3]]);
+ 2c2:	c0 50       	subi	r28, 0x00	; 0
+ 2c4:	de 4f       	sbci	r29, 0xFE	; 254
+
+000002c6 <.Loc.139>:
+ 2c6:	88 81       	ld	r24, Y
+ 2c8:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+000002cc <.LVL37>:
+    tm_stop();
+ 2cc:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <tm_stop>
+
+000002d0 <.LVL38>:
+}
+ 2d0:	df 91       	pop	r29
+ 2d2:	cf 91       	pop	r28
+
+000002d4 <.Loc.142>:
+ 2d4:	1f 91       	pop	r17
+ 2d6:	0f 91       	pop	r16
+
+000002d8 <.Loc.143>:
+ 2d8:	ff 90       	pop	r15
+ 2da:	ef 90       	pop	r14
+
+000002dc <.Loc.144>:
+ 2dc:	df 90       	pop	r13
+ 2de:	cf 90       	pop	r12
+
+000002e0 <.Loc.145>:
+ 2e0:	bf 90       	pop	r11
+ 2e2:	08 95       	ret
+
+000002e4 <.L10>:
+        send_byte(segmentMap[digits[0]]);
+ 2e4:	f6 01       	movw	r30, r12
+ 2e6:	ff 27       	eor	r31, r31
+
+000002e8 <.Loc.148>:
+ 2e8:	e0 50       	subi	r30, 0x00	; 0
+ 2ea:	fe 4f       	sbci	r31, 0xFE	; 254
+
+000002ec <.Loc.149>:
+ 2ec:	80 81       	ld	r24, Z
+ 2ee:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+000002f2 <.LVL44>:
+ 2f2:	dc cf       	rjmp	.-72     	; 0x2ac <.L11>
+
+000002f4 <.L12>:
+        send_byte(segmentMap[digits[2]]);
+ 2f4:	f7 01       	movw	r30, r14
+ 2f6:	ff 27       	eor	r31, r31
+
+000002f8 <.Loc.152>:
+ 2f8:	e0 50       	subi	r30, 0x00	; 0
+ 2fa:	fe 4f       	sbci	r31, 0xFE	; 254
+
+000002fc <.Loc.153>:
+ 2fc:	80 81       	ld	r24, Z
+ 2fe:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+
+00000302 <.LVL45>:
+ 302:	df cf       	rjmp	.-66     	; 0x2c2 <.L13>
+
+00000304 <initialisatie_communicatie>:
+#include "RFID_sensor.h"
+#include "Display.h"
+#include "Sequence.h"
+
+void initialisatie_communicatie(void) {
+    MODNUMMER_DDR |= (1 << MODNUMMER); // output
+ 304:	98 9a       	sbi	0x13, 0	; 19
+
+00000306 <.Loc.3>:
+    NEXT_MOD_DDR |= (1 << NEXT_MOD);
+ 306:	99 9a       	sbi	0x13, 1	; 19
+
+00000308 <.Loc.5>:
+    ACK_MOD_DDR |= (1 << ACK_MOD);
+ 308:	9a 9a       	sbi	0x13, 2	; 19
+
+0000030a <.Loc.7>:
+    LIJN_DDR &= ~(1 << LIJN); //input
+ 30a:	57 98       	cbi	0x0a, 7	; 10
+
+0000030c <.Loc.10>:
+    NEXT_AGV_DDR &= ~(1 << NEXT_AGV);
+ 30c:	38 98       	cbi	0x07, 0	; 7
+
+0000030e <.Loc.11>:
+    ACK_AGV_DDR &= ~(1 << ACK_AGV);
+ 30e:	50 98       	cbi	0x0a, 0	; 10
+
+00000310 <.Loc.13>:
+
+    MODNUMMER_PORT &= ~(1 << MODNUMMER); //Laag zetten, want detectiemodule
+ 310:	a0 98       	cbi	0x14, 0	; 20
+
+00000312 <.Loc.15>:
+    NEXT_MOD_PORT &= ~(1 << MODNUMMER);
+ 312:	a0 98       	cbi	0x14, 0	; 20
+
+00000314 <.Loc.17>:
+    ACK_MOD_PORT &= ~(1 << ACK_MOD);
+ 314:	a2 98       	cbi	0x14, 2	; 20
+
+00000316 <.Loc.19>:
+
+    LIJN_PORT |= (1 << LIJN); // PULL-UPS ACTIVEREN
+ 316:	5f 9a       	sbi	0x0b, 7	; 11
+
+00000318 <.Loc.21>:
+    NEXT_AGV_PORT |= (1 << NEXT_AGV);
+ 318:	40 9a       	sbi	0x08, 0	; 8
+
+0000031a <.Loc.23>:
+    ACK_AGV_PORT |= (1 << ACK_AGV);
+ 31a:	58 9a       	sbi	0x0b, 0	; 11
+
+0000031c <.Loc.25>:
+}
+ 31c:	08 95       	ret
+
+0000031e <initialisatie_RFID>:
+
+void initialisatie_RFID(void) {
+    SSR_DDR |= (1 << SSR);//SS output
+ 31e:	ea e0       	ldi	r30, 0x0A	; 10
+ 320:	f1 e0       	ldi	r31, 0x01	; 1
+ 322:	80 81       	ld	r24, Z
+
+00000324 <.Loc.28>:
+ 324:	81 60       	ori	r24, 0x01	; 1
+ 326:	80 83       	st	Z, r24
+
+00000328 <.Loc.29>:
+    SSL_DDR |= (1 << SSL);
+ 328:	80 81       	ld	r24, Z
+
+0000032a <.Loc.30>:
+ 32a:	84 60       	ori	r24, 0x04	; 4
+ 32c:	80 83       	st	Z, r24
+
+0000032e <.Loc.31>:
+    SCK_DDR |= (1 << SCK);//SCK output
+ 32e:	21 9a       	sbi	0x04, 1	; 4
+
+00000330 <.Loc.33>:
+    MOSI_DDR |= (1 << MOSI);//MOSI output
+ 330:	22 9a       	sbi	0x04, 2	; 4
+
+00000332 <.Loc.35>:
+    MISO_DDR &= ~(1 << MISO);//MISO input
+ 332:	23 98       	cbi	0x04, 3	; 4
+
+00000334 <.Loc.37>:
+    RSTR_DDR |= (1 << RSTR);//RST output
+ 334:	80 81       	ld	r24, Z
+
+00000336 <.Loc.38>:
+ 336:	82 60       	ori	r24, 0x02	; 2
+ 338:	80 83       	st	Z, r24
+
+0000033a <.Loc.39>:
+    RSTL_DDR |= (1 << RSTL);
+ 33a:	80 81       	ld	r24, Z
+
+0000033c <.Loc.40>:
+ 33c:	88 60       	ori	r24, 0x08	; 8
+ 33e:	80 83       	st	Z, r24
+
+00000340 <.Loc.41>:
+
+    SSR_PORT |= (1 << SSR); // slave niet selecten
+ 340:	eb e0       	ldi	r30, 0x0B	; 11
+ 342:	f1 e0       	ldi	r31, 0x01	; 1
+ 344:	80 81       	ld	r24, Z
+
+00000346 <.Loc.42>:
+ 346:	81 60       	ori	r24, 0x01	; 1
+ 348:	80 83       	st	Z, r24
+
+0000034a <.Loc.43>:
+    SSL_PORT |= (1 << SSL);
+ 34a:	80 81       	ld	r24, Z
+
+0000034c <.Loc.44>:
+ 34c:	84 60       	ori	r24, 0x04	; 4
+ 34e:	80 83       	st	Z, r24
+
+00000350 <.Loc.45>:
+    RSTR_PORT |= (1 << RSTR);
+ 350:	80 81       	ld	r24, Z
+
+00000352 <.Loc.46>:
+ 352:	82 60       	ori	r24, 0x02	; 2
+ 354:	80 83       	st	Z, r24
+
+00000356 <.Loc.47>:
+    RSTL_PORT |= (1 << RSTL);
+ 356:	80 81       	ld	r24, Z
+
+00000358 <.Loc.48>:
+ 358:	88 60       	ori	r24, 0x08	; 8
+ 35a:	80 83       	st	Z, r24
+
+0000035c <.Loc.49>:
+
+    SPCR |= (1 << SPE);
+ 35c:	8c b5       	in	r24, 0x2c	; 44
+
+0000035e <.Loc.50>:
+ 35e:	80 64       	ori	r24, 0x40	; 64
+ 360:	8c bd       	out	0x2c, r24	; 44
+
+00000362 <.Loc.51>:
+    SPCR &= ~(1 << DORD);
+ 362:	8c b5       	in	r24, 0x2c	; 44
+ 364:	8f 7d       	andi	r24, 0xDF	; 223
+ 366:	8c bd       	out	0x2c, r24	; 44
+
+00000368 <.Loc.53>:
+    SPCR |= (1 << MSTR);
+ 368:	8c b5       	in	r24, 0x2c	; 44
+
+0000036a <.Loc.54>:
+ 36a:	80 61       	ori	r24, 0x10	; 16
+ 36c:	8c bd       	out	0x2c, r24	; 44
+
+0000036e <.Loc.55>:
+    SPCR &= ~(1 << CPOL);
+ 36e:	8c b5       	in	r24, 0x2c	; 44
+ 370:	87 7f       	andi	r24, 0xF7	; 247
+ 372:	8c bd       	out	0x2c, r24	; 44
+
+00000374 <.Loc.57>:
+    SPCR &= ~(1 << CPHA);
+ 374:	8c b5       	in	r24, 0x2c	; 44
+ 376:	8b 7f       	andi	r24, 0xFB	; 251
+ 378:	8c bd       	out	0x2c, r24	; 44
+
+0000037a <.Loc.59>:
+    SPCR &= ~(1 << SPR1);
+ 37a:	8c b5       	in	r24, 0x2c	; 44
+ 37c:	8d 7f       	andi	r24, 0xFD	; 253
+ 37e:	8c bd       	out	0x2c, r24	; 44
+
+00000380 <.Loc.61>:
+    SPCR &= ~(1 << SPR0);
+ 380:	8c b5       	in	r24, 0x2c	; 44
+ 382:	8e 7f       	andi	r24, 0xFE	; 254
+ 384:	8c bd       	out	0x2c, r24	; 44
+
+00000386 <.Loc.63>:
+
+    SPSR &= ~(1 << SPI2X);
+ 386:	8d b5       	in	r24, 0x2d	; 45
+ 388:	8e 7f       	andi	r24, 0xFE	; 254
+ 38a:	8d bd       	out	0x2d, r24	; 45
+
+0000038c <.Loc.65>:
+}
+ 38c:	08 95       	ret
+
+0000038e <initialisatie_IRsensor>:
+
+void initialisatie_IRsensor(void){
+    IR_R_DDR &= ~(1 << IR_R); //input
+ 38e:	ea e0       	ldi	r30, 0x0A	; 10
+ 390:	f1 e0       	ldi	r31, 0x01	; 1
+ 392:	80 81       	ld	r24, Z
+ 394:	8f 7d       	andi	r24, 0xDF	; 223
+ 396:	80 83       	st	Z, r24
+
+00000398 <.Loc.69>:
+    IR_L_DDR &= ~(1 << IR_L); //input
+ 398:	80 81       	ld	r24, Z
+ 39a:	8f 7e       	andi	r24, 0xEF	; 239
+ 39c:	80 83       	st	Z, r24
+
+0000039e <.Loc.71>:
+
+    IR_R_PORT |= (1 << IR_R);
+ 39e:	eb e0       	ldi	r30, 0x0B	; 11
+ 3a0:	f1 e0       	ldi	r31, 0x01	; 1
+ 3a2:	80 81       	ld	r24, Z
+
+000003a4 <.Loc.72>:
+ 3a4:	80 62       	ori	r24, 0x20	; 32
+ 3a6:	80 83       	st	Z, r24
+
+000003a8 <.Loc.73>:
+    IR_L_PORT |= (1 << IR_L);
+ 3a8:	80 81       	ld	r24, Z
+
+000003aa <.Loc.74>:
+ 3aa:	80 61       	ori	r24, 0x10	; 16
+ 3ac:	80 83       	st	Z, r24
+
+000003ae <.Loc.75>:
+}
+ 3ae:	08 95       	ret
+
+000003b0 <initialisatie_display>:
 
 void initialisatie_display(void){// initialisatie display
     // Stel pinnen in als output
     CLK_DDR |= (1 << CLK);
- 2c2:	ea e0       	ldi	r30, 0x0A	; 10
- 2c4:	f1 e0       	ldi	r31, 0x01	; 1
- 2c6:	80 81       	ld	r24, Z
+ 3b0:	ea e0       	ldi	r30, 0x0A	; 10
+ 3b2:	f1 e0       	ldi	r31, 0x01	; 1
+ 3b4:	80 81       	ld	r24, Z
 
-000002c8 <.Loc.188>:
- 2c8:	80 64       	ori	r24, 0x40	; 64
- 2ca:	80 83       	st	Z, r24
+000003b6 <.Loc.78>:
+ 3b6:	80 64       	ori	r24, 0x40	; 64
+ 3b8:	80 83       	st	Z, r24
 
-000002cc <.Loc.189>:
+000003ba <.Loc.79>:
     DIO_DDR |= (1 << DIO);
- 2cc:	80 81       	ld	r24, Z
+ 3ba:	80 81       	ld	r24, Z
 
-000002ce <.Loc.190>:
- 2ce:	80 68       	ori	r24, 0x80	; 128
- 2d0:	80 83       	st	Z, r24
+000003bc <.Loc.80>:
+ 3bc:	80 68       	ori	r24, 0x80	; 128
+ 3be:	80 83       	st	Z, r24
 
-000002d2 <.Loc.191>:
+000003c0 <.Loc.81>:
 
     // Initialiseer display: Commando 0x8A zet display AAN en helderheid op een gemiddeld niveau
     tm_start();
- 2d2:	0e 94 26 01 	call	0x24c	; 0x24c <tm_start>
+ 3c0:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <tm_start>
 
-000002d6 <.LVL22>:
+000003c4 <.LVL0>:
     send_byte(0x8A);
- 2d6:	8a e8       	ldi	r24, 0x8A	; 138
- 2d8:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <send_byte>
+ 3c4:	8a e8       	ldi	r24, 0x8A	; 138
+ 3c6:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
 
-000002dc <.LVL23>:
+000003ca <.LVL1>:
     tm_stop();
- 2dc:	0e 94 46 01 	call	0x28c	; 0x28c <tm_stop>
+ 3ca:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <tm_stop>
 
-000002e0 <.LVL24>:
+000003ce <.LVL2>:
     // start met 0 op het display
-    //tm1637_showNumber(0);
+    display(0,0);
+ 3ce:	60 e0       	ldi	r22, 0x00	; 0
+ 3d0:	70 e0       	ldi	r23, 0x00	; 0
+ 3d2:	80 e0       	ldi	r24, 0x00	; 0
+ 3d4:	90 e0       	ldi	r25, 0x00	; 0
+ 3d6:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+
+000003da <.LVL3>:
 
 }
- 2e0:	08 95       	ret
+ 3da:	08 95       	ret
 
-000002e2 <initialisatie_leds>:
+000003dc <initialisatie_leds>:
 
 void initialisatie_leds(void) {
     LED_BLAUW_DDR |= (1 << LED_BLAUW);
- 2e2:	3a 9a       	sbi	0x07, 2	; 7
+ 3dc:	3a 9a       	sbi	0x07, 2	; 7
 
-000002e4 <.Loc.198>:
+000003de <.Loc.89>:
     LED_GROEN_DDR |= (1 << LED_GROEN);
- 2e4:	3b 9a       	sbi	0x07, 3	; 7
+ 3de:	3b 9a       	sbi	0x07, 3	; 7
 
-000002e6 <.Loc.200>:
+000003e0 <.Loc.91>:
 
     LED_BLAUW_PORT &= ~(1 << LED_BLAUW);
- 2e6:	42 98       	cbi	0x08, 2	; 8
+ 3e0:	42 98       	cbi	0x08, 2	; 8
 
-000002e8 <.Loc.202>:
+000003e2 <.Loc.93>:
     LED_GROEN_PORT &= ~(1 << LED_GROEN);
- 2e8:	43 98       	cbi	0x08, 3	; 8
+ 3e2:	43 98       	cbi	0x08, 3	; 8
 
-000002ea <.Loc.204>:
+000003e4 <.Loc.95>:
+
+    TCCR1B |= (1 << CS12);
+ 3e4:	e1 e8       	ldi	r30, 0x81	; 129
+ 3e6:	f0 e0       	ldi	r31, 0x00	; 0
+ 3e8:	80 81       	ld	r24, Z
+
+000003ea <.Loc.96>:
+ 3ea:	84 60       	ori	r24, 0x04	; 4
+ 3ec:	80 83       	st	Z, r24
+
+000003ee <.Loc.97>:
+    TCCR1B &= ~(1 << CS11);
+ 3ee:	80 81       	ld	r24, Z
+ 3f0:	8d 7f       	andi	r24, 0xFD	; 253
+ 3f2:	80 83       	st	Z, r24
+
+000003f4 <.Loc.100>:
+    TCCR1B &= ~(1 << CS10);
+ 3f4:	80 81       	ld	r24, Z
+ 3f6:	8e 7f       	andi	r24, 0xFE	; 254
+ 3f8:	80 83       	st	Z, r24
+
+000003fa <.Loc.101>:
 }
- 2ea:	08 95       	ret
+ 3fa:	08 95       	ret
 
-000002ec <initialisatie_knop>:
+000003fc <initialisatie_knop>:
 
 void initialisatie_knop(void) {
     KNOP_DDR &= ~(1 << KNOP); //INPUT
- 2ec:	3c 98       	cbi	0x07, 4	; 7
+ 3fc:	3c 98       	cbi	0x07, 4	; 7
 
-000002ee <.Loc.208>:
+000003fe <.Loc.105>:
 
     KNOP_PORT |= (1 << KNOP); //PULL-UP
- 2ee:	44 9a       	sbi	0x08, 4	; 8
+ 3fe:	44 9a       	sbi	0x08, 4	; 8
 
-000002f0 <.Loc.210>:
+00000400 <.Loc.107>:
 }
- 2f0:	08 95       	ret
+ 400:	08 95       	ret
 
-000002f2 <initialisatie>:
+00000402 <initialisatie>:
 
 void initialisatie(void) { //pinnen initialiseren
     initialisatie_communicatie();
- 2f2:	0e 94 8d 00 	call	0x11a	; 0x11a <initialisatie_communicatie>
+ 402:	0e 94 82 01 	call	0x304	; 0x304 <initialisatie_communicatie>
 
-000002f6 <.LVL25>:
+00000406 <.LVL4>:
     initialisatie_RFID();
- 2f6:	0e 94 9a 00 	call	0x134	; 0x134 <initialisatie_RFID>
+ 406:	0e 94 8f 01 	call	0x31e	; 0x31e <initialisatie_RFID>
 
-000002fa <.LVL26>:
+0000040a <.LVL5>:
     initialisatie_IRsensor();
- 2fa:	0e 94 d2 00 	call	0x1a4	; 0x1a4 <initialisatie_IRsensor>
+ 40a:	0e 94 c7 01 	call	0x38e	; 0x38e <initialisatie_IRsensor>
 
-000002fe <.LVL27>:
+0000040e <.LVL6>:
     initialisatie_display();
- 2fe:	0e 94 61 01 	call	0x2c2	; 0x2c2 <initialisatie_display>
+ 40e:	0e 94 d8 01 	call	0x3b0	; 0x3b0 <initialisatie_display>
 
-00000302 <.LVL28>:
+00000412 <.LVL7>:
     initialisatie_leds();
- 302:	0e 94 71 01 	call	0x2e2	; 0x2e2 <initialisatie_leds>
+ 412:	0e 94 ee 01 	call	0x3dc	; 0x3dc <initialisatie_leds>
 
-00000306 <.LVL29>:
+00000416 <.LVL8>:
     initialisatie_knop();
- 306:	0e 94 76 01 	call	0x2ec	; 0x2ec <initialisatie_knop>
+ 416:	0e 94 fe 01 	call	0x3fc	; 0x3fc <initialisatie_knop>
 
-0000030a <.LVL30>:
+0000041a <.LVL9>:
     sei();
- 30a:	78 94       	sei
+ 41a:	78 94       	sei
 
-0000030c <.Loc.219>:
+0000041c <.Loc.116>:
 }
- 30c:	08 95       	ret
+ 41c:	08 95       	ret
 
-0000030e <main>:
+0000041e <main>:
 #include "Sequence.h"
 
 int main(void)
 {
 
     initialisatie();
- 30e:	0e 94 79 01 	call	0x2f2	; 0x2f2 <initialisatie>
+ 41e:	0e 94 01 02 	call	0x402	; 0x402 <initialisatie>
 
-00000312 <.L2>:
+00000422 <.L2>:
 
     while(1) {
         if ((KNOP_PIN & KNOP )== 0) {
- 312:	32 99       	sbic	0x06, 2	; 6
- 314:	fe cf       	rjmp	.-4      	; 0x312 <.L2>
+ 422:	32 99       	sbic	0x06, 2	; 6
+ 424:	fe cf       	rjmp	.-4      	; 0x422 <.L2>
 
-00000316 <.Loc.5>:
+00000426 <.Loc.5>:
             sequence();
- 316:	0e 94 12 03 	call	0x624	; 0x624 <sequence>
+ 426:	0e 94 b0 03 	call	0x760	; 0x760 <sequence>
 
-0000031a <.LVL1>:
- 31a:	fb cf       	rjmp	.-10     	; 0x312 <.L2>
+0000042a <.LVL1>:
+ 42a:	fb cf       	rjmp	.-10     	; 0x422 <.L2>
 
-0000031c <spi_transfer>:
+0000042c <spi_transfer>:
 #include "Display.h"
 #include "Sequence.h"
 
 // SPI Basic Transceiver
 uint8_t spi_transfer(uint8_t data) {
     SPDR = data;
- 31c:	8e bd       	out	0x2e, r24	; 46
+ 42c:	8e bd       	out	0x2e, r24	; 46
 
-0000031e <.L2>:
+0000042e <.L2>:
     while (!(SPSR & (1 << SPIF)));
- 31e:	0d b4       	in	r0, 0x2d	; 45
- 320:	07 fe       	sbrs	r0, 7
- 322:	fd cf       	rjmp	.-6      	; 0x31e <.L2>
+ 42e:	0d b4       	in	r0, 0x2d	; 45
+ 430:	07 fe       	sbrs	r0, 7
+ 432:	fd cf       	rjmp	.-6      	; 0x42e <.L2>
 
-00000324 <.Loc.5>:
+00000434 <.Loc.5>:
     return SPDR;
- 324:	8e b5       	in	r24, 0x2e	; 46
+ 434:	8e b5       	in	r24, 0x2e	; 46
 
-00000326 <.Loc.7>:
+00000436 <.Loc.7>:
 }
- 326:	08 95       	ret
+ 436:	08 95       	ret
 
-00000328 <write_reg_R>:
+00000438 <write_reg_R>:
 
 // Write to RC522 Register rechts
 void write_reg_R(uint8_t reg, uint8_t value) {
- 328:	1f 93       	push	r17
- 32a:	cf 93       	push	r28
- 32c:	df 93       	push	r29
- 32e:	16 2f       	mov	r17, r22
+ 438:	1f 93       	push	r17
+ 43a:	cf 93       	push	r28
+ 43c:	df 93       	push	r29
+ 43e:	16 2f       	mov	r17, r22
 
-00000330 <.Loc.10>:
-    SSR_PORT &= ~(1 << SSR);
- 330:	cb e0       	ldi	r28, 0x0B	; 11
- 332:	d1 e0       	ldi	r29, 0x01	; 1
- 334:	98 81       	ld	r25, Y
- 336:	9e 7f       	andi	r25, 0xFE	; 254
- 338:	98 83       	st	Y, r25
+00000440 <.Loc.10>:
+    SSR_PORT &= ~(1 << SSR); //ss laag is slave geactiveerd
+ 440:	cb e0       	ldi	r28, 0x0B	; 11
+ 442:	d1 e0       	ldi	r29, 0x01	; 1
+ 444:	98 81       	ld	r25, Y
+ 446:	9e 7f       	andi	r25, 0xFE	; 254
+ 448:	98 83       	st	Y, r25
 
-0000033a <.Loc.12>:
+0000044a <.Loc.12>:
     spi_transfer((reg << 1) & 0x7E);
- 33a:	88 0f       	add	r24, r24
+ 44a:	88 0f       	add	r24, r24
 
-0000033c <.Loc.14>:
- 33c:	8e 77       	andi	r24, 0x7E	; 126
- 33e:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+0000044c <.Loc.14>:
+ 44c:	8e 77       	andi	r24, 0x7E	; 126
+ 44e:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-00000342 <.LVL4>:
+00000452 <.LVL4>:
     spi_transfer(value);
- 342:	81 2f       	mov	r24, r17
- 344:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+ 452:	81 2f       	mov	r24, r17
+ 454:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-00000348 <.LVL5>:
+00000458 <.LVL5>:
     SSR_PORT |= (1 << SSR);
- 348:	88 81       	ld	r24, Y
+ 458:	88 81       	ld	r24, Y
 
-0000034a <.Loc.17>:
- 34a:	81 60       	ori	r24, 0x01	; 1
- 34c:	88 83       	st	Y, r24
+0000045a <.Loc.17>:
+ 45a:	81 60       	ori	r24, 0x01	; 1
+ 45c:	88 83       	st	Y, r24
 
-0000034e <.Loc.18>:
+0000045e <.Loc.18>:
 }
- 34e:	df 91       	pop	r29
- 350:	cf 91       	pop	r28
- 352:	1f 91       	pop	r17
+ 45e:	df 91       	pop	r29
+ 460:	cf 91       	pop	r28
+ 462:	1f 91       	pop	r17
 
-00000354 <.Loc.19>:
- 354:	08 95       	ret
+00000464 <.Loc.19>:
+ 464:	08 95       	ret
 
-00000356 <read_reg_R>:
+00000466 <read_reg_R>:
 
 // Read from RC522 Register rechts
 uint8_t read_reg_R(uint8_t reg) {
- 356:	cf 93       	push	r28
- 358:	df 93       	push	r29
+ 466:	cf 93       	push	r28
+ 468:	df 93       	push	r29
 
-0000035a <.Loc.22>:
+0000046a <.Loc.22>:
     uint8_t value;
     SSR_PORT &= ~(1 << SSR);
- 35a:	cb e0       	ldi	r28, 0x0B	; 11
- 35c:	d1 e0       	ldi	r29, 0x01	; 1
- 35e:	98 81       	ld	r25, Y
- 360:	9e 7f       	andi	r25, 0xFE	; 254
- 362:	98 83       	st	Y, r25
+ 46a:	cb e0       	ldi	r28, 0x0B	; 11
+ 46c:	d1 e0       	ldi	r29, 0x01	; 1
+ 46e:	98 81       	ld	r25, Y
+ 470:	9e 7f       	andi	r25, 0xFE	; 254
+ 472:	98 83       	st	Y, r25
 
-00000364 <.Loc.25>:
+00000474 <.Loc.25>:
     spi_transfer(((reg << 1) & 0x7E) | 0x80);
- 364:	88 0f       	add	r24, r24
+ 474:	88 0f       	add	r24, r24
 
-00000366 <.Loc.27>:
- 366:	8e 77       	andi	r24, 0x7E	; 126
+00000476 <.Loc.27>:
+ 476:	8e 77       	andi	r24, 0x7E	; 126
 
-00000368 <.Loc.28>:
- 368:	80 68       	ori	r24, 0x80	; 128
- 36a:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+00000478 <.Loc.28>:
+ 478:	80 68       	ori	r24, 0x80	; 128
+ 47a:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-0000036e <.LVL9>:
+0000047e <.LVL9>:
     value = spi_transfer(0x00);
- 36e:	80 e0       	ldi	r24, 0x00	; 0
- 370:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+ 47e:	80 e0       	ldi	r24, 0x00	; 0
+ 480:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-00000374 <.LVL10>:
+00000484 <.LVL10>:
     SSR_PORT |= (1 << SSR);
- 374:	98 81       	ld	r25, Y
+ 484:	98 81       	ld	r25, Y
 
-00000376 <.Loc.32>:
- 376:	91 60       	ori	r25, 0x01	; 1
- 378:	98 83       	st	Y, r25
+00000486 <.Loc.32>:
+ 486:	91 60       	ori	r25, 0x01	; 1
+ 488:	98 83       	st	Y, r25
 
-0000037a <.Loc.33>:
+0000048a <.Loc.33>:
     return value;
 }
- 37a:	df 91       	pop	r29
- 37c:	cf 91       	pop	r28
- 37e:	08 95       	ret
+ 48a:	df 91       	pop	r29
+ 48c:	cf 91       	pop	r28
+ 48e:	08 95       	ret
 
-00000380 <write_reg_L>:
+00000490 <write_reg_L>:
 
 // Write to RC522 Register links
 void write_reg_L(uint8_t reg, uint8_t value) {
- 380:	1f 93       	push	r17
- 382:	cf 93       	push	r28
- 384:	df 93       	push	r29
- 386:	16 2f       	mov	r17, r22
+ 490:	1f 93       	push	r17
+ 492:	cf 93       	push	r28
+ 494:	df 93       	push	r29
+ 496:	16 2f       	mov	r17, r22
 
-00000388 <.Loc.37>:
+00000498 <.Loc.37>:
     SSL_PORT &= ~(1 << SSL);
- 388:	cb e0       	ldi	r28, 0x0B	; 11
- 38a:	d1 e0       	ldi	r29, 0x01	; 1
- 38c:	98 81       	ld	r25, Y
- 38e:	9b 7f       	andi	r25, 0xFB	; 251
- 390:	98 83       	st	Y, r25
+ 498:	cb e0       	ldi	r28, 0x0B	; 11
+ 49a:	d1 e0       	ldi	r29, 0x01	; 1
+ 49c:	98 81       	ld	r25, Y
+ 49e:	9b 7f       	andi	r25, 0xFB	; 251
+ 4a0:	98 83       	st	Y, r25
 
-00000392 <.Loc.39>:
+000004a2 <.Loc.39>:
     spi_transfer((reg << 1) & 0x7E);
- 392:	88 0f       	add	r24, r24
+ 4a2:	88 0f       	add	r24, r24
 
-00000394 <.Loc.41>:
- 394:	8e 77       	andi	r24, 0x7E	; 126
- 396:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+000004a4 <.Loc.41>:
+ 4a4:	8e 77       	andi	r24, 0x7E	; 126
+ 4a6:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-0000039a <.LVL13>:
+000004aa <.LVL13>:
     spi_transfer(value);
- 39a:	81 2f       	mov	r24, r17
- 39c:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+ 4aa:	81 2f       	mov	r24, r17
+ 4ac:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-000003a0 <.LVL14>:
+000004b0 <.LVL14>:
     SSL_PORT |= (1 << SSL);
- 3a0:	88 81       	ld	r24, Y
+ 4b0:	88 81       	ld	r24, Y
 
-000003a2 <.Loc.44>:
- 3a2:	84 60       	ori	r24, 0x04	; 4
- 3a4:	88 83       	st	Y, r24
+000004b2 <.Loc.44>:
+ 4b2:	84 60       	ori	r24, 0x04	; 4
+ 4b4:	88 83       	st	Y, r24
 
-000003a6 <.Loc.45>:
+000004b6 <.Loc.45>:
 }
- 3a6:	df 91       	pop	r29
- 3a8:	cf 91       	pop	r28
- 3aa:	1f 91       	pop	r17
+ 4b6:	df 91       	pop	r29
+ 4b8:	cf 91       	pop	r28
+ 4ba:	1f 91       	pop	r17
 
-000003ac <.Loc.46>:
- 3ac:	08 95       	ret
+000004bc <.Loc.46>:
+ 4bc:	08 95       	ret
 
-000003ae <read_reg_L>:
+000004be <read_reg_L>:
 
 // Read from RC522 Register links
 uint8_t read_reg_L(uint8_t reg) {
- 3ae:	cf 93       	push	r28
- 3b0:	df 93       	push	r29
+ 4be:	cf 93       	push	r28
+ 4c0:	df 93       	push	r29
 
-000003b2 <.Loc.49>:
+000004c2 <.Loc.49>:
     uint8_t value;
     SSL_PORT &= ~(1 << SSL);
- 3b2:	cb e0       	ldi	r28, 0x0B	; 11
- 3b4:	d1 e0       	ldi	r29, 0x01	; 1
- 3b6:	98 81       	ld	r25, Y
- 3b8:	9b 7f       	andi	r25, 0xFB	; 251
- 3ba:	98 83       	st	Y, r25
+ 4c2:	cb e0       	ldi	r28, 0x0B	; 11
+ 4c4:	d1 e0       	ldi	r29, 0x01	; 1
+ 4c6:	98 81       	ld	r25, Y
+ 4c8:	9b 7f       	andi	r25, 0xFB	; 251
+ 4ca:	98 83       	st	Y, r25
 
-000003bc <.Loc.52>:
+000004cc <.Loc.52>:
     spi_transfer(((reg << 1) & 0x7E) | 0x80);
- 3bc:	88 0f       	add	r24, r24
+ 4cc:	88 0f       	add	r24, r24
 
-000003be <.Loc.54>:
- 3be:	8e 77       	andi	r24, 0x7E	; 126
+000004ce <.Loc.54>:
+ 4ce:	8e 77       	andi	r24, 0x7E	; 126
 
-000003c0 <.Loc.55>:
- 3c0:	80 68       	ori	r24, 0x80	; 128
- 3c2:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+000004d0 <.Loc.55>:
+ 4d0:	80 68       	ori	r24, 0x80	; 128
+ 4d2:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-000003c6 <.LVL18>:
+000004d6 <.LVL18>:
     value = spi_transfer(0x00);
- 3c6:	80 e0       	ldi	r24, 0x00	; 0
- 3c8:	0e 94 8e 01 	call	0x31c	; 0x31c <spi_transfer>
+ 4d6:	80 e0       	ldi	r24, 0x00	; 0
+ 4d8:	0e 94 16 02 	call	0x42c	; 0x42c <spi_transfer>
 
-000003cc <.LVL19>:
+000004dc <.LVL19>:
     SSL_PORT |= (1 << SSL);
- 3cc:	98 81       	ld	r25, Y
+ 4dc:	98 81       	ld	r25, Y
 
-000003ce <.Loc.59>:
- 3ce:	94 60       	ori	r25, 0x04	; 4
- 3d0:	98 83       	st	Y, r25
+000004de <.Loc.59>:
+ 4de:	94 60       	ori	r25, 0x04	; 4
+ 4e0:	98 83       	st	Y, r25
 
-000003d2 <.Loc.60>:
+000004e2 <.Loc.60>:
     return value;
 }
- 3d2:	df 91       	pop	r29
- 3d4:	cf 91       	pop	r28
- 3d6:	08 95       	ret
+ 4e2:	df 91       	pop	r29
+ 4e4:	cf 91       	pop	r28
+ 4e6:	08 95       	ret
 
-000003d8 <rc522_init>:
+000004e8 <rc522_init>:
 
 // Initialize the RC522
 void rc522_init() {
     // Perform a hard reset by cycling the RST pin
 
     RSTR_PORT |= (1 << RSTR);
- 3d8:	eb e0       	ldi	r30, 0x0B	; 11
- 3da:	f1 e0       	ldi	r31, 0x01	; 1
- 3dc:	80 81       	ld	r24, Z
+ 4e8:	eb e0       	ldi	r30, 0x0B	; 11
+ 4ea:	f1 e0       	ldi	r31, 0x01	; 1
+ 4ec:	80 81       	ld	r24, Z
 
-000003de <.Loc.64>:
- 3de:	82 60       	ori	r24, 0x02	; 2
- 3e0:	80 83       	st	Z, r24
+000004ee <.Loc.64>:
+ 4ee:	82 60       	ori	r24, 0x02	; 2
+ 4f0:	80 83       	st	Z, r24
 
-000003e2 <.LBB24>:
+000004f2 <.LBB22>:
 	__builtin_avr_delay_cycles(__ticks_dc);
- 3e2:	2f ef       	ldi	r18, 0xFF	; 255
- 3e4:	80 e7       	ldi	r24, 0x70	; 112
- 3e6:	92 e0       	ldi	r25, 0x02	; 2
+ 4f2:	2f ef       	ldi	r18, 0xFF	; 255
+ 4f4:	80 e7       	ldi	r24, 0x70	; 112
+ 4f6:	92 e0       	ldi	r25, 0x02	; 2
 
-000003e8 <.L1^B1>:
- 3e8:	21 50       	subi	r18, 0x01	; 1
- 3ea:	80 40       	sbci	r24, 0x00	; 0
- 3ec:	90 40       	sbci	r25, 0x00	; 0
- 3ee:	e1 f7       	brne	.-8      	; 0x3e8 <.L1^B1>
- 3f0:	00 c0       	rjmp	.+0      	; 0x3f2 <L0^A>
+000004f8 <.L1^B1>:
+ 4f8:	21 50       	subi	r18, 0x01	; 1
+ 4fa:	80 40       	sbci	r24, 0x00	; 0
+ 4fc:	90 40       	sbci	r25, 0x00	; 0
+ 4fe:	e1 f7       	brne	.-8      	; 0x4f8 <.L1^B1>
+ 500:	00 c0       	rjmp	.+0      	; 0x502 <L0^A>
 
-000003f2 <L0^A>:
+00000502 <L0^A>:
 	...
 
-000003f4 <.LBE24>:
+00000504 <.LBE22>:
     _delay_ms(50);
     RSTR_PORT &= ~(1 << RSTR);
- 3f4:	80 81       	ld	r24, Z
- 3f6:	8d 7f       	andi	r24, 0xFD	; 253
- 3f8:	80 83       	st	Z, r24
+ 504:	80 81       	ld	r24, Z
+ 506:	8d 7f       	andi	r24, 0xFD	; 253
+ 508:	80 83       	st	Z, r24
 
-000003fa <.LBB26>:
- 3fa:	2f ef       	ldi	r18, 0xFF	; 255
- 3fc:	80 e7       	ldi	r24, 0x70	; 112
- 3fe:	92 e0       	ldi	r25, 0x02	; 2
+0000050a <.LBB24>:
+ 50a:	2f ef       	ldi	r18, 0xFF	; 255
+ 50c:	80 e7       	ldi	r24, 0x70	; 112
+ 50e:	92 e0       	ldi	r25, 0x02	; 2
 
-00000400 <.L1^B2>:
- 400:	21 50       	subi	r18, 0x01	; 1
- 402:	80 40       	sbci	r24, 0x00	; 0
- 404:	90 40       	sbci	r25, 0x00	; 0
- 406:	e1 f7       	brne	.-8      	; 0x400 <.L1^B2>
- 408:	00 c0       	rjmp	.+0      	; 0x40a <L0^A>
+00000510 <.L1^B2>:
+ 510:	21 50       	subi	r18, 0x01	; 1
+ 512:	80 40       	sbci	r24, 0x00	; 0
+ 514:	90 40       	sbci	r25, 0x00	; 0
+ 516:	e1 f7       	brne	.-8      	; 0x510 <.L1^B2>
+ 518:	00 c0       	rjmp	.+0      	; 0x51a <L0^A>
 
-0000040a <L0^A>:
+0000051a <L0^A>:
 	...
 
-0000040c <.LBE26>:
+0000051c <.LBE24>:
     _delay_ms(50);
     RSTR_PORT |= (1 << RSTR);
- 40c:	80 81       	ld	r24, Z
+ 51c:	80 81       	ld	r24, Z
 
-0000040e <.Loc.86>:
- 40e:	82 60       	ori	r24, 0x02	; 2
- 410:	80 83       	st	Z, r24
+0000051e <.Loc.86>:
+ 51e:	82 60       	ori	r24, 0x02	; 2
+ 520:	80 83       	st	Z, r24
 
-00000412 <.LBB28>:
- 412:	2f ef       	ldi	r18, 0xFF	; 255
- 414:	80 e7       	ldi	r24, 0x70	; 112
- 416:	92 e0       	ldi	r25, 0x02	; 2
+00000522 <.LBB26>:
+ 522:	2f ef       	ldi	r18, 0xFF	; 255
+ 524:	80 e7       	ldi	r24, 0x70	; 112
+ 526:	92 e0       	ldi	r25, 0x02	; 2
 
-00000418 <.L1^B3>:
- 418:	21 50       	subi	r18, 0x01	; 1
- 41a:	80 40       	sbci	r24, 0x00	; 0
- 41c:	90 40       	sbci	r25, 0x00	; 0
- 41e:	e1 f7       	brne	.-8      	; 0x418 <.L1^B3>
- 420:	00 c0       	rjmp	.+0      	; 0x422 <L0^A>
+00000528 <.L1^B3>:
+ 528:	21 50       	subi	r18, 0x01	; 1
+ 52a:	80 40       	sbci	r24, 0x00	; 0
+ 52c:	90 40       	sbci	r25, 0x00	; 0
+ 52e:	e1 f7       	brne	.-8      	; 0x528 <.L1^B3>
+ 530:	00 c0       	rjmp	.+0      	; 0x532 <L0^A>
 
-00000422 <L0^A>:
+00000532 <L0^A>:
 	...
 
-00000424 <.LBE28>:
+00000534 <.LBE26>:
     _delay_ms(50);
 
     RSTL_PORT |= (1 << RSTL);
- 424:	80 81       	ld	r24, Z
+ 534:	80 81       	ld	r24, Z
 
-00000426 <.Loc.97>:
- 426:	88 60       	ori	r24, 0x08	; 8
- 428:	80 83       	st	Z, r24
+00000536 <.Loc.97>:
+ 536:	88 60       	ori	r24, 0x08	; 8
+ 538:	80 83       	st	Z, r24
 
-0000042a <.LBB30>:
- 42a:	2f ef       	ldi	r18, 0xFF	; 255
- 42c:	80 e7       	ldi	r24, 0x70	; 112
- 42e:	92 e0       	ldi	r25, 0x02	; 2
+0000053a <.LBB28>:
+ 53a:	2f ef       	ldi	r18, 0xFF	; 255
+ 53c:	80 e7       	ldi	r24, 0x70	; 112
+ 53e:	92 e0       	ldi	r25, 0x02	; 2
 
-00000430 <.L1^B4>:
- 430:	21 50       	subi	r18, 0x01	; 1
- 432:	80 40       	sbci	r24, 0x00	; 0
- 434:	90 40       	sbci	r25, 0x00	; 0
- 436:	e1 f7       	brne	.-8      	; 0x430 <.L1^B4>
- 438:	00 c0       	rjmp	.+0      	; 0x43a <L0^A>
+00000540 <.L1^B4>:
+ 540:	21 50       	subi	r18, 0x01	; 1
+ 542:	80 40       	sbci	r24, 0x00	; 0
+ 544:	90 40       	sbci	r25, 0x00	; 0
+ 546:	e1 f7       	brne	.-8      	; 0x540 <.L1^B4>
+ 548:	00 c0       	rjmp	.+0      	; 0x54a <L0^A>
 
-0000043a <L0^A>:
+0000054a <L0^A>:
 	...
 
-0000043c <.LBE30>:
+0000054c <.LBE28>:
     _delay_ms(50);
     RSTL_PORT &= ~(1 << RSTL);
- 43c:	80 81       	ld	r24, Z
- 43e:	87 7f       	andi	r24, 0xF7	; 247
- 440:	80 83       	st	Z, r24
+ 54c:	80 81       	ld	r24, Z
+ 54e:	87 7f       	andi	r24, 0xF7	; 247
+ 550:	80 83       	st	Z, r24
 
-00000442 <.LBB32>:
- 442:	2f ef       	ldi	r18, 0xFF	; 255
- 444:	80 e7       	ldi	r24, 0x70	; 112
- 446:	92 e0       	ldi	r25, 0x02	; 2
+00000552 <.LBB30>:
+ 552:	2f ef       	ldi	r18, 0xFF	; 255
+ 554:	80 e7       	ldi	r24, 0x70	; 112
+ 556:	92 e0       	ldi	r25, 0x02	; 2
 
-00000448 <.L1^B5>:
- 448:	21 50       	subi	r18, 0x01	; 1
- 44a:	80 40       	sbci	r24, 0x00	; 0
- 44c:	90 40       	sbci	r25, 0x00	; 0
- 44e:	e1 f7       	brne	.-8      	; 0x448 <.L1^B5>
- 450:	00 c0       	rjmp	.+0      	; 0x452 <L0^A>
+00000558 <.L1^B5>:
+ 558:	21 50       	subi	r18, 0x01	; 1
+ 55a:	80 40       	sbci	r24, 0x00	; 0
+ 55c:	90 40       	sbci	r25, 0x00	; 0
+ 55e:	e1 f7       	brne	.-8      	; 0x558 <.L1^B5>
+ 560:	00 c0       	rjmp	.+0      	; 0x562 <L0^A>
 
-00000452 <L0^A>:
+00000562 <L0^A>:
 	...
 
-00000454 <.LBE32>:
+00000564 <.LBE30>:
     _delay_ms(50);
     RSTL_PORT |= (1 << RSTL);
- 454:	80 81       	ld	r24, Z
+ 564:	80 81       	ld	r24, Z
 
-00000456 <.Loc.119>:
- 456:	88 60       	ori	r24, 0x08	; 8
- 458:	80 83       	st	Z, r24
+00000566 <.Loc.119>:
+ 566:	88 60       	ori	r24, 0x08	; 8
+ 568:	80 83       	st	Z, r24
 
-0000045a <.LBB34>:
- 45a:	2f ef       	ldi	r18, 0xFF	; 255
- 45c:	80 e7       	ldi	r24, 0x70	; 112
- 45e:	92 e0       	ldi	r25, 0x02	; 2
+0000056a <.LBB32>:
+ 56a:	2f ef       	ldi	r18, 0xFF	; 255
+ 56c:	80 e7       	ldi	r24, 0x70	; 112
+ 56e:	92 e0       	ldi	r25, 0x02	; 2
 
-00000460 <.L1^B6>:
- 460:	21 50       	subi	r18, 0x01	; 1
- 462:	80 40       	sbci	r24, 0x00	; 0
- 464:	90 40       	sbci	r25, 0x00	; 0
- 466:	e1 f7       	brne	.-8      	; 0x460 <.L1^B6>
- 468:	00 c0       	rjmp	.+0      	; 0x46a <L0^A>
+00000570 <.L1^B6>:
+ 570:	21 50       	subi	r18, 0x01	; 1
+ 572:	80 40       	sbci	r24, 0x00	; 0
+ 574:	90 40       	sbci	r25, 0x00	; 0
+ 576:	e1 f7       	brne	.-8      	; 0x570 <.L1^B6>
+ 578:	00 c0       	rjmp	.+0      	; 0x57a <L0^A>
 
-0000046a <L0^A>:
+0000057a <L0^A>:
 	...
 
-0000046c <.LBE34>:
+0000057c <.LBE32>:
     _delay_ms(50);
 
     // Default configuration to wake up internal transceivers
     write_reg_R(ModeReg, 0x3D);
- 46c:	6d e3       	ldi	r22, 0x3D	; 61
- 46e:	81 e1       	ldi	r24, 0x11	; 17
- 470:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 57c:	6d e3       	ldi	r22, 0x3D	; 61
+ 57e:	81 e1       	ldi	r24, 0x11	; 17
+ 580:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-00000474 <.LVL32>:
+00000584 <.LVL32>:
     write_reg_R(TxASKReg, 0x40);
- 474:	60 e4       	ldi	r22, 0x40	; 64
- 476:	85 e1       	ldi	r24, 0x15	; 21
- 478:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 584:	60 e4       	ldi	r22, 0x40	; 64
+ 586:	85 e1       	ldi	r24, 0x15	; 21
+ 588:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-0000047c <.LVL33>:
+0000058c <.LVL33>:
 
     write_reg_L(ModeReg, 0x3D);
- 47c:	6d e3       	ldi	r22, 0x3D	; 61
- 47e:	81 e1       	ldi	r24, 0x11	; 17
- 480:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 58c:	6d e3       	ldi	r22, 0x3D	; 61
+ 58e:	81 e1       	ldi	r24, 0x11	; 17
+ 590:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-00000484 <.LVL34>:
+00000594 <.LVL34>:
     write_reg_L(TxASKReg, 0x40);
- 484:	60 e4       	ldi	r22, 0x40	; 64
- 486:	85 e1       	ldi	r24, 0x15	; 21
- 488:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 594:	60 e4       	ldi	r22, 0x40	; 64
+ 596:	85 e1       	ldi	r24, 0x15	; 21
+ 598:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-0000048c <.LVL35>:
+0000059c <.LVL35>:
 
     // Turn on the reading antenna
     uint8_t currentR = read_reg_R(TxControlReg);
- 48c:	84 e1       	ldi	r24, 0x14	; 20
- 48e:	0e 94 ab 01 	call	0x356	; 0x356 <read_reg_R>
+ 59c:	84 e1       	ldi	r24, 0x14	; 20
+ 59e:	0e 94 33 02 	call	0x466	; 0x466 <read_reg_R>
 
-00000492 <.LVL36>:
+000005a2 <.LVL36>:
     if ((currentR & 0x03) != 0x03) {
- 492:	98 2f       	mov	r25, r24
- 494:	93 70       	andi	r25, 0x03	; 3
- 496:	93 30       	cpi	r25, 0x03	; 3
- 498:	41 f4       	brne	.+16     	; 0x4aa <.L11>
+ 5a2:	98 2f       	mov	r25, r24
+ 5a4:	93 70       	andi	r25, 0x03	; 3
+ 5a6:	93 30       	cpi	r25, 0x03	; 3
+ 5a8:	41 f4       	brne	.+16     	; 0x5ba <.L11>
 
-0000049a <.L9>:
+000005aa <.L9>:
         write_reg_R(TxControlReg, currentR | 0x03);
     }
 
     uint8_t currentL = read_reg_L(TxControlReg);
- 49a:	84 e1       	ldi	r24, 0x14	; 20
- 49c:	0e 94 d7 01 	call	0x3ae	; 0x3ae <read_reg_L>
+ 5aa:	84 e1       	ldi	r24, 0x14	; 20
+ 5ac:	0e 94 5f 02 	call	0x4be	; 0x4be <read_reg_L>
 
-000004a0 <.LVL38>:
+000005b0 <.LVL38>:
     if ((currentL & 0x03) != 0x03) {
- 4a0:	98 2f       	mov	r25, r24
- 4a2:	93 70       	andi	r25, 0x03	; 3
- 4a4:	93 30       	cpi	r25, 0x03	; 3
- 4a6:	39 f4       	brne	.+14     	; 0x4b6 <.L12>
+ 5b0:	98 2f       	mov	r25, r24
+ 5b2:	93 70       	andi	r25, 0x03	; 3
+ 5b4:	93 30       	cpi	r25, 0x03	; 3
+ 5b6:	39 f4       	brne	.+14     	; 0x5c6 <.L12>
 
-000004a8 <.L8>:
+000005b8 <.L8>:
         write_reg_L(TxControlReg, currentL | 0x03);
     }
 }
- 4a8:	08 95       	ret
+ 5b8:	08 95       	ret
 
-000004aa <.L11>:
+000005ba <.L11>:
         write_reg_R(TxControlReg, currentR | 0x03);
- 4aa:	68 2f       	mov	r22, r24
- 4ac:	63 60       	ori	r22, 0x03	; 3
- 4ae:	84 e1       	ldi	r24, 0x14	; 20
+ 5ba:	68 2f       	mov	r22, r24
+ 5bc:	63 60       	ori	r22, 0x03	; 3
+ 5be:	84 e1       	ldi	r24, 0x14	; 20
 
-000004b0 <.Loc.143>:
- 4b0:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+000005c0 <.Loc.143>:
+ 5c0:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-000004b4 <.LVL42>:
- 4b4:	f2 cf       	rjmp	.-28     	; 0x49a <.L9>
+000005c4 <.LVL42>:
+ 5c4:	f2 cf       	rjmp	.-28     	; 0x5aa <.L9>
 
-000004b6 <.L12>:
+000005c6 <.L12>:
         write_reg_L(TxControlReg, currentL | 0x03);
- 4b6:	68 2f       	mov	r22, r24
- 4b8:	63 60       	ori	r22, 0x03	; 3
- 4ba:	84 e1       	ldi	r24, 0x14	; 20
+ 5c6:	68 2f       	mov	r22, r24
+ 5c8:	63 60       	ori	r22, 0x03	; 3
+ 5ca:	84 e1       	ldi	r24, 0x14	; 20
 
-000004bc <.Loc.145>:
- 4bc:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+000005cc <.Loc.145>:
+ 5cc:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-000004c0 <.LVL45>:
+000005d0 <.LVL45>:
 }
- 4c0:	f3 cf       	rjmp	.-26     	; 0x4a8 <.L8>
+ 5d0:	f3 cf       	rjmp	.-26     	; 0x5b8 <.L8>
 
-000004c2 <tag_detectedR>:
+000005d2 <tag_detectedR>:
 
 // Scan for a passive RFID tag rechts
 int tag_detectedR() {
- 4c2:	cf 93       	push	r28
- 4c4:	df 93       	push	r29
+ 5d2:	cf 93       	push	r28
+ 5d4:	df 93       	push	r29
 
-000004c6 <.Loc.148>:
+000005d6 <.Loc.148>:
     write_reg_R(CommandReg, PCD_IDLE);
- 4c6:	60 e0       	ldi	r22, 0x00	; 0
- 4c8:	81 e0       	ldi	r24, 0x01	; 1
- 4ca:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 5d6:	60 e0       	ldi	r22, 0x00	; 0
+ 5d8:	81 e0       	ldi	r24, 0x01	; 1
+ 5da:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-000004ce <.LVL46>:
+000005de <.LVL46>:
     write_reg_R(ComIrqReg, 0x7F);
- 4ce:	6f e7       	ldi	r22, 0x7F	; 127
- 4d0:	84 e0       	ldi	r24, 0x04	; 4
- 4d2:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 5de:	6f e7       	ldi	r22, 0x7F	; 127
+ 5e0:	84 e0       	ldi	r24, 0x04	; 4
+ 5e2:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-000004d6 <.LVL47>:
+000005e6 <.LVL47>:
     write_reg_R(FIFOLevelReg, 0x80); // Flush FIFO
- 4d6:	60 e8       	ldi	r22, 0x80	; 128
- 4d8:	8a e0       	ldi	r24, 0x0A	; 10
- 4da:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 5e6:	60 e8       	ldi	r22, 0x80	; 128
+ 5e8:	8a e0       	ldi	r24, 0x0A	; 10
+ 5ea:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-000004de <.LVL48>:
+000005ee <.LVL48>:
 
     write_reg_R(FIFODataReg, PICC_REQIDL);
- 4de:	66 e2       	ldi	r22, 0x26	; 38
- 4e0:	89 e0       	ldi	r24, 0x09	; 9
- 4e2:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 5ee:	66 e2       	ldi	r22, 0x26	; 38
+ 5f0:	89 e0       	ldi	r24, 0x09	; 9
+ 5f2:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-000004e6 <.LVL49>:
+000005f6 <.LVL49>:
     write_reg_R(CommandReg, PCD_TRANSCEIVE);
- 4e6:	6c e0       	ldi	r22, 0x0C	; 12
- 4e8:	81 e0       	ldi	r24, 0x01	; 1
- 4ea:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 5f6:	6c e0       	ldi	r22, 0x0C	; 12
+ 5f8:	81 e0       	ldi	r24, 0x01	; 1
+ 5fa:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-000004ee <.LVL50>:
+000005fe <.LVL50>:
     write_reg_R(BitFramingReg, 0x87); // Start communication
- 4ee:	67 e8       	ldi	r22, 0x87	; 135
- 4f0:	8d e0       	ldi	r24, 0x0D	; 13
- 4f2:	0e 94 94 01 	call	0x328	; 0x328 <write_reg_R>
+ 5fe:	67 e8       	ldi	r22, 0x87	; 135
+ 600:	8d e0       	ldi	r24, 0x0D	; 13
+ 602:	0e 94 1c 02 	call	0x438	; 0x438 <write_reg_R>
 
-000004f6 <.LVL51>:
+00000606 <.LVL51>:
 
     // Wait for the operations to complete or timeout
     uint16_t timeout = 1000;
- 4f6:	c8 ee       	ldi	r28, 0xE8	; 232
- 4f8:	d3 e0       	ldi	r29, 0x03	; 3
+ 606:	c8 ee       	ldi	r28, 0xE8	; 232
+ 608:	d3 e0       	ldi	r29, 0x03	; 3
 
-000004fa <.L15>:
+0000060a <.L15>:
     while (timeout > 0) {
         uint8_t irq = read_reg_R(ComIrqReg);
- 4fa:	84 e0       	ldi	r24, 0x04	; 4
- 4fc:	0e 94 ab 01 	call	0x356	; 0x356 <read_reg_R>
+ 60a:	84 e0       	ldi	r24, 0x04	; 4
+ 60c:	0e 94 33 02 	call	0x466	; 0x466 <read_reg_R>
 
-00000500 <.LVL53>:
+00000610 <.LVL53>:
         if (irq & 0x30) { // Check if Rx and Idle IRQs are set
- 500:	80 73       	andi	r24, 0x30	; 48
+ 610:	80 73       	andi	r24, 0x30	; 48
 
-00000502 <.Loc.162>:
- 502:	81 11       	cpse	r24, r1
- 504:	0a c0       	rjmp	.+20     	; 0x51a <.L14>
+00000612 <.Loc.162>:
+ 612:	81 11       	cpse	r24, r1
+ 614:	0a c0       	rjmp	.+20     	; 0x62a <.L14>
 
-00000506 <.Loc.163>:
+00000616 <.Loc.163>:
             break;
         }
         timeout--;
- 506:	21 97       	sbiw	r28, 0x01	; 1
+ 616:	21 97       	sbiw	r28, 0x01	; 1
 
-00000508 <.LBB37>:
+00000618 <.LBB35>:
 	__builtin_avr_delay_cycles(__ticks_dc);
- 508:	85 e3       	ldi	r24, 0x35	; 53
+ 618:	85 e3       	ldi	r24, 0x35	; 53
 
-0000050a <.L1^B7>:
- 50a:	8a 95       	dec	r24
- 50c:	f1 f7       	brne	.-4      	; 0x50a <.L1^B7>
+0000061a <.L1^B7>:
+ 61a:	8a 95       	dec	r24
+ 61c:	f1 f7       	brne	.-4      	; 0x61a <.L1^B7>
 	...
 
-00000510 <.LBE36>:
+00000620 <.LBE34>:
     while (timeout > 0) {
- 510:	20 97       	sbiw	r28, 0x00	; 0
- 512:	99 f7       	brne	.-26     	; 0x4fa <.L15>
+ 620:	20 97       	sbiw	r28, 0x00	; 0
+ 622:	99 f7       	brne	.-26     	; 0x60a <.L15>
 
-00000514 <.Loc.175>:
+00000624 <.Loc.175>:
         _delay_us(10);
     }
 
     if (timeout == 0) return 0;
- 514:	80 e0       	ldi	r24, 0x00	; 0
- 516:	90 e0       	ldi	r25, 0x00	; 0
- 518:	0d c0       	rjmp	.+26     	; 0x534 <.L13>
+ 624:	80 e0       	ldi	r24, 0x00	; 0
+ 626:	90 e0       	ldi	r25, 0x00	; 0
+ 628:	0d c0       	rjmp	.+26     	; 0x644 <.L13>
 
-0000051a <.L14>:
- 51a:	80 e0       	ldi	r24, 0x00	; 0
- 51c:	90 e0       	ldi	r25, 0x00	; 0
+0000062a <.L14>:
+ 62a:	80 e0       	ldi	r24, 0x00	; 0
+ 62c:	90 e0       	ldi	r25, 0x00	; 0
 
-0000051e <.Loc.178>:
- 51e:	cd 2b       	or	r28, r29
- 520:	49 f0       	breq	.+18     	; 0x534 <.L13>
+0000062e <.Loc.178>:
+ 62e:	cd 2b       	or	r28, r29
+ 630:	49 f0       	breq	.+18     	; 0x644 <.L13>
 
-00000522 <.Loc.179>:
+00000632 <.Loc.179>:
 
     // Check for operational or buffer errors
     uint8_t error = read_reg_R(ErrorReg);
- 522:	86 e0       	ldi	r24, 0x06	; 6
- 524:	0e 94 ab 01 	call	0x356	; 0x356 <read_reg_R>
+ 632:	86 e0       	ldi	r24, 0x06	; 6
+ 634:	0e 94 33 02 	call	0x466	; 0x466 <read_reg_R>
 
-00000528 <.LVL57>:
+00000638 <.LVL57>:
     if (error & 0x13) return 0;
- 528:	28 2f       	mov	r18, r24
- 52a:	23 71       	andi	r18, 0x13	; 19
- 52c:	81 e0       	ldi	r24, 0x01	; 1
+ 638:	28 2f       	mov	r18, r24
+ 63a:	23 71       	andi	r18, 0x13	; 19
+ 63c:	81 e0       	ldi	r24, 0x01	; 1
 
-0000052e <.Loc.183>:
- 52e:	90 e0       	ldi	r25, 0x00	; 0
- 530:	21 11       	cpse	r18, r1
- 532:	80 e0       	ldi	r24, 0x00	; 0
+0000063e <.Loc.183>:
+ 63e:	90 e0       	ldi	r25, 0x00	; 0
+ 640:	21 11       	cpse	r18, r1
+ 642:	80 e0       	ldi	r24, 0x00	; 0
 
-00000534 <.L13>:
+00000644 <.L13>:
 
     return 1;
 }
- 534:	df 91       	pop	r29
- 536:	cf 91       	pop	r28
+ 644:	df 91       	pop	r29
+ 646:	cf 91       	pop	r28
 
-00000538 <.Loc.185>:
- 538:	08 95       	ret
+00000648 <.Loc.185>:
+ 648:	08 95       	ret
 
-0000053a <tag_detectedL>:
+0000064a <tag_detectedL>:
 
 // Scan for a passive RFID tag links
 int tag_detectedL() {
- 53a:	cf 93       	push	r28
- 53c:	df 93       	push	r29
+ 64a:	cf 93       	push	r28
+ 64c:	df 93       	push	r29
 
-0000053e <.Loc.187>:
+0000064e <.Loc.187>:
     write_reg_L(CommandReg, PCD_IDLE);
- 53e:	60 e0       	ldi	r22, 0x00	; 0
- 540:	81 e0       	ldi	r24, 0x01	; 1
- 542:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 64e:	60 e0       	ldi	r22, 0x00	; 0
+ 650:	81 e0       	ldi	r24, 0x01	; 1
+ 652:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-00000546 <.LVL61>:
+00000656 <.LVL61>:
     write_reg_L(ComIrqReg, 0x7F);
- 546:	6f e7       	ldi	r22, 0x7F	; 127
- 548:	84 e0       	ldi	r24, 0x04	; 4
- 54a:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 656:	6f e7       	ldi	r22, 0x7F	; 127
+ 658:	84 e0       	ldi	r24, 0x04	; 4
+ 65a:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-0000054e <.LVL62>:
+0000065e <.LVL62>:
     write_reg_L(FIFOLevelReg, 0x80); // Flush FIFO
- 54e:	60 e8       	ldi	r22, 0x80	; 128
- 550:	8a e0       	ldi	r24, 0x0A	; 10
- 552:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 65e:	60 e8       	ldi	r22, 0x80	; 128
+ 660:	8a e0       	ldi	r24, 0x0A	; 10
+ 662:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-00000556 <.LVL63>:
+00000666 <.LVL63>:
 
     write_reg_L(FIFODataReg, PICC_REQIDL);
- 556:	66 e2       	ldi	r22, 0x26	; 38
- 558:	89 e0       	ldi	r24, 0x09	; 9
- 55a:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 666:	66 e2       	ldi	r22, 0x26	; 38
+ 668:	89 e0       	ldi	r24, 0x09	; 9
+ 66a:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-0000055e <.LVL64>:
+0000066e <.LVL64>:
     write_reg_L(CommandReg, PCD_TRANSCEIVE);
- 55e:	6c e0       	ldi	r22, 0x0C	; 12
- 560:	81 e0       	ldi	r24, 0x01	; 1
- 562:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 66e:	6c e0       	ldi	r22, 0x0C	; 12
+ 670:	81 e0       	ldi	r24, 0x01	; 1
+ 672:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-00000566 <.LVL65>:
+00000676 <.LVL65>:
     write_reg_L(BitFramingReg, 0x87); // Start communication
- 566:	67 e8       	ldi	r22, 0x87	; 135
- 568:	8d e0       	ldi	r24, 0x0D	; 13
- 56a:	0e 94 c0 01 	call	0x380	; 0x380 <write_reg_L>
+ 676:	67 e8       	ldi	r22, 0x87	; 135
+ 678:	8d e0       	ldi	r24, 0x0D	; 13
+ 67a:	0e 94 48 02 	call	0x490	; 0x490 <write_reg_L>
 
-0000056e <.LVL66>:
+0000067e <.LVL66>:
 
     // Wait for the operations to complete or timeout
     uint16_t timeout = 1000;
- 56e:	c8 ee       	ldi	r28, 0xE8	; 232
- 570:	d3 e0       	ldi	r29, 0x03	; 3
+ 67e:	c8 ee       	ldi	r28, 0xE8	; 232
+ 680:	d3 e0       	ldi	r29, 0x03	; 3
 
-00000572 <.L22>:
+00000682 <.L22>:
     while (timeout > 0) {
         uint8_t irq = read_reg_L(ComIrqReg);
- 572:	84 e0       	ldi	r24, 0x04	; 4
- 574:	0e 94 d7 01 	call	0x3ae	; 0x3ae <read_reg_L>
+ 682:	84 e0       	ldi	r24, 0x04	; 4
+ 684:	0e 94 5f 02 	call	0x4be	; 0x4be <read_reg_L>
 
-00000578 <.LVL68>:
+00000688 <.LVL68>:
         if (irq & 0x30) { // Check if Rx and Idle IRQs are set
- 578:	80 73       	andi	r24, 0x30	; 48
+ 688:	80 73       	andi	r24, 0x30	; 48
 
-0000057a <.Loc.201>:
- 57a:	81 11       	cpse	r24, r1
- 57c:	0a c0       	rjmp	.+20     	; 0x592 <.L21>
+0000068a <.Loc.201>:
+ 68a:	81 11       	cpse	r24, r1
+ 68c:	0a c0       	rjmp	.+20     	; 0x6a2 <.L21>
 
-0000057e <.Loc.202>:
+0000068e <.Loc.202>:
             break;
         }
         timeout--;
- 57e:	21 97       	sbiw	r28, 0x01	; 1
+ 68e:	21 97       	sbiw	r28, 0x01	; 1
 
-00000580 <.LBB40>:
- 580:	85 e3       	ldi	r24, 0x35	; 53
+00000690 <.LBB38>:
+ 690:	85 e3       	ldi	r24, 0x35	; 53
 
-00000582 <.L1^B8>:
- 582:	8a 95       	dec	r24
- 584:	f1 f7       	brne	.-4      	; 0x582 <.L1^B8>
+00000692 <.L1^B8>:
+ 692:	8a 95       	dec	r24
+ 694:	f1 f7       	brne	.-4      	; 0x692 <.L1^B8>
 	...
 
-00000588 <.LBE39>:
+00000698 <.LBE37>:
     while (timeout > 0) {
- 588:	20 97       	sbiw	r28, 0x00	; 0
- 58a:	99 f7       	brne	.-26     	; 0x572 <.L22>
+ 698:	20 97       	sbiw	r28, 0x00	; 0
+ 69a:	99 f7       	brne	.-26     	; 0x682 <.L22>
 
-0000058c <.Loc.214>:
+0000069c <.Loc.214>:
         _delay_us(10);
     }
 
     if (timeout == 0) return 0;
- 58c:	80 e0       	ldi	r24, 0x00	; 0
- 58e:	90 e0       	ldi	r25, 0x00	; 0
- 590:	0d c0       	rjmp	.+26     	; 0x5ac <.L20>
+ 69c:	80 e0       	ldi	r24, 0x00	; 0
+ 69e:	90 e0       	ldi	r25, 0x00	; 0
+ 6a0:	0d c0       	rjmp	.+26     	; 0x6bc <.L20>
 
-00000592 <.L21>:
- 592:	80 e0       	ldi	r24, 0x00	; 0
- 594:	90 e0       	ldi	r25, 0x00	; 0
+000006a2 <.L21>:
+ 6a2:	80 e0       	ldi	r24, 0x00	; 0
+ 6a4:	90 e0       	ldi	r25, 0x00	; 0
 
-00000596 <.Loc.217>:
- 596:	cd 2b       	or	r28, r29
- 598:	49 f0       	breq	.+18     	; 0x5ac <.L20>
+000006a6 <.Loc.217>:
+ 6a6:	cd 2b       	or	r28, r29
+ 6a8:	49 f0       	breq	.+18     	; 0x6bc <.L20>
 
-0000059a <.Loc.218>:
+000006aa <.Loc.218>:
 
     // Check for operational or buffer errors
     uint8_t error = read_reg_L(ErrorReg);
- 59a:	86 e0       	ldi	r24, 0x06	; 6
- 59c:	0e 94 d7 01 	call	0x3ae	; 0x3ae <read_reg_L>
+ 6aa:	86 e0       	ldi	r24, 0x06	; 6
+ 6ac:	0e 94 5f 02 	call	0x4be	; 0x4be <read_reg_L>
 
-000005a0 <.LVL72>:
+000006b0 <.LVL72>:
     if (error & 0x13) return 0;
- 5a0:	28 2f       	mov	r18, r24
- 5a2:	23 71       	andi	r18, 0x13	; 19
- 5a4:	81 e0       	ldi	r24, 0x01	; 1
+ 6b0:	28 2f       	mov	r18, r24
+ 6b2:	23 71       	andi	r18, 0x13	; 19
+ 6b4:	81 e0       	ldi	r24, 0x01	; 1
 
-000005a6 <.Loc.222>:
- 5a6:	90 e0       	ldi	r25, 0x00	; 0
- 5a8:	21 11       	cpse	r18, r1
- 5aa:	80 e0       	ldi	r24, 0x00	; 0
+000006b6 <.Loc.222>:
+ 6b6:	90 e0       	ldi	r25, 0x00	; 0
+ 6b8:	21 11       	cpse	r18, r1
+ 6ba:	80 e0       	ldi	r24, 0x00	; 0
 
-000005ac <.L20>:
+000006bc <.L20>:
 
     return 1;
 }
- 5ac:	df 91       	pop	r29
- 5ae:	cf 91       	pop	r28
+ 6bc:	df 91       	pop	r29
+ 6be:	cf 91       	pop	r28
 
-000005b0 <.Loc.224>:
- 5b0:	08 95       	ret
+000006c0 <.Loc.224>:
+ 6c0:	08 95       	ret
 
-000005b2 <RFID_opstarten>:
+000006c2 <RFID_opstarten>:
 
 void RFID_opstarten(void) {
     initialisatie_RFID();
- 5b2:	0e 94 9a 00 	call	0x134	; 0x134 <initialisatie_RFID>
+ 6c2:	0e 94 8f 01 	call	0x31e	; 0x31e <initialisatie_RFID>
 
-000005b6 <.LVL76>:
+000006c6 <.LVL76>:
     rc522_init();
- 5b6:	0e 94 ec 01 	call	0x3d8	; 0x3d8 <rc522_init>
+ 6c6:	0e 94 74 02 	call	0x4e8	; 0x4e8 <rc522_init>
 
-000005ba <.LVL77>:
+000006ca <.LVL77>:
 
     int tag = 0;
- 5ba:	c0 e0       	ldi	r28, 0x00	; 0
- 5bc:	d0 e0       	ldi	r29, 0x00	; 0
+ 6ca:	c0 e0       	ldi	r28, 0x00	; 0
+ 6cc:	d0 e0       	ldi	r29, 0x00	; 0
 
-000005be <.Loc.230>:
+000006ce <.Loc.230>:
 
     while (1) {
         if (tag_detectedR()) {
             LED_BLAUW_PORT |= (1 << LED_BLAUW);
             _delay_ms(100);
             tag = 1;
- 5be:	01 e0       	ldi	r16, 0x01	; 1
- 5c0:	10 e0       	ldi	r17, 0x00	; 0
- 5c2:	06 c0       	rjmp	.+12     	; 0x5d0 <.L28>
+ 6ce:	01 e0       	ldi	r16, 0x01	; 1
+ 6d0:	10 e0       	ldi	r17, 0x00	; 0
+ 6d2:	06 c0       	rjmp	.+12     	; 0x6e0 <.L28>
 
-000005c4 <.L31>:
+000006d4 <.L31>:
         }
         else {
             if (tag == 1) {
                 tag = 0;
- 5c4:	e9 01       	movw	r28, r18
+ 6d4:	e9 01       	movw	r28, r18
 
-000005c6 <.Loc.232>:
- 5c6:	04 c0       	rjmp	.+8      	; 0x5d0 <.L28>
+000006d6 <.Loc.232>:
+ 6d6:	04 c0       	rjmp	.+8      	; 0x6e0 <.L28>
 
-000005c8 <.L29>:
+000006d8 <.L29>:
             if (tag == 1) {
- 5c8:	c1 30       	cpi	r28, 0x01	; 1
- 5ca:	d1 05       	cpc	r29, r1
- 5cc:	d9 f3       	breq	.-10     	; 0x5c4 <.L31>
+ 6d8:	c1 30       	cpi	r28, 0x01	; 1
+ 6da:	d1 05       	cpc	r29, r1
+ 6dc:	d9 f3       	breq	.-10     	; 0x6d4 <.L31>
 
-000005ce <.Loc.235>:
+000006de <.Loc.235>:
             }
             else {
                 LED_BLAUW_PORT &= ~(1 << LED_BLAUW);
- 5ce:	42 98       	cbi	0x08, 2	; 8
+ 6de:	42 98       	cbi	0x08, 2	; 8
 
-000005d0 <.L28>:
+000006e0 <.L28>:
         if (tag_detectedR()) {
- 5d0:	0e 94 61 02 	call	0x4c2	; 0x4c2 <tag_detectedR>
+ 6e0:	0e 94 e9 02 	call	0x5d2	; 0x5d2 <tag_detectedR>
 
-000005d4 <.LVL82>:
- 5d4:	28 2f       	mov	r18, r24
- 5d6:	39 2f       	mov	r19, r25
+000006e4 <.LVL82>:
+ 6e4:	28 2f       	mov	r18, r24
+ 6e6:	39 2f       	mov	r19, r25
 
-000005d8 <.Loc.240>:
- 5d8:	21 15       	cp	r18, r1
- 5da:	31 05       	cpc	r19, r1
- 5dc:	a9 f3       	breq	.-22     	; 0x5c8 <.L29>
+000006e8 <.Loc.240>:
+ 6e8:	21 15       	cp	r18, r1
+ 6ea:	31 05       	cpc	r19, r1
+ 6ec:	a9 f3       	breq	.-22     	; 0x6d8 <.L29>
 
-000005de <.Loc.241>:
+000006ee <.Loc.241>:
             LED_BLAUW_PORT |= (1 << LED_BLAUW);
- 5de:	42 9a       	sbi	0x08, 2	; 8
+ 6ee:	42 9a       	sbi	0x08, 2	; 8
 
-000005e0 <.LBB42>:
+000006f0 <.LBB40>:
 	__builtin_avr_delay_cycles(__ticks_dc);
- 5e0:	2f ef       	ldi	r18, 0xFF	; 255
- 5e2:	81 ee       	ldi	r24, 0xE1	; 225
- 5e4:	94 e0       	ldi	r25, 0x04	; 4
+ 6f0:	2f ef       	ldi	r18, 0xFF	; 255
+ 6f2:	81 ee       	ldi	r24, 0xE1	; 225
+ 6f4:	94 e0       	ldi	r25, 0x04	; 4
 
-000005e6 <.L1^B9>:
- 5e6:	21 50       	subi	r18, 0x01	; 1
- 5e8:	80 40       	sbci	r24, 0x00	; 0
- 5ea:	90 40       	sbci	r25, 0x00	; 0
- 5ec:	e1 f7       	brne	.-8      	; 0x5e6 <.L1^B9>
- 5ee:	00 c0       	rjmp	.+0      	; 0x5f0 <L0^A>
+000006f6 <.L1^B9>:
+ 6f6:	21 50       	subi	r18, 0x01	; 1
+ 6f8:	80 40       	sbci	r24, 0x00	; 0
+ 6fa:	90 40       	sbci	r25, 0x00	; 0
+ 6fc:	e1 f7       	brne	.-8      	; 0x6f6 <.L1^B9>
+ 6fe:	00 c0       	rjmp	.+0      	; 0x700 <L0^A>
 
-000005f0 <L0^A>:
+00000700 <L0^A>:
 	...
 
-000005f2 <.LBE42>:
+00000702 <.LBE40>:
             tag = 1;
- 5f2:	c0 2f       	mov	r28, r16
- 5f4:	d1 2f       	mov	r29, r17
- 5f6:	ec cf       	rjmp	.-40     	; 0x5d0 <.L28>
+ 702:	c0 2f       	mov	r28, r16
+ 704:	d1 2f       	mov	r29, r17
+ 706:	ec cf       	rjmp	.-40     	; 0x6e0 <.L28>
 
-000005f8 <RFID_scannen>:
+00000708 <RFID_scannen>:
+    }
 }
 
 // hoe zorg je dat je hier na 2 sec weer uit bent? Is 1 keer checken genoeg?
-void RFID_scannen(void){
-    int gedetecteerd = 0;
-    while(gedetecteerd == 0)
- 5f8:	0a c0       	rjmp	.+20     	; 0x60e <.L35>
+int RFID_scannen(int kant){ // kant = 0 = rechts, kant = 1 = links
+    if (kant == 0) { //doosje rechts
+ 708:	89 2b       	or	r24, r25
+ 70a:	49 f4       	brne	.+18     	; 0x71e <.L33>
 
-000005fa <.L36>:
-        if (tag_detectedR()) {
-            LED_BLAUW_PORT |= (1 << LED_BLAUW);
- 5fa:	42 9a       	sbi	0x08, 2	; 8
+0000070c <.Loc.257>:
+        if (tag_detectedR()) { //tag gedetecteerd
+ 70c:	0e 94 e9 02 	call	0x5d2	; 0x5d2 <tag_detectedR>
 
-000005fc <.LBB44>:
- 5fc:	2f ef       	ldi	r18, 0xFF	; 255
- 5fe:	84 e3       	ldi	r24, 0x34	; 52
- 600:	9c e0       	ldi	r25, 0x0C	; 12
+00000710 <.LVL86>:
+ 710:	ac 01       	movw	r20, r24
 
-00000602 <.L1^B10>:
- 602:	21 50       	subi	r18, 0x01	; 1
- 604:	80 40       	sbci	r24, 0x00	; 0
- 606:	90 40       	sbci	r25, 0x00	; 0
- 608:	e1 f7       	brne	.-8      	; 0x602 <.L1^B10>
- 60a:	00 c0       	rjmp	.+0      	; 0x60c <L0^A>
+00000712 <.Loc.260>:
+ 712:	81 e0       	ldi	r24, 0x01	; 1
+ 714:	90 e0       	ldi	r25, 0x00	; 0
+ 716:	45 2b       	or	r20, r21
+ 718:	51 f4       	brne	.+20     	; 0x72e <.L32>
+ 71a:	80 e0       	ldi	r24, 0x00	; 0
+ 71c:	08 95       	ret
 
-0000060c <L0^A>:
-	...
+0000071e <.L33>:
+        else { // geen tag
+            return 0;
+        }
+    }
+    else { // doosje links
+        if (tag_detectedL()) { // tag gedetecteerd
+ 71e:	0e 94 25 03 	call	0x64a	; 0x64a <tag_detectedL>
 
-0000060e <.L35>:
-        if (tag_detectedR()) {
- 60e:	0e 94 61 02 	call	0x4c2	; 0x4c2 <tag_detectedR>
+00000722 <.LVL88>:
+ 722:	ac 01       	movw	r20, r24
 
-00000612 <.LVL88>:
- 612:	89 2b       	or	r24, r25
- 614:	e1 f3       	breq	.-8      	; 0x60e <.L35>
- 616:	f1 cf       	rjmp	.-30     	; 0x5fa <.L36>
+00000724 <.Loc.264>:
+ 724:	81 e0       	ldi	r24, 0x01	; 1
+ 726:	90 e0       	ldi	r25, 0x00	; 0
+ 728:	45 2b       	or	r20, r21
+ 72a:	09 f4       	brne	.+2      	; 0x72e <.L32>
+ 72c:	80 e0       	ldi	r24, 0x00	; 0
 
-00000618 <__vector_1>:
-#include "RFID_sensor.h"
-#include "Display.h"
-#include "Sequence.h"
+0000072e <.L32>:
+        }
+        else { // geen tag
+            return 0;
+        }
+    }
+}
+ 72e:	08 95       	ret
+
+00000730 <__vector_1>:
+
+
+
 
 ISR(INT0_vect) { //AGV heeft commando geacknowledged
     NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
- 618:	a1 98       	cbi	0x14, 1	; 20
+ 730:	a1 98       	cbi	0x14, 1	; 20
 
-0000061a <.Loc.3>:
+00000732 <.Loc.3>:
 }
- 61a:	18 95       	reti
+ 732:	18 95       	reti
 
-0000061c <rijden>:
-
-
+00000734 <rijden>:
 
 void rijden(void) {
     NEXT_MOD_PORT |= (1 << NEXT_MOD); // Volgende naar agv signaleren
- 61c:	a1 9a       	sbi	0x14, 1	; 20
+ 734:	a1 9a       	sbi	0x14, 1	; 20
 
-0000061e <.Loc.7>:
+00000736 <.Loc.7>:
 }
- 61e:	08 95       	ret
+ 736:	08 95       	ret
 
-00000620 <stoppen>:
+00000738 <stoppen>:
 
 void stoppen(void) {
     NEXT_MOD_PORT |= (1 << NEXT_MOD);
- 620:	a1 9a       	sbi	0x14, 1	; 20
+ 738:	a1 9a       	sbi	0x14, 1	; 20
 
-00000622 <.Loc.11>:
+0000073a <.Loc.11>:
 }
- 622:	08 95       	ret
+ 73a:	08 95       	ret
 
-00000624 <sequence>:
+0000073c <led_blauw>:
+
+void led_blauw(void) { //leeg
+    TCNT1 = 0;
+ 73c:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x700085>
+ 740:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x700084>
+
+00000744 <.Loc.15>:
+    //TIFR1 = (1 << TOV1); // flag verwijderen, not sure of dat nodig is of niet
+    int klaar = 0;
+    LED_BLAUW_PORT |= (1 << LED_BLAUW); // led aan
+ 744:	42 9a       	sbi	0x08, 2	; 8
+
+00000746 <.L5>:
+    while (klaar == 0) {
+        if ((TIFR1 & (1 << TOV1)) != 0) {
+ 746:	b0 9b       	sbis	0x16, 0	; 22
+ 748:	fe cf       	rjmp	.-4      	; 0x746 <.L5>
+
+0000074a <.Loc.22>:
+            LED_BLAUW_PORT &= ~(1 << LED_BLAUW); // led uit
+ 74a:	42 98       	cbi	0x08, 2	; 8
+
+0000074c <.Loc.24>:
+            klaar = 1;
+        }
+    }
+}
+ 74c:	08 95       	ret
+
+0000074e <led_groen>:
+
+void led_groen(void) { // rfid
+    TCNT1 = 0;
+ 74e:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x700085>
+ 752:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x700084>
+
+00000756 <.Loc.30>:
+    //TIFR1 = (1 << TOV1); // flag verwijderen, not sure of dat nodig is of niet
+    int klaar = 0;
+    LED_GROEN_PORT |= (1 << LED_GROEN); // led aan
+ 756:	43 9a       	sbi	0x08, 3	; 8
+
+00000758 <.L9>:
+    while (klaar == 0) {
+        if ((TIFR1 & (1 << TOV1)) != 0) {
+ 758:	b0 9b       	sbis	0x16, 0	; 22
+ 75a:	fe cf       	rjmp	.-4      	; 0x758 <.L9>
+
+0000075c <.Loc.37>:
+            LED_GROEN_PORT &= ~(1 << LED_GROEN); // led uit
+ 75c:	43 98       	cbi	0x08, 3	; 8
+
+0000075e <.Loc.39>:
+            klaar = 1;
+        }
+    }
+}
+ 75e:	08 95       	ret
+
+00000760 <sequence>:
 
 void sequence(void) {
+    int teller_leeg = 0;
+    int teller_rfid = 0;
     RFID_opstarten();
- 624:	0e 94 d9 02 	call	0x5b2	; 0x5b2 <RFID_opstarten>
+ 760:	0e 94 61 03 	call	0x6c2	; 0x6c2 <RFID_opstarten>
 
-00000628 <.LVL0>:
+00000764 <.LVL5>:
     rijden();
- 628:	0e 94 0e 03 	call	0x61c	; 0x61c <rijden>
+ 764:	0e 94 9a 03 	call	0x734	; 0x734 <rijden>
 
-0000062c <.LVL1>:
+00000768 <.LVL6>:
+    int teller_rfid = 0;
+ 768:	e1 2c       	mov	r14, r1
+ 76a:	f1 2c       	mov	r15, r1
+
+0000076c <.Loc.49>:
+    int teller_leeg = 0;
+ 76c:	00 e0       	ldi	r16, 0x00	; 0
+ 76e:	10 e0       	ldi	r17, 0x00	; 0
+
+00000770 <.Loc.50>:
     while ((NEXT_AGV_PIN & NEXT_AGV) == 0) { //detectiemodus
-        if ( ((IR_L_PIN & IR_L) == 0) || ((IR_R_PIN & IR_R) == 0)) { //doosje gedetecteerd
- 62c:	c9 e0       	ldi	r28, 0x09	; 9
- 62e:	d1 e0       	ldi	r29, 0x01	; 1
+        if ((IR_R_PIN & IR_R) == 0) { // rechts doosje gedetecteerd
+ 770:	c9 e0       	ldi	r28, 0x09	; 9
+ 772:	d1 e0       	ldi	r29, 0x01	; 1
 
-00000630 <.Loc.17>:
+00000774 <.Loc.51>:
     while ((NEXT_AGV_PIN & NEXT_AGV) == 0) { //detectiemodus
- 630:	02 c0       	rjmp	.+4      	; 0x636 <.L5>
+ 774:	0b c0       	rjmp	.+22     	; 0x78c <.L13>
 
-00000632 <.L7>:
+00000776 <.L14>:
+                teller_rfid++;
+                display(teller_leeg, teller_rfid);
+                led_groen();
+            }
+            else { // doosje is leeg
+                teller_leeg++;
+ 776:	0f 5f       	subi	r16, 0xFF	; 255
+ 778:	1f 4f       	sbci	r17, 0xFF	; 255
+
+0000077a <.Loc.54>:
+                display(teller_leeg, teller_rfid);
+ 77a:	b7 01       	movw	r22, r14
+ 77c:	c8 01       	movw	r24, r16
+ 77e:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+
+00000782 <.LVL9>:
+                led_blauw();
+ 782:	0e 94 9e 03 	call	0x73c	; 0x73c <led_blauw>
+
+00000786 <.L15>:
+            }
+        }
+        if ((IR_L_PIN & IR_L) == 0) { // links doosje gedetecteerd
+ 786:	88 81       	ld	r24, Y
+
+00000788 <.Loc.58>:
+ 788:	82 ff       	sbrs	r24, 2
+ 78a:	17 c0       	rjmp	.+46     	; 0x7ba <.L19>
+
+0000078c <.L13>:
+    while ((NEXT_AGV_PIN & NEXT_AGV) == 0) { //detectiemodus
+ 78c:	86 b1       	in	r24, 0x06	; 6
+
+0000078e <.Loc.61>:
+        if ((IR_R_PIN & IR_R) == 0) { // rechts doosje gedetecteerd
+ 78e:	88 81       	ld	r24, Y
+
+00000790 <.Loc.63>:
+ 790:	85 70       	andi	r24, 0x05	; 5
+ 792:	81 11       	cpse	r24, r1
+ 794:	f8 cf       	rjmp	.-16     	; 0x786 <.L15>
+
+00000796 <.Loc.64>:
             stoppen();
- 632:	0e 94 10 03 	call	0x620	; 0x620 <stoppen>
+ 796:	0e 94 9c 03 	call	0x738	; 0x738 <stoppen>
 
-00000636 <.L5>:
-    while ((NEXT_AGV_PIN & NEXT_AGV) == 0) { //detectiemodus
- 636:	86 b1       	in	r24, 0x06	; 6
+0000079a <.LVL12>:
+            if (RFID_scannen(0) != 0) {// doosje bevat tag
+ 79a:	80 e0       	ldi	r24, 0x00	; 0
+ 79c:	90 e0       	ldi	r25, 0x00	; 0
+ 79e:	0e 94 84 03 	call	0x708	; 0x708 <RFID_scannen>
 
-00000638 <.Loc.21>:
-        if ( ((IR_L_PIN & IR_L) == 0) || ((IR_R_PIN & IR_R) == 0)) { //doosje gedetecteerd
- 638:	88 81       	ld	r24, Y
+000007a2 <.LVL13>:
+ 7a2:	89 2b       	or	r24, r25
+ 7a4:	41 f3       	breq	.-48     	; 0x776 <.L14>
 
-0000063a <.Loc.23>:
- 63a:	82 ff       	sbrs	r24, 2
- 63c:	fa cf       	rjmp	.-12     	; 0x632 <.L7>
+000007a6 <.Loc.68>:
+                teller_rfid++;
+ 7a6:	8f ef       	ldi	r24, 0xFF	; 255
+ 7a8:	e8 1a       	sub	r14, r24
+ 7aa:	f8 0a       	sbc	r15, r24
 
-0000063e <.Loc.24>:
- 63e:	88 81       	ld	r24, Y
+000007ac <.Loc.70>:
+                display(teller_leeg, teller_rfid);
+ 7ac:	b7 01       	movw	r22, r14
+ 7ae:	c8 01       	movw	r24, r16
+ 7b0:	0e 94 0b 01 	call	0x216	; 0x216 <display>
 
-00000640 <.Loc.25>:
- 640:	85 70       	andi	r24, 0x05	; 5
- 642:	81 11       	cpse	r24, r1
- 644:	f8 cf       	rjmp	.-16     	; 0x636 <.L5>
- 646:	f5 cf       	rjmp	.-22     	; 0x632 <.L7>
+000007b4 <.LVL15>:
+                led_groen();
+ 7b4:	0e 94 a7 03 	call	0x74e	; 0x74e <led_groen>
 
-00000648 <_exit>:
- 648:	f8 94       	cli
+000007b8 <.LVL16>:
+ 7b8:	e6 cf       	rjmp	.-52     	; 0x786 <.L15>
 
-0000064a <__stop_program>:
- 64a:	ff cf       	rjmp	.-2      	; 0x64a <__stop_program>
+000007ba <.L19>:
+            stoppen();
+ 7ba:	0e 94 9c 03 	call	0x738	; 0x738 <stoppen>
+
+000007be <.LVL17>:
+            if (RFID_scannen(1) != 0) { //doosje bevat tag
+ 7be:	81 e0       	ldi	r24, 0x01	; 1
+ 7c0:	90 e0       	ldi	r25, 0x00	; 0
+ 7c2:	0e 94 84 03 	call	0x708	; 0x708 <RFID_scannen>
+
+000007c6 <.LVL18>:
+ 7c6:	89 2b       	or	r24, r25
+ 7c8:	51 f0       	breq	.+20     	; 0x7de <.L17>
+
+000007ca <.Loc.76>:
+                teller_rfid++;
+ 7ca:	8f ef       	ldi	r24, 0xFF	; 255
+ 7cc:	e8 1a       	sub	r14, r24
+ 7ce:	f8 0a       	sbc	r15, r24
+
+000007d0 <.Loc.78>:
+                display(teller_leeg, teller_rfid);
+ 7d0:	b7 01       	movw	r22, r14
+ 7d2:	c8 01       	movw	r24, r16
+ 7d4:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+
+000007d8 <.LVL20>:
+                led_groen();
+ 7d8:	0e 94 a7 03 	call	0x74e	; 0x74e <led_groen>
+
+000007dc <.LVL21>:
+ 7dc:	d7 cf       	rjmp	.-82     	; 0x78c <.L13>
+
+000007de <.L17>:
+            }
+            else { // doosje is leeg
+                teller_leeg++;
+ 7de:	0f 5f       	subi	r16, 0xFF	; 255
+ 7e0:	1f 4f       	sbci	r17, 0xFF	; 255
+
+000007e2 <.Loc.82>:
+                display(teller_leeg, teller_rfid);
+ 7e2:	b7 01       	movw	r22, r14
+ 7e4:	c8 01       	movw	r24, r16
+ 7e6:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+
+000007ea <.LVL23>:
+                led_blauw();
+ 7ea:	0e 94 9e 03 	call	0x73c	; 0x73c <led_blauw>
+
+000007ee <.LVL24>:
+ 7ee:	ce cf       	rjmp	.-100    	; 0x78c <.L13>
+
+000007f0 <__umulhisi3>:
+ 7f0:	a2 9f       	mul	r26, r18
+
+000007f2 <.Loc.1>:
+ 7f2:	b0 01       	movw	r22, r0
+
+000007f4 <.Loc.2>:
+ 7f4:	b3 9f       	mul	r27, r19
+
+000007f6 <.Loc.3>:
+ 7f6:	c0 01       	movw	r24, r0
+
+000007f8 <.Loc.4>:
+ 7f8:	a3 9f       	mul	r26, r19
+
+000007fa <.Loc.5>:
+ 7fa:	70 0d       	add	r23, r0
+
+000007fc <.Loc.6>:
+ 7fc:	81 1d       	adc	r24, r1
+
+000007fe <.Loc.7>:
+ 7fe:	11 24       	eor	r1, r1
+
+00000800 <.Loc.8>:
+ 800:	91 1d       	adc	r25, r1
+
+00000802 <.Loc.9>:
+ 802:	b2 9f       	mul	r27, r18
+
+00000804 <.Loc.10>:
+ 804:	70 0d       	add	r23, r0
+
+00000806 <.Loc.11>:
+ 806:	81 1d       	adc	r24, r1
+
+00000808 <.Loc.12>:
+ 808:	11 24       	eor	r1, r1
+
+0000080a <.Loc.13>:
+ 80a:	91 1d       	adc	r25, r1
+
+0000080c <.Loc.14>:
+ 80c:	08 95       	ret
+
+0000080e <_exit>:
+ 80e:	f8 94       	cli
+
+00000810 <__stop_program>:
+ 810:	ff cf       	rjmp	.-2      	; 0x810 <__stop_program>

@@ -3,6 +3,6 @@
 
 
 void RFID_opstarten(void);
-void RFID_scannen(void);
+int RFID_scannen(int kant);
 
 #endif // RFID_SENSOR_H_INCLUDED

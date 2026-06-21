@@ -15,7 +15,7 @@ uint8_t spi_transfer(uint8_t data) {
 
 // Write to RC522 Register rechts
 void write_reg_R(uint8_t reg, uint8_t value) {
-    SSR_PORT &= ~(1 << SSR);
+    SSR_PORT &= ~(1 << SSR); //ss laag is slave geactiveerd
     spi_transfer((reg << 1) & 0x7E);
     spi_transfer(value);
     SSR_PORT |= (1 << SSR);
@@ -171,13 +171,22 @@ void RFID_opstarten(void) {
 }
 
 // hoe zorg je dat je hier na 2 sec weer uit bent? Is 1 keer checken genoeg?
-void RFID_scannen(void){
-    int gedetecteerd = 0;
-    while(gedetecteerd == 0)
-        if (tag_detectedR()) {
-            LED_BLAUW_PORT |= (1 << LED_BLAUW);
-            _delay_ms(250);
+int RFID_scannen(int kant){ // kant = 0 = rechts, kant = 1 = links
+    if (kant == 0) { //doosje rechts
+        if (tag_detectedR()) { //tag gedetecteerd
+            return 1;
         }
-
+        else { // geen tag
+            return 0;
+        }
+    }
+    else { // doosje links
+        if (tag_detectedL()) { // tag gedetecteerd
+            return 1;
+        }
+        else { // geen tag
+            return 0;
+        }
+    }
 }
 
