@@ -5,6 +5,7 @@ void acknowledge_module(void);
 void led_blauw(void);
 void led_groen(void);
 void rijden(void);
+void stoppen(void);
 void sequence(void);
 
 

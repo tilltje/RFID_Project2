@@ -6,6 +6,7 @@
 #include "Display.h"
 #include "Sequence.h"
 
+
 void acknowledge_module(void) {
     ACK_MOD_PORT |= (1 << ACK_MOD);
     TCNT3 = 0;
@@ -32,7 +33,7 @@ void stoppen(void) {
 
 void led_blauw(void) { //leeg
     TCNT1 = 0;
-    //TIFR1 = (1 << TOV1); // flag verwijderen, not sure of dat nodig is of niet
+    TIFR1 = (1 << TOV1); // flag verwijderen
     int klaar = 0;
     LED_BLAUW_PORT |= (1 << LED_BLAUW); // led aan
     while (klaar == 0) {
@@ -45,7 +46,7 @@ void led_blauw(void) { //leeg
 
 void led_groen(void) { // rfid
     TCNT1 = 0;
-    //TIFR1 = (1 << TOV1); // flag verwijderen, not sure of dat nodig is of niet
+    TIFR1 = (1 << TOV1); // flag verwijderen
     int klaar = 0;
     LED_GROEN_PORT |= (1 << LED_GROEN); // led aan
     while (klaar == 0) {

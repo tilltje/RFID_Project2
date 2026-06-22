@@ -66,6 +66,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Sequence.h" />
+		<Unit filename="Testen.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Testen.h" />
 		<Unit filename="fuse.c">
 			<Option compilerVar="CC" />
 		</Unit>
