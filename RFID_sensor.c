@@ -10,7 +10,6 @@
 uint8_t spi_transfer(uint8_t data) {
     SPDR = data;
     while (!(SPSR & (1 << SPIF))); /// HIER ZIT EEN FOUT///
-
     return SPDR;
 }
 
@@ -54,14 +53,6 @@ uint8_t read_reg_L(uint8_t reg) {
 // Initialize the RC522
 void rc522_init() {
     // Perform a hard reset by cycling the RST pin
-    PORTC ^= (1 << PC3);
-        _delay_ms(500);
-        PORTC ^= (1 << PC3);
-        _delay_ms(500);
-        PORTC ^= (1 << PC3);
-        _delay_ms(500);
-        PORTC ^= (1 << PC3);
-        _delay_ms(500);
 
     RSTR_PORT |= (1 << RSTR);
     _delay_ms(50);
@@ -98,14 +89,6 @@ void rc522_init() {
 
 // Scan for a passive RFID tag rechts
 int tag_detectedR() {
-    PORTC ^= (1 << PC3);
-        _delay_ms(500);
-    PORTC ^= (1 << PC3);
-    _delay_ms(500);
-    PORTC ^= (1 << PC3);
-    _delay_ms(500);
-    PORTC ^= (1 << PC3);
-    _delay_ms(500);
     write_reg_R(CommandReg, PCD_IDLE);
     write_reg_R(ComIrqReg, 0x7F);
     write_reg_R(FIFOLevelReg, 0x80); // Flush FIFO
@@ -189,28 +172,23 @@ void RFID_opstarten(void) {
 
 // hoe zorg je dat je hier na 2 sec weer uit bent? Is 1 keer checken genoeg?
 int RFID_scannen(int kant){ // kant = 0 = rechts, kant = 1 = links
-        PORTC ^= (1 << PC3);
-        _delay_ms(250);
-        PORTC ^= (1 << PC3);
-        _delay_ms(250);
-        PORTC ^= (1 << PC3);
-        _delay_ms(250);
-        PORTC ^= (1 << PC3);
-        _delay_ms(250);
     if (kant == 0) { //doosje rechts
         if (tag_detectedR()) { //tag gedetecteerd
+            _delay_ms(100);
             return 1;
         }
         else { // geen tag
+            _delay_ms(100);
             return 0;
         }
-    return 0;
     }
     else { // doosje links
         if (tag_detectedL()) { // tag gedetecteerd
+            _delay_ms(100);
             return 1;
         }
         else { // geen tag
+            _delay_ms(100);
             return 0;
         }
     }

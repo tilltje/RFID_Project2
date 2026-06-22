@@ -26,6 +26,10 @@ void initialisatie_communicatie(void) {
 }
 
 void initialisatie_RFID(void) {
+    DDRB |= (1 << PB0); // SS-pin als output configureren voor spi
+    PORTB |= (1 << PB0);
+
+
     SSR_DDR |= (1 << SSR);//SS output
     SSL_DDR |= (1 << SSL);
     SCK_DDR |= (1 << SCK);//SCK output

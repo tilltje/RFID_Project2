@@ -31,48 +31,49 @@ void testen(void) {
 
     int teller_leeg = 0;
     int teller_rfid = 0;
-    int rechts = 0;
-    int links = 0;
     RFID_opstarten();
-    int rechtsdetectie = 0;
-    int linksdetectie = 1;
+    int tagrechts = 0;
+    int taglinks = 0;
 
-
-
-
-    while(1) {
-        /*PORTC ^= (1 << PC3);
-        _delay_ms(500);
-        PORTC ^= (1 << PC3);
-        _delay_ms(500);
-        PORTC ^= (1 << PC3);
-        _delay_ms(500);
-        PORTC ^= (1 << PC3);
-        _delay_ms(500);*/
-
-        rechtsdetectie = RFID_scannen(0);
-        linksdetectie =  RFID_scannen(1);
-
-        if ((rechtsdetectie != 0) && (rechts == 0)) {
-            //teller_leeg++;
-            //display(teller_leeg, teller_rfid);
-            LED_GROEN_PORT &= ~(1 << LED_GROEN);
-            rechts = 1;
+    while (1) {
+        if (tag_detectedR()) {
+            // Blink LED on detection
+            PORTC ^= (1 << PC3);
+            _delay_ms(100);
+            //SPI_PORT &= ~(1 << LED_PIN);
+            //_delay_ms(100);
+            tagrechts = 1;
         }
-        if ((linksdetectie != 0) && (links == 0)) {
-            //teller_rfid++;
-            //display(teller_leeg, teller_rfid);
-            LED_GROEN_PORT &= ~(1 << LED_GROEN);
-            links = 1;
+        else {
+            if (tagrechts == 1) {
+                tagrechts = 0;
+                _delay_ms(50);
+            }
+            else {
+               // PORTC &= ~(1 << PC3);
+                _delay_ms(100);
+            }
+            //_delay_ms(200); // Standard polling interval
         }
-        if ((rechtsdetectie == 0) && (rechts == 1)) {
-            rechts = 0;
-            LED_GROEN_PORT |= (1 << LED_GROEN);
+        if (tag_detectedL()) {
+            // Blink LED on detection
+            PORTC ^= (1 << PC3);
+            _delay_ms(1000);
+            //SPI_PORT &= ~(1 << LED_PIN);
+            //_delay_ms(100);
+            taglinks = 1;
         }
-        if ((linksdetectie == 0) && (links == 1)) {
-            links = 0;
-            LED_GROEN_PORT |= (1 << LED_GROEN);
+        else {
+            if (taglinks == 1) {
+                taglinks = 0;
+                _delay_ms(50);
+            }
+            else {
+               // PORTC &= ~(1 << PC3);
+                _delay_ms(100);
+            }
+            //_delay_ms(200); // Standard polling interval
         }
-
     }
+
 }
