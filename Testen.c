@@ -58,7 +58,7 @@ void testen(void) {
         if (tag_detectedL()) {
             // Blink LED on detection
             PORTC ^= (1 << PC3);
-            _delay_ms(1000);
+            _delay_ms(750);
             //SPI_PORT &= ~(1 << LED_PIN);
             //_delay_ms(100);
             taglinks = 1;
