@@ -2,7 +2,7 @@
 1781856463 source:c:\users\annev\documents\github\rfid_project2\fuse.c
 	<avr/io.h>
 
-1782150931 source:c:\users\annev\documents\github\rfid_project2\initialisatie.c
+1782224546 source:c:\users\annev\documents\github\rfid_project2\initialisatie.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -13,7 +13,7 @@
 
 1782137179 c:\users\annev\documents\github\rfid_project2\initialisatie.h
 
-1782137932 source:c:\users\annev\documents\github\rfid_project2\main.c
+1782223745 source:c:\users\annev\documents\github\rfid_project2\main.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -47,7 +47,7 @@
 
 1782123167 c:\users\annev\documents\github\rfid_project2\sequence.h
 
-1782127059 source:c:\users\annev\documents\github\rfid_project2\sequence.c
+1782223249 source:c:\users\annev\documents\github\rfid_project2\sequence.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -56,7 +56,7 @@
 	"Display.h"
 	"Sequence.h"
 
-1782202002 source:c:\users\annev\documents\github\rfid_project2\testen.c
+1782223687 source:c:\users\annev\documents\github\rfid_project2\testen.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -66,5 +66,5 @@
 	"Sequence.h"
 	"Testen.h"
 
-1782130260 c:\users\annev\documents\github\rfid_project2\testen.h
+1782223745 c:\users\annev\documents\github\rfid_project2\testen.h
 
