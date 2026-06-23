@@ -56,7 +56,7 @@
 	"Display.h"
 	"Sequence.h"
 
-1782155661 source:c:\users\annev\documents\github\rfid_project2\testen.c
+1782202002 source:c:\users\annev\documents\github\rfid_project2\testen.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>

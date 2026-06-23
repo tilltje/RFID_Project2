@@ -34,10 +34,56 @@ void testen(void) {
     RFID_opstarten();
     int tagrechts = 0;
     int taglinks = 0;
+    int rechts = 0;
+    int links = 0;
 
+
+    while (1) { //detectiemodus
+        if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
+            stoppen();
+            rechts = 1;
+            if (RFID_scannen(0) != 0) {// doosje bevat tag
+                teller_rfid++;
+                display(teller_leeg, teller_rfid);
+                led_groen();
+            }
+            else { // doosje is leeg
+                teller_leeg++;
+                display(teller_leeg, teller_rfid);
+                led_blauw();
+            }
+        }
+        if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
+            stoppen();
+            links = 1;
+            if (RFID_scannen(1) != 0) { //doosje bevat tag
+                teller_rfid++;
+                display(teller_leeg, teller_rfid);
+                led_groen();
+            }
+            else { // doosje is leeg
+                teller_leeg++;
+                display(teller_leeg, teller_rfid);
+                led_blauw();
+            }
+        }
+        if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
+            rechts = 0;
+            _delay_ms(50); // debouncen
+        }
+        if (((IR_L_PIN & (1 << IR_L)) != 0) && (links == 1)) { // links doosje niet meer gedetecteerd
+            links = 0;
+            _delay_ms(50); // debouncen
+        }
+
+    }
+
+    /*
     while (1) {
         if (tag_detectedR()) {
             // Blink LED on detection
+            teller_leeg++;
+            display(teller_leeg, teller_rfid);
             PORTC ^= (1 << PC3);
             _delay_ms(100);
             //SPI_PORT &= ~(1 << LED_PIN);
@@ -57,6 +103,8 @@ void testen(void) {
         }
         if (tag_detectedL()) {
             // Blink LED on detection
+            teller_rfid++;
+            display(teller_leeg, teller_rfid);
             PORTC ^= (1 << PC3);
             _delay_ms(750);
             //SPI_PORT &= ~(1 << LED_PIN);
@@ -75,5 +123,6 @@ void testen(void) {
             //_delay_ms(200); // Standard polling interval
         }
     }
+    */
 
 }
