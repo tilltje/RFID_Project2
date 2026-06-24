@@ -30,7 +30,7 @@ void rijden(void) {
 
 void stoppen(void) {
     ACK_MOD_PORT |= (1 << ACK_MOD);
-    _delay_ms(1000);
+    _delay_ms(2000);
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
 }
 
@@ -79,12 +79,16 @@ void sequence(void) {
             if (RFID_scannen(0) != 0) {// doosje bevat tag
                 teller_rfid++;
                 display(teller_leeg, teller_rfid);
+                //display(links, rechts);
                 led_groen();
+                _delay_ms(50);
             }
             else { // doosje is leeg
                 teller_leeg++;
                 display(teller_leeg, teller_rfid);
+                //display(links, rechts);
                 led_blauw();
+                _delay_ms(50);
             }
         }
         if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
@@ -93,20 +97,26 @@ void sequence(void) {
             if (RFID_scannen(1) != 0) { //doosje bevat tag
                 teller_rfid++;
                 display(teller_leeg, teller_rfid);
+                //display(links, rechts);
                 led_groen();
+                _delay_ms(50);
             }
             else { // doosje is leeg
                 teller_leeg++;
                 display(teller_leeg, teller_rfid);
+                //display(links, rechts);
                 led_blauw();
+                _delay_ms(50);
             }
         }
         if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
             rechts = 0;
+            //display(links, rechts);
             _delay_ms(50); // debouncen
         }
         if (((IR_L_PIN & (1 << IR_L)) != 0) && (links == 1)) { // links doosje niet meer gedetecteerd
             links = 0;
+            //display(links, rechts);
             _delay_ms(50); // debouncen
         }
 

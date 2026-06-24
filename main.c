@@ -31,7 +31,6 @@ int main(void)
 
     while(1);*/
 
-
     while(1) {
         if ((KNOP_PIN & (1 << KNOP))== 0) {
             sequence();
