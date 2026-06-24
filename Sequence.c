@@ -29,7 +29,7 @@ void rijden(void) {
 }
 
 void stoppen(void) {
-    NEXT_MOD_PORT |= (1 << NEXT_MOD);
+    //NEXT_MOD_PORT |= (1 << NEXT_MOD);
 }
 
 void led_blauw(void) { //leeg
@@ -64,10 +64,14 @@ void sequence(void) {
     int teller_rfid = 0;
     int rechts = 0;
     int links = 0;
+    int testen = 0;
     rijden();
-    while ((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus
+    LED_GROEN_PORT ^= (1 << LED_GROEN);
+
+    while (1) { //((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus // was ==0
+        //_delay_ms(500);
         if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
-            stoppen();
+            //stoppen();
             rechts = 1;
             if (RFID_scannen(0) != 0) {// doosje bevat tag
                 teller_rfid++;
@@ -81,7 +85,7 @@ void sequence(void) {
             }
         }
         if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
-            stoppen();
+            //stoppen();
             links = 1;
             if (RFID_scannen(1) != 0) { //doosje bevat tag
                 teller_rfid++;
@@ -104,6 +108,6 @@ void sequence(void) {
         }
 
     }
-    acknowledge_module();
+    //acknowledge_module();
 
 }

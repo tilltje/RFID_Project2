@@ -22,7 +22,7 @@ void initialisatie_communicatie(void) {
     ACK_AGV_DDR &= ~(1 << ACK_AGV);
 
     MODNUMMER_PORT &= ~(1 << MODNUMMER); //Laag zetten, want detectiemodule
-    NEXT_MOD_PORT &= ~(1 << MODNUMMER);
+    NEXT_MOD_PORT &= ~(1 << NEXT_MOD); // dit was modnummer, foutje
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
 
     LIJN_PORT |= (1 << LIJN); // PULL-UPS ACTIVEREN

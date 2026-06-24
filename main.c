@@ -18,6 +18,7 @@ int main(void)
 {
 
     initialisatie();
+    _delay_ms(2000);
     //IRblauwtesten();
     //IRsensortesten();
     //testen();
@@ -32,7 +33,7 @@ int main(void)
 
 
     while(1) {
-        if ((KNOP_PIN & KNOP )== 0) {
+        if ((KNOP_PIN & (1 << KNOP))== 0) {
             sequence();
         }
     }
