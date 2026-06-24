@@ -5,13 +5,13 @@
 #include "RFID_sensor.h"
 #include "Display.h"
 #include "Sequence.h"
-
+/*
 ISR(INT0_vect) { ///gecheckt, werkt!
     NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
     PORTB &= ~(1 << PB7);
     _delay_ms(500);
     PORTB |= (1 << PB7);
-}
+}*/
 
 void initialisatie_communicatie(void) {
     MODNUMMER_DDR |= (1 << MODNUMMER); // output
@@ -29,13 +29,13 @@ void initialisatie_communicatie(void) {
     NEXT_AGV_PORT |= (1 << NEXT_AGV);
     ACK_AGV_PORT |= (1 << ACK_AGV);
 
-    // externe interrupt vanuit agv
+    /*// externe interrupt vanuit agv
     EIMSK |= (1 << INT0); // interrupt 0 (pin 21) aanzetten
     EICRA |= (1 << ISC01) | (1 << ISC00);
 
     TCCR3B &= ~(1 << CS32);
     TCCR3B |= (1 << CS31);
-    TCCR3B &= ~(1 << CS30);
+    TCCR3B &= ~(1 << CS30);*/
 }
 
 void initialisatie_RFID(void) {

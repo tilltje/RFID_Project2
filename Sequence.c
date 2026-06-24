@@ -6,7 +6,7 @@
 #include "Display.h"
 #include "Sequence.h"
 
-
+/*
 void acknowledge_module(void) {
     ACK_MOD_PORT |= (1 << ACK_MOD);
     TCNT3 = 0;
@@ -17,19 +17,21 @@ void acknowledge_module(void) {
 ISR(TIMER3_OVF_vect) { // acknowledge module
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
     TIMSK3 &= ~(1 << TOIE3); // interrupt weer uitzetten
-}
+}*/
 
 /*
 ISR(INT0_vect) { //AGV heeft commando geacknowledged
     NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
 }*/
-
+/*
 void rijden(void) {
     NEXT_MOD_PORT |= (1 << NEXT_MOD); // Volgende naar agv signaleren
-}
+}*/
 
 void stoppen(void) {
-    //NEXT_MOD_PORT |= (1 << NEXT_MOD);
+    ACK_MOD_PORT |= (1 << ACK_MOD);
+    _delay_ms(1000);
+    ACK_MOD_PORT &= ~(1 << ACK_MOD);
 }
 
 void led_blauw(void) { //leeg
@@ -60,18 +62,19 @@ void led_groen(void) { // rfid
 
 void sequence(void) {
     RFID_opstarten();
+    NEXT_MOD_PORT |= (1 << NEXT_MOD); // agv moet gaan rijden
     int teller_leeg = 0;
     int teller_rfid = 0;
     int rechts = 0;
     int links = 0;
     int testen = 0;
-    rijden();
+    //rijden();
     LED_GROEN_PORT ^= (1 << LED_GROEN);
 
-    while (1) { //((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus // was ==0
+    while ((NEXT_AGV_PIN & (1 << NEXT_AGV_PIN)) == 0) { //((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus
         //_delay_ms(500);
         if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
-            //stoppen();
+            stoppen();
             rechts = 1;
             if (RFID_scannen(0) != 0) {// doosje bevat tag
                 teller_rfid++;
@@ -85,7 +88,7 @@ void sequence(void) {
             }
         }
         if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
-            //stoppen();
+            stoppen();
             links = 1;
             if (RFID_scannen(1) != 0) { //doosje bevat tag
                 teller_rfid++;

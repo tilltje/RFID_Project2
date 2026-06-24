@@ -134,7 +134,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0xb4e
+.text           0x0000000000000000      0xac6
  *(.vectors)
  .vectors       0x0000000000000000       0xe4 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
                 0x0000000000000000                __vector_default
@@ -192,6 +192,7 @@ END GROUP
                 0x0000000000000116                __vector_38
                 0x0000000000000116                __vector_22
                 0x0000000000000116                __vector_28
+                0x0000000000000116                __vector_1
                 0x0000000000000116                __vector_32
                 0x0000000000000116                __vector_34
                 0x0000000000000116                __vector_24
@@ -201,6 +202,7 @@ END GROUP
                 0x0000000000000116                __bad_interrupt
                 0x0000000000000116                __vector_6
                 0x0000000000000116                __vector_31
+                0x0000000000000116                __vector_35
                 0x0000000000000116                __vector_39
                 0x0000000000000116                __vector_3
                 0x0000000000000116                __vector_23
@@ -250,93 +252,86 @@ END GROUP
                 0x00000000000001e0                tm_stop
                 0x0000000000000216                display
  .text          0x0000000000000304        0x0 obj\Debug\fuse.o
- .text          0x0000000000000304      0x16e obj\Debug\Initialisatie.o
-                0x0000000000000304                __vector_1
-                0x0000000000000332                initialisatie_communicatie
-                0x000000000000036e                initialisatie_RFID
-                0x00000000000003e2                initialisatie_IRsensor
-                0x0000000000000404                initialisatie_display
-                0x0000000000000430                initialisatie_leds
-                0x0000000000000450                initialisatie_knop
-                0x0000000000000456                initialisatie
- .text          0x0000000000000472       0x20 obj\Debug\main.o
-                0x0000000000000472                main
- .text          0x0000000000000492      0x30c obj\Debug\RFID_sensor.o
-                0x0000000000000492                spi_transfer
-                0x000000000000049e                write_reg_R
-                0x00000000000004cc                read_reg_R
-                0x00000000000004f6                write_reg_L
-                0x0000000000000524                read_reg_L
-                0x000000000000054e                rc522_init
-                0x0000000000000638                tag_detectedR
-                0x00000000000006b0                tag_detectedL
-                0x0000000000000728                RFID_opstarten
-                0x0000000000000732                RFID_scannen
- .text          0x000000000000079e      0x17e obj\Debug\Sequence.o
-                0x000000000000079e                acknowledge_module
-                0x00000000000007b8                __vector_35
-                0x00000000000007e2                rijden
-                0x00000000000007e6                stoppen
-                0x00000000000007e8                led_blauw
-                0x00000000000007fe                led_groen
-                0x0000000000000814                sequence
- .text          0x000000000000091c      0x210 obj\Debug\Testen.o
-                0x000000000000091c                init_test
-                0x000000000000092c                test_module_versturen
-                0x0000000000000932                test_AGV_ontvang
-                0x0000000000000984                IRblauwtesten
-                0x00000000000009a0                IRsensortesten
-                0x0000000000000a28                testen
- .text          0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .text          0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .text          0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
-                0x0000000000000b2c                . = ALIGN (0x2)
+ .text          0x0000000000000304      0x11e obj\Debug\Initialisatie.o
+                0x0000000000000304                initialisatie_communicatie
+                0x000000000000031e                initialisatie_RFID
+                0x0000000000000392                initialisatie_IRsensor
+                0x00000000000003b4                initialisatie_display
+                0x00000000000003e0                initialisatie_leds
+                0x0000000000000400                initialisatie_knop
+                0x0000000000000406                initialisatie
+ .text          0x0000000000000422       0x20 obj\Debug\main.o
+                0x0000000000000422                main
+ .text          0x0000000000000442      0x30c obj\Debug\RFID_sensor.o
+                0x0000000000000442                spi_transfer
+                0x000000000000044e                write_reg_R
+                0x000000000000047c                read_reg_R
+                0x00000000000004a6                write_reg_L
+                0x00000000000004d4                read_reg_L
+                0x00000000000004fe                rc522_init
+                0x00000000000005e8                tag_detectedR
+                0x0000000000000660                tag_detectedL
+                0x00000000000006d8                RFID_opstarten
+                0x00000000000006e2                RFID_scannen
+ .text          0x000000000000074e      0x1ae obj\Debug\Sequence.o
+                0x000000000000074e                stoppen
+                0x0000000000000766                led_blauw
+                0x000000000000077c                led_groen
+                0x0000000000000792                sequence
+ .text          0x00000000000008fc      0x1a8 obj\Debug\Testen.o
+                0x00000000000008fc                IRblauwtesten
+                0x0000000000000918                IRsensortesten
+                0x00000000000009a0                testen
+ .text          0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .text          0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .text          0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000000000000aa4                . = ALIGN (0x2)
  *(.text.*)
  .text.libgcc.mul
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
  .text.libgcc.div
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .text.libgcc   0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .text.libgcc   0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x0000000000000b2c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+                0x0000000000000aa4        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x0000000000000b2c       0x1e c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
-                0x0000000000000b2c                __umulhisi3
+                0x0000000000000aa4       0x1e c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000000000000aa4                __umulhisi3
  .text.libgcc.div
-                0x0000000000000b4a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
- .text.libgcc   0x0000000000000b4a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000000000000ac2        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x0000000000000ac2        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
  .text.libgcc.prologue
-                0x0000000000000b4a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000000000000ac2        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
  .text.libgcc.builtins
-                0x0000000000000b4a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000000000000ac2        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
  .text.libgcc.fmul
-                0x0000000000000b4a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000000000000ac2        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
  .text.libgcc.fixed
-                0x0000000000000b4a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
-                0x0000000000000b4a                . = ALIGN (0x2)
+                0x0000000000000ac2        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000000000000ac2                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000b4a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
-                0x0000000000000b4a                _exit
-                0x0000000000000b4a                exit
+ .fini9         0x0000000000000ac2        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+                0x0000000000000ac2                _exit
+                0x0000000000000ac2                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -355,17 +350,17 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000b4a        0x4 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .fini0         0x0000000000000ac2        0x4 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
  *(.fini0)
  *(.hightext)
  *(.hightext*)
  *(.progmemx.*)
-                0x0000000000000b4e                . = ALIGN (0x2)
+                0x0000000000000ac6                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
-                0x0000000000000b4e                _etext = .
+                0x0000000000000ac6                _etext = .
 
-.data           0x0000000000800200        0xc load address 0x0000000000000b4e
+.data           0x0000000000800200        0xa load address 0x0000000000000ac6
                 0x0000000000800200                PROVIDE (__data_start = .)
  *(.data)
  .data          0x0000000000800200        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
@@ -375,46 +370,46 @@ END GROUP
  .data          0x0000000000800200        0x0 obj\Debug\main.o
  .data          0x0000000000800200        0x0 obj\Debug\RFID_sensor.o
  .data          0x0000000000800200        0x0 obj\Debug\Sequence.o
- .data          0x0000000000800200        0x2 obj\Debug\Testen.o
- .data          0x0000000000800202        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .data          0x0000000000800202        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .data          0x0000000000800202        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+ .data          0x0000000000800200        0x0 obj\Debug\Testen.o
+ .data          0x0000000000800200        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .data          0x0000000000800200        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .data          0x0000000000800200        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
  *(.data*)
  *(.gnu.linkonce.d*)
  *(.rodata)
- .rodata        0x0000000000800202        0xa obj\Debug\Display.o
-                0x0000000000800202                segmentMap
+ .rodata        0x0000000000800200        0xa obj\Debug\Display.o
+                0x0000000000800200                segmentMap
  *(.rodata*)
  *(.gnu.linkonce.r*)
-                0x000000000080020c                . = ALIGN (0x2)
-                0x000000000080020c                _edata = .
-                0x000000000080020c                PROVIDE (__data_end = .)
+                0x000000000080020a                . = ALIGN (0x2)
+                0x000000000080020a                _edata = .
+                0x000000000080020a                PROVIDE (__data_end = .)
 
-.bss            0x000000000080020c        0x0
+.bss            0x000000000080020a        0x0
                 [!provide]                        PROVIDE (__bss_start = .)
  *(.bss)
- .bss           0x000000000080020c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
- .bss           0x000000000080020c        0x0 obj\Debug\Display.o
- .bss           0x000000000080020c        0x0 obj\Debug\fuse.o
- .bss           0x000000000080020c        0x0 obj\Debug\Initialisatie.o
- .bss           0x000000000080020c        0x0 obj\Debug\main.o
- .bss           0x000000000080020c        0x0 obj\Debug\RFID_sensor.o
- .bss           0x000000000080020c        0x0 obj\Debug\Sequence.o
- .bss           0x000000000080020c        0x0 obj\Debug\Testen.o
- .bss           0x000000000080020c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .bss           0x000000000080020c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .bss           0x000000000080020c        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+ .bss           0x000000000080020a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
+ .bss           0x000000000080020a        0x0 obj\Debug\Display.o
+ .bss           0x000000000080020a        0x0 obj\Debug\fuse.o
+ .bss           0x000000000080020a        0x0 obj\Debug\Initialisatie.o
+ .bss           0x000000000080020a        0x0 obj\Debug\main.o
+ .bss           0x000000000080020a        0x0 obj\Debug\RFID_sensor.o
+ .bss           0x000000000080020a        0x0 obj\Debug\Sequence.o
+ .bss           0x000000000080020a        0x0 obj\Debug\Testen.o
+ .bss           0x000000000080020a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .bss           0x000000000080020a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .bss           0x000000000080020a        0x0 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
  *(.bss*)
  *(COMMON)
                 [!provide]                        PROVIDE (__bss_end = .)
-                0x0000000000000b4e                __data_load_start = LOADADDR (.data)
-                0x0000000000000b5a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000000000000ac6                __data_load_start = LOADADDR (.data)
+                0x0000000000000ad0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x000000000080020c        0x0
+.noinit         0x000000000080020a        0x0
                 [!provide]                        PROVIDE (__noinit_start = .)
  *(.noinit .noinit.* .gnu.linkonce.n.*)
                 [!provide]                        PROVIDE (__noinit_end = .)
-                0x000000000080020c                _end = .
+                0x000000000080020a                _end = .
                 [!provide]                        PROVIDE (__heap_start = .)
 
 .eeprom         0x0000000000810000        0x0
@@ -510,77 +505,77 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x271b
+.debug_info     0x0000000000000000     0x25d6
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0xbbc c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
  .debug_info    0x0000000000000bbc      0x4b1 obj\Debug\Display.o
  .debug_info    0x000000000000106d       0xa2 obj\Debug\fuse.o
- .debug_info    0x000000000000110f      0x26d obj\Debug\Initialisatie.o
- .debug_info    0x000000000000137c      0x159 obj\Debug\main.o
- .debug_info    0x00000000000014d5      0x96c obj\Debug\RFID_sensor.o
- .debug_info    0x0000000000001e41      0x377 obj\Debug\Sequence.o
- .debug_info    0x00000000000021b8      0x4f7 obj\Debug\Testen.o
- .debug_info    0x00000000000026af       0x24 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .debug_info    0x00000000000026d3       0x24 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .debug_info    0x00000000000026f7       0x24 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+ .debug_info    0x000000000000110f      0x1a4 obj\Debug\Initialisatie.o
+ .debug_info    0x00000000000012b3      0x159 obj\Debug\main.o
+ .debug_info    0x000000000000140c      0x96c obj\Debug\RFID_sensor.o
+ .debug_info    0x0000000000001d78      0x3a7 obj\Debug\Sequence.o
+ .debug_info    0x000000000000211f      0x44b obj\Debug\Testen.o
+ .debug_info    0x000000000000256a       0x24 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .debug_info    0x000000000000258e       0x24 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .debug_info    0x00000000000025b2       0x24 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
 
-.debug_abbrev   0x0000000000000000     0x15ee
+.debug_abbrev   0x0000000000000000     0x1520
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000      0xb1a c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
  .debug_abbrev  0x0000000000000b1a      0x1c9 obj\Debug\Display.o
  .debug_abbrev  0x0000000000000ce3       0x7b obj\Debug\fuse.o
- .debug_abbrev  0x0000000000000d5e      0x16d obj\Debug\Initialisatie.o
- .debug_abbrev  0x0000000000000ecb      0x11b obj\Debug\main.o
- .debug_abbrev  0x0000000000000fe6      0x224 obj\Debug\RFID_sensor.o
- .debug_abbrev  0x000000000000120a      0x1a6 obj\Debug\Sequence.o
- .debug_abbrev  0x00000000000013b0      0x202 obj\Debug\Testen.o
- .debug_abbrev  0x00000000000015b2       0x14 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .debug_abbrev  0x00000000000015c6       0x14 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .debug_abbrev  0x00000000000015da       0x14 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+ .debug_abbrev  0x0000000000000d5e       0xd1 obj\Debug\Initialisatie.o
+ .debug_abbrev  0x0000000000000e2f      0x11b obj\Debug\main.o
+ .debug_abbrev  0x0000000000000f4a      0x224 obj\Debug\RFID_sensor.o
+ .debug_abbrev  0x000000000000116e      0x187 obj\Debug\Sequence.o
+ .debug_abbrev  0x00000000000012f5      0x1ef obj\Debug\Testen.o
+ .debug_abbrev  0x00000000000014e4       0x14 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .debug_abbrev  0x00000000000014f8       0x14 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .debug_abbrev  0x000000000000150c       0x14 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
 
-.debug_line     0x0000000000000000     0x22f6
+.debug_line     0x0000000000000000     0x2082
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x0000000000000000       0x1d c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
  .debug_line    0x000000000000001d      0x596 obj\Debug\Display.o
  .debug_line    0x00000000000005b3       0x3f obj\Debug\fuse.o
- .debug_line    0x00000000000005f2      0x55b obj\Debug\Initialisatie.o
- .debug_line    0x0000000000000b4d       0xd9 obj\Debug\main.o
- .debug_line    0x0000000000000c26      0x947 obj\Debug\RFID_sensor.o
- .debug_line    0x000000000000156d      0x4f5 obj\Debug\Sequence.o
- .debug_line    0x0000000000001a62      0x711 obj\Debug\Testen.o
- .debug_line    0x0000000000002173       0x51 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .debug_line    0x00000000000021c4       0x93 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .debug_line    0x0000000000002257       0x9f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+ .debug_line    0x00000000000005f2      0x467 obj\Debug\Initialisatie.o
+ .debug_line    0x0000000000000a59       0xd9 obj\Debug\main.o
+ .debug_line    0x0000000000000b32      0x947 obj\Debug\RFID_sensor.o
+ .debug_line    0x0000000000001479      0x52e obj\Debug\Sequence.o
+ .debug_line    0x00000000000019a7      0x558 obj\Debug\Testen.o
+ .debug_line    0x0000000000001eff       0x51 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .debug_line    0x0000000000001f50       0x93 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .debug_line    0x0000000000001fe3       0x9f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
 
-.debug_frame    0x0000000000000000      0x350
+.debug_frame    0x0000000000000000      0x304
  *(.debug_frame)
  .debug_frame   0x0000000000000000       0x84 obj\Debug\Display.o
- .debug_frame   0x0000000000000084       0xa0 obj\Debug\Initialisatie.o
- .debug_frame   0x0000000000000124       0x24 obj\Debug\main.o
- .debug_frame   0x0000000000000148      0x104 obj\Debug\RFID_sensor.o
- .debug_frame   0x000000000000024c       0x90 obj\Debug\Sequence.o
- .debug_frame   0x00000000000002dc       0x74 obj\Debug\Testen.o
+ .debug_frame   0x0000000000000084       0x84 obj\Debug\Initialisatie.o
+ .debug_frame   0x0000000000000108       0x24 obj\Debug\main.o
+ .debug_frame   0x000000000000012c      0x104 obj\Debug\RFID_sensor.o
+ .debug_frame   0x0000000000000230       0x90 obj\Debug\Sequence.o
+ .debug_frame   0x00000000000002c0       0x44 obj\Debug\Testen.o
 
-.debug_str      0x0000000000000000      0x7ae
+.debug_str      0x0000000000000000      0x743
  *(.debug_str)
  .debug_str     0x0000000000000000      0x3e9 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
  .debug_str     0x00000000000003e9      0x135 obj\Debug\Display.o
                                         0x171 (size before relaxing)
  .debug_str     0x000000000000051e       0x1e obj\Debug\fuse.o
                                          0xdc (size before relaxing)
- .debug_str     0x000000000000053c       0xa9 obj\Debug\Initialisatie.o
-                                        0x1dc (size before relaxing)
- .debug_str     0x00000000000005e5        0xe obj\Debug\main.o
+ .debug_str     0x000000000000053c       0x8f obj\Debug\Initialisatie.o
+                                        0x181 (size before relaxing)
+ .debug_str     0x00000000000005cb       0x1d obj\Debug\main.o
                                         0x132 (size before relaxing)
- .debug_str     0x00000000000005f3       0xa9 obj\Debug\RFID_sensor.o
+ .debug_str     0x00000000000005e8       0xa9 obj\Debug\RFID_sensor.o
                                         0x1ef (size before relaxing)
- .debug_str     0x000000000000069c       0x55 obj\Debug\Sequence.o
-                                        0x1c0 (size before relaxing)
- .debug_str     0x00000000000006f1       0x5e obj\Debug\Testen.o
-                                        0x210 (size before relaxing)
- .debug_str     0x000000000000074f       0x5f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
- .debug_str     0x00000000000007ae       0x5f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
- .debug_str     0x00000000000007ae       0x5f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
+ .debug_str     0x0000000000000691       0x2f obj\Debug\Sequence.o
+                                        0x19a (size before relaxing)
+ .debug_str     0x00000000000006c0       0x24 obj\Debug\Testen.o
+                                        0x1be (size before relaxing)
+ .debug_str     0x00000000000006e4       0x5f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
+ .debug_str     0x0000000000000743       0x5f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
+ .debug_str     0x0000000000000743       0x5f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
 
 .debug_loc
  *(.debug_loc)
@@ -620,7 +615,7 @@ END GROUP
                                          0xba (size before relaxing)
  .debug_line_str
                 0x0000000000000131       0x1a obj\Debug\Initialisatie.o
-                                        0x117 (size before relaxing)
+                                         0xd1 (size before relaxing)
  .debug_line_str
                 0x000000000000014b       0x22 obj\Debug\main.o
                                         0x10d (size before relaxing)
@@ -642,20 +637,18 @@ END GROUP
                 0x00000000000001f0       0x5f c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
 
 .debug_loclists
-                0x0000000000000000      0x90e
+                0x0000000000000000      0x8f0
  *(.debug_loclists)
  .debug_loclists
                 0x0000000000000000      0x263 obj\Debug\Display.o
  .debug_loclists
-                0x0000000000000263       0x33 obj\Debug\Initialisatie.o
+                0x0000000000000263       0x33 obj\Debug\main.o
  .debug_loclists
-                0x0000000000000296       0x33 obj\Debug\main.o
+                0x0000000000000296      0x37f obj\Debug\RFID_sensor.o
  .debug_loclists
-                0x00000000000002c9      0x37f obj\Debug\RFID_sensor.o
+                0x0000000000000615      0x161 obj\Debug\Sequence.o
  .debug_loclists
-                0x0000000000000648      0x10d obj\Debug\Sequence.o
- .debug_loclists
-                0x0000000000000755      0x1b9 obj\Debug\Testen.o
+                0x0000000000000776      0x17a obj\Debug\Testen.o
 
 .debug_macro
  *(.debug_macro)
@@ -698,7 +691,6 @@ __data_end                                        c:/program files (x86)/avr-gcc
 __data_load_start                                 c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
 __data_start                                      c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
 __do_copy_data                                    c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_copy_data.o)
-                                                  obj\Debug\Testen.o
                                                   obj\Debug\Display.o
 __fuse                                            obj\Debug\fuse.o
 __heap_end                                        c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
@@ -706,8 +698,7 @@ __init                                            c:/program files (x86)/avr-gcc
 __stack                                           c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __umulhisi3                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_umulhisi3.o)
                                                   obj\Debug\Display.o
-__vector_1                                        obj\Debug\Initialisatie.o
-                                                  c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
+__vector_1                                        c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_10                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_11                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_12                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
@@ -735,8 +726,7 @@ __vector_31                                       c:/program files (x86)/avr-gcc
 __vector_32                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_33                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_34                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
-__vector_35                                       obj\Debug\Sequence.o
-                                                  c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
+__vector_35                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_36                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_37                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vector_38                                       c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
@@ -767,15 +757,12 @@ __vector_9                                        c:/program files (x86)/avr-gcc
 __vector_default                                  c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 __vectors                                         c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
 _exit                                             c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
-acknowledge_module                                obj\Debug\Sequence.o
-                                                  obj\Debug\Testen.o
 display                                           obj\Debug\Display.o
                                                   obj\Debug\Testen.o
                                                   obj\Debug\Sequence.o
                                                   obj\Debug\Initialisatie.o
 exit                                              c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/avr6\libgcc.a(_exit.o)
                                                   c:/program files (x86)/avr-gcc-12.0.1/bin/../lib/gcc/avr/12.1.0/../../../../avr/lib/avr6/crtatmega2560.o
-init_test                                         obj\Debug\Testen.o
 initialisatie                                     obj\Debug\Initialisatie.o
                                                   obj\Debug\main.o
 initialisatie_IRsensor                            obj\Debug\Initialisatie.o
@@ -794,7 +781,6 @@ main                                              obj\Debug\main.o
 rc522_init                                        obj\Debug\RFID_sensor.o
 read_reg_L                                        obj\Debug\RFID_sensor.o
 read_reg_R                                        obj\Debug\RFID_sensor.o
-rijden                                            obj\Debug\Sequence.o
 segmentMap                                        obj\Debug\Display.o
 send_byte                                         obj\Debug\Display.o
                                                   obj\Debug\Initialisatie.o
@@ -805,8 +791,6 @@ stoppen                                           obj\Debug\Sequence.o
                                                   obj\Debug\Testen.o
 tag_detectedL                                     obj\Debug\RFID_sensor.o
 tag_detectedR                                     obj\Debug\RFID_sensor.o
-test_AGV_ontvang                                  obj\Debug\Testen.o
-test_module_versturen                             obj\Debug\Testen.o
 testen                                            obj\Debug\Testen.o
 tm_start                                          obj\Debug\Display.o
                                                   obj\Debug\Initialisatie.o
