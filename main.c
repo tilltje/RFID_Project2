@@ -18,7 +18,7 @@ int main(void)
 {
 
     initialisatie();
-    _delay_ms(2000);
+    _delay_ms(50);
     //IRblauwtesten();
     //IRsensortesten();
     //testen();

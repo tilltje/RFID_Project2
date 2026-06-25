@@ -35,7 +35,7 @@ void stoppen(void) {
 }
 
 void starten(void) {
-    _delay_ms(2000);
+    _delay_ms(500);
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
 }
 
@@ -74,9 +74,9 @@ void sequence(void) {
     int links = 0;
     int testen = 0;
     //rijden();
-    LED_GROEN_PORT ^= (1 << LED_GROEN);
+    //LED_GROEN_PORT ^= (1 << LED_GROEN);
 
-    while ((NEXT_AGV_PIN & (1 << NEXT_AGV_PIN)) == 0) { //((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus
+    while ((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus
         //_delay_ms(500);
         if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
             stoppen();
@@ -118,7 +118,7 @@ void sequence(void) {
         }
         if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
             rechts = 0;
-            //display(links, rechts);
+           // display(links, rechts);
             _delay_ms(50); // debouncen
         }
         if (((IR_L_PIN & (1 << IR_L)) != 0) && (links == 1)) { // links doosje niet meer gedetecteerd
@@ -126,6 +126,7 @@ void sequence(void) {
             //display(links, rechts);
             _delay_ms(50); // debouncen
         }
+        //display(links,rechts);
 
     }
     //acknowledge_module();

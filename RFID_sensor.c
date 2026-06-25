@@ -174,21 +174,21 @@ void RFID_opstarten(void) {
 int RFID_scannen(int kant){ // kant = 0 = rechts, kant = 1 = links
     if (kant == 0) { //doosje rechts
         if (tag_detectedR()) { //tag gedetecteerd
-            _delay_ms(100);
+            _delay_ms(5);
             return 1;
         }
         else { // geen tag
-            _delay_ms(100);
+            _delay_ms(5);
             return 0;
         }
     }
     else { // doosje links
         if (tag_detectedL()) { // tag gedetecteerd
-            _delay_ms(100);
+            _delay_ms(5);
             return 1;
         }
         else { // geen tag
-            _delay_ms(100);
+            _delay_ms(5);
             return 0;
         }
     }
