@@ -30,6 +30,11 @@ void rijden(void) {
 
 void stoppen(void) {
     ACK_MOD_PORT |= (1 << ACK_MOD);
+    //_delay_ms(2000);
+    //ACK_MOD_PORT &= ~(1 << ACK_MOD);
+}
+
+void starten(void) {
     _delay_ms(2000);
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
 }
@@ -90,6 +95,7 @@ void sequence(void) {
                 led_blauw();
                 _delay_ms(50);
             }
+            starten();
         }
         if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
             stoppen();
@@ -108,6 +114,7 @@ void sequence(void) {
                 led_blauw();
                 _delay_ms(50);
             }
+            starten();
         }
         if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
             rechts = 0;
