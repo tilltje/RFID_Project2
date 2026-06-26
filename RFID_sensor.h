@@ -1,6 +1,7 @@
 #ifndef RFID_SENSOR_H_INCLUDED
 #define RFID_SENSOR_H_INCLUDED
 
+/// FUNCTIES ///
 uint8_t spi_transfer(uint8_t data);
 void RFID_write_rechts(uint8_t reg, uint8_t value);
 void RFID_write_links(uint8_t reg, uint8_t value);

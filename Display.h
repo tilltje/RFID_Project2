@@ -1,7 +1,7 @@
 #ifndef DISPLAY_H_INCLUDED
 #define DISPLAY_H_INCLUDED
 
-
+/// FUNCTIES ///
 void send_byte(uint8_t data);
 void display_verzending_aan(void);
 void display_verzending_uit(void);

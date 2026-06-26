@@ -1,6 +1,7 @@
 #ifndef INITIALISATIE_H_INCLUDED
 #define INITIALISATIE_H_INCLUDED
 
+/// DEFINITIES ///
 // Communicatiepinnen
 #define MODNUMMER           PG0 // Arduino Pin 41
 #define MODNUMMER_DDR       DDRG
@@ -116,6 +117,7 @@
 #define KNOP_PIN            PINC
 #define KNOP_PORT           PORTC
 
+/// FUNCTIES ///
 void initialisatie_communicatie(void);
 void initialisatie_RFID(void);
 void RFID_aanzetten(void);

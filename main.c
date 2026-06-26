@@ -10,7 +10,7 @@ Dit is vervolgens zelf uitgebreid naar 2 sensoren.
 Ook is het knipperen van de ledjes zelf herschreven, zodat er gebruik wordt gemaakt van een timer.
 
 */
-
+/// INCLUDE ///
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -19,6 +19,8 @@ Ook is het knipperen van de ledjes zelf herschreven, zodat er gebruik wordt gema
 #include "Display.h"
 #include "Sequence.h"
 
+
+/// MAIN ///
 int main(void)
 {
 

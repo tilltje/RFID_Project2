@@ -1,3 +1,4 @@
+/// INCLUDE ///
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -5,6 +6,8 @@
 #include "RFID_sensor.h"
 #include "Display.h"
 #include "Sequence.h"
+
+/// FUNCTIES ///
 
 // Signaleren naar AGV dat hij moet stoppen
 void stopsignaal_hoog(void) {

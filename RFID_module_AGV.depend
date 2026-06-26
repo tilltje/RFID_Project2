@@ -67,3 +67,59 @@
 
 1782468351 c:\users\annev\documents\github\rfid_project2\testen.h
 
+1781862974 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\fuse.c
+	<avr/io.h>
+
+1782479017 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\display.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+	"RFID_sensor.h"
+	"Display.h"
+	"Sequence.h"
+
+1782479119 c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\initialisatie.h
+
+1782479119 c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\rfid_sensor.h
+
+1782479119 c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\display.h
+
+1782479119 c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\sequence.h
+
+1782479017 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\initialisatie.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+	"RFID_sensor.h"
+	"Display.h"
+	"Sequence.h"
+
+1782479017 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\main.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+	"RFID_sensor.h"
+	"Display.h"
+	"Sequence.h"
+
+1782479017 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\rfid_sensor.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+	"RFID_sensor.h"
+	"Display.h"
+	"Sequence.h"
+
+1782479017 source:c:\users\tillb\documents\programmer_hhs\avg_v2_project\rfid_project2\sequence.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+	"RFID_sensor.h"
+	"Display.h"
+	"Sequence.h"
+

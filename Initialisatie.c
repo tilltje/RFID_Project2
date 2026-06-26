@@ -1,3 +1,4 @@
+/// INCLUDE ///
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
@@ -5,6 +6,8 @@
 #include "RFID_sensor.h"
 #include "Display.h"
 #include "Sequence.h"
+
+/// FUNCTIES ///
 
 // Initialisatie communicatiepinnen
 void initialisatie_communicatie(void) {
@@ -95,7 +98,8 @@ void RFID_aanzetten() {
     }
 }
 
-void initialisatie_IRsensor(void){ // Initialisatie infraroodsensoren
+// Initialisatie infraroodsensoren
+void initialisatie_IRsensor(void){
     // Input
     IR_R_DDR &= ~(1 << IR_R);
     IR_L_DDR &= ~(1 << IR_L);
@@ -105,7 +109,8 @@ void initialisatie_IRsensor(void){ // Initialisatie infraroodsensoren
     IR_L_PORT |= (1 << IR_L);
 }
 
-void initialisatie_display(void){// Initialisatie display
+// Initialisatie display
+void initialisatie_display(void){
     // Output
     CLK_DDR |= (1 << CLK);
     DIO_DDR |= (1 << DIO);
@@ -120,7 +125,8 @@ void initialisatie_display(void){// Initialisatie display
 
 }
 
-void initialisatie_leds(void) { // Leds initialiseren
+// Leds initialiseren
+void initialisatie_leds(void) {
     // Output
     LED_BLAUW_DDR |= (1 << LED_BLAUW);
     LED_GROEN_DDR |= (1 << LED_GROEN);
@@ -135,13 +141,15 @@ void initialisatie_leds(void) { // Leds initialiseren
     TCCR1B &= ~(1 << CS10);
 }
 
-void initialisatie_knop(void) { // Knop initialiseren
+// Knop initialiseren
+void initialisatie_knop(void) {
     KNOP_DDR &= ~(1 << KNOP); //INPUT
 
     KNOP_PORT |= (1 << KNOP); //PULL-UP
 }
 
-void initialisatie(void) { // Initialisatie
+// Initialisatie
+void initialisatie(void) {
     initialisatie_communicatie();
     initialisatie_RFID();
     RFID_aanzetten();

@@ -25,11 +25,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  10 .debug_str    00000761  00000000  00000000  00005bac  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_line_str 000001e7  00000000  00000000  0000630d  2**0
+ 11 .debug_line_str 00000206  00000000  00000000  0000630d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_loclists 0000074e  00000000  00000000  000064f4  2**0
+ 12 .debug_loclists 0000074e  00000000  00000000  00006513  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_rnglists 00000035  00000000  00000000  00006c42  2**0
+ 13 .debug_rnglists 00000035  00000000  00000000  00006c61  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -647,7 +647,7 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
  302:	df cf       	rjmp	.-66     	; 0x2c2 <.L13>
 
 00000304 <initialisatie_communicatie>:
-#include "Sequence.h"
+/// FUNCTIES ///
 
 // Initialisatie communicatiepinnen
 void initialisatie_communicatie(void) {
@@ -1098,7 +1098,8 @@ void RFID_aanzetten() {
 
 0000047c <initialisatie_IRsensor>:
 
-void initialisatie_IRsensor(void){ // Initialisatie infraroodsensoren
+// Initialisatie infraroodsensoren
+void initialisatie_IRsensor(void){
     // Input
     IR_R_DDR &= ~(1 << IR_R);
  47c:	ea e0       	ldi	r30, 0x0A	; 10
@@ -1139,7 +1140,8 @@ void initialisatie_IRsensor(void){ // Initialisatie infraroodsensoren
 
 0000049e <initialisatie_display>:
 
-void initialisatie_display(void){// Initialisatie display
+// Initialisatie display
+void initialisatie_display(void){
     // Output
     CLK_DDR |= (1 << CLK);
  49e:	ea e0       	ldi	r30, 0x0A	; 10
@@ -1190,7 +1192,8 @@ void initialisatie_display(void){// Initialisatie display
 
 000004ca <initialisatie_leds>:
 
-void initialisatie_leds(void) { // Leds initialiseren
+// Leds initialiseren
+void initialisatie_leds(void) {
     // Output
     LED_BLAUW_DDR |= (1 << LED_BLAUW);
  4ca:	3a 9a       	sbi	0x07, 2	; 7
@@ -1239,7 +1242,8 @@ void initialisatie_leds(void) { // Leds initialiseren
 
 000004ea <initialisatie_knop>:
 
-void initialisatie_knop(void) { // Knop initialiseren
+// Knop initialiseren
+void initialisatie_knop(void) {
     KNOP_DDR &= ~(1 << KNOP); //INPUT
  4ea:	3c 98       	cbi	0x07, 4	; 7
 
@@ -1254,7 +1258,8 @@ void initialisatie_knop(void) { // Knop initialiseren
 
 000004f0 <initialisatie>:
 
-void initialisatie(void) { // Initialisatie
+// Initialisatie
+void initialisatie(void) {
     initialisatie_communicatie();
  4f0:	0e 94 82 01 	call	0x304	; 0x304 <initialisatie_communicatie>
 
@@ -1291,8 +1296,8 @@ void initialisatie(void) { // Initialisatie
  50e:	08 95       	ret
 
 00000510 <main>:
-#include "Sequence.h"
 
+/// MAIN ///
 int main(void)
 {
 
@@ -1314,8 +1319,8 @@ int main(void)
  51c:	fb cf       	rjmp	.-10     	; 0x514 <.L2>
 
 0000051e <spi_transfer>:
-#include "Display.h"
-#include "Sequence.h"
+
+/// FUNCTIES ///
 
 // SPI Basic Transceiver
 uint8_t spi_transfer(uint8_t data) {
@@ -1844,8 +1849,8 @@ int RFID_checken(int kant){ // Rechts = 0, links = 1
  6f0:	08 95       	ret
 
 000006f2 <stopsignaal_hoog>:
-#include "Display.h"
-#include "Sequence.h"
+
+/// FUNCTIES ///
 
 // Signaleren naar AGV dat hij moet stoppen
 void stopsignaal_hoog(void) {
