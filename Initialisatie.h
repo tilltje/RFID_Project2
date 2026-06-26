@@ -1,7 +1,7 @@
 #ifndef INITIALISATIE_H_INCLUDED
 #define INITIALISATIE_H_INCLUDED
 
-//Communicatiepinnen
+// Communicatiepinnen
 #define MODNUMMER           PG0 // Arduino Pin 41
 #define MODNUMMER_DDR       DDRG
 #define MODNUMMER_PORT      PORTG
@@ -46,11 +46,11 @@
 #define TxASKReg              0x15
 
 //RFID pinnen
-#define SSR                 PL0 // Arduino Pin 49
+#define SSR                 PL0 // Arduino Pin 49, SS rechts
 #define SSR_DDR             DDRL
 #define SSR_PORT            PORTL
 
-#define SSL                 PL2 // Arduino Pin 47
+#define SSL                 PL2 // Arduino Pin 47, SS links
 #define SSL_DDR             DDRL
 #define SSL_PORT            PORTL
 
@@ -66,11 +66,11 @@
 #define MISO_DDR            DDRB
 #define MISO_PIN            PINB
 
-#define RSTR                PL1 // Arduino Pin 48
+#define RSTR                PL1 // Arduino Pin 48, reset rechts
 #define RSTR_DDR            DDRL
 #define RSTR_PORT           PORTL
 
-#define RSTL                PL3 // Arduino Pin 46
+#define RSTL                PL3 // Arduino Pin 46, reset links
 #define RSTL_DDR            DDRL
 #define RSTL_PORT           PORTL
 
@@ -118,11 +118,11 @@
 
 void initialisatie_communicatie(void);
 void initialisatie_RFID(void);
+void RFID_aanzetten(void);
 void initialisatie_IRsensor(void);
 void initialisatie_display(void);
 void initialisatie_leds(void);
 void initialisatie_knop(void);
-
 void initialisatie(void);
 
 #endif // INITIALISATIE_H_INCLUDED

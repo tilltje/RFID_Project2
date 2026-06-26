@@ -1,12 +1,11 @@
 #ifndef SEQUENCE_H_INCLUDED
 #define SEQUENCE_H_INCLUDED
 
-void acknowledge_module(void);
+void stopsignaal_hoog(void);
+void stopsignaal_laag(void);
 void led_blauw(void);
 void led_groen(void);
-void rijden(void);
-void stoppen(void);
-void sequence(void);
+void detectie(void);
 
 
 #endif // SEQUENCE_H_INCLUDED

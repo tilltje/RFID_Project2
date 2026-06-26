@@ -3,33 +3,33 @@ bin\Debug\RFID_module_AGV.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000a  00800200  00000ad0  00000b64  2**0
+  0 .data         0000000a  00800200  000008e0  00000974  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000ad0  00000000  00000000  00000094  2**1
+  1 .text         000008e0  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .fuse         00000003  00820000  00820000  00000b6e  2**0
+  2 .fuse         00000003  00820000  00820000  0000097e  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .comment      00000012  00000000  00000000  00000b71  2**0
+  3 .comment      00000012  00000000  00000000  00000981  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000b84  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000994  2**2
                   CONTENTS, READONLY, OCTETS
-  5 .debug_aranges 00000138  00000000  00000000  00000bc8  2**3
+  5 .debug_aranges 00000118  00000000  00000000  000009d8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  6 .debug_info   000026e7  00000000  00000000  00000d00  2**0
+  6 .debug_info   0000211f  00000000  00000000  00000af0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  7 .debug_abbrev 00001553  00000000  00000000  000033e7  2**0
+  7 .debug_abbrev 000012ac  00000000  00000000  00002c0f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  8 .debug_line   0000215f  00000000  00000000  0000493a  2**0
+  8 .debug_line   00001a2e  00000000  00000000  00003ebb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  9 .debug_frame  00000314  00000000  00000000  00006a9c  2**2
+  9 .debug_frame  000002c0  00000000  00000000  000058ec  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 10 .debug_str    00000743  00000000  00000000  00006db0  2**0
+ 10 .debug_str    00000761  00000000  00000000  00005bac  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_line_str 000001f0  00000000  00000000  000074f3  2**0
+ 11 .debug_line_str 000001e7  00000000  00000000  0000630d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_loclists 000009a4  00000000  00000000  000076e3  2**0
+ 12 .debug_loclists 0000074e  00000000  00000000  000064f4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_rnglists 00000057  00000000  00000000  00008087  2**0
+ 13 .debug_rnglists 00000035  00000000  00000000  00006c42  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -113,10 +113,10 @@ Disassembly of section .text:
   f8:	b2 e0       	ldi	r27, 0x02	; 2
 
 000000fa <.Loc.3>:
-  fa:	e0 ed       	ldi	r30, 0xD0	; 208
+  fa:	e0 ee       	ldi	r30, 0xE0	; 224
 
 000000fc <.Loc.4>:
-  fc:	fa e0       	ldi	r31, 0x0A	; 10
+  fc:	f8 e0       	ldi	r31, 0x08	; 8
 
 000000fe <.Loc.5>:
   fe:	00 e0       	ldi	r16, 0x00	; 0
@@ -143,8 +143,8 @@ Disassembly of section .text:
  10c:	d9 f7       	brne	.-10     	; 0x104 <.L__do_copy_data_loop>
 
 0000010e <L0^A>:
- 10e:	0e 94 11 02 	call	0x422	; 0x422 <main>
- 112:	0c 94 66 05 	jmp	0xacc	; 0xacc <_exit>
+ 10e:	0e 94 88 02 	call	0x510	; 0x510 <main>
+ 112:	0c 94 6e 04 	jmp	0x8dc	; 0x8dc <_exit>
 
 00000116 <__bad_interrupt>:
  116:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -154,19 +154,23 @@ const uint8_t segmentMap[] = {
     0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F
 };
 
-// Display
+// Getal of commando naar display sturen
 void send_byte(uint8_t data) {
  11a:	28 e0       	ldi	r18, 0x08	; 8
 
 0000011c <.Loc.5>:
-    for (uint8_t i = 0; i < 8; i++) {
+    for (uint8_t i = 0; i < 8; i++) { // Geef bitjes een voor een door
         CLK_LOW();
  11c:	eb e0       	ldi	r30, 0x0B	; 11
  11e:	f1 e0       	ldi	r31, 0x01	; 1
  120:	16 c0       	rjmp	.+44     	; 0x14e <.L4>
 
 00000122 <.L2>:
-        if (data & 0x01) DIO_HIGH(); else DIO_LOW();
+        if (data & 0x01) {
+            DIO_HIGH();
+        }
+        else {
+            DIO_LOW();
  122:	90 81       	ld	r25, Z
  124:	9f 77       	andi	r25, 0x7F	; 127
  126:	90 83       	st	Z, r25
@@ -190,6 +194,7 @@ void send_byte(uint8_t data) {
 	...
 
 00000134 <.LBE20>:
+        }
         _delay_us(50);
         CLK_HIGH();
  134:	90 81       	ld	r25, Z
@@ -214,7 +219,7 @@ void send_byte(uint8_t data) {
  146:	86 95       	lsr	r24
 
 00000148 <.Loc.28>:
-    for (uint8_t i = 0; i < 8; i++) {
+    for (uint8_t i = 0; i < 8; i++) { // Geef bitjes een voor een door
  148:	21 50       	subi	r18, 0x01	; 1
 
 0000014a <.Loc.30>:
@@ -228,11 +233,12 @@ void send_byte(uint8_t data) {
  152:	90 83       	st	Z, r25
 
 00000154 <.Loc.32>:
-        if (data & 0x01) DIO_HIGH(); else DIO_LOW();
+        if (data & 0x01) {
  154:	80 ff       	sbrs	r24, 0
  156:	e5 cf       	rjmp	.-54     	; 0x122 <.L2>
 
 00000158 <.Loc.34>:
+            DIO_HIGH();
  158:	90 81       	ld	r25, Z
  15a:	90 68       	ori	r25, 0x80	; 128
  15c:	90 83       	st	Z, r25
@@ -240,7 +246,7 @@ void send_byte(uint8_t data) {
 
 00000160 <.L6>:
     }
-    // Wachten op ACK (Acknowledgement)
+    // Wachten op acknowledge
     CLK_LOW();
  160:	eb e0       	ldi	r30, 0x0B	; 11
  162:	f1 e0       	ldi	r31, 0x01	; 1
@@ -306,11 +312,11 @@ void send_byte(uint8_t data) {
 }
  19e:	08 95       	ret
 
-000001a0 <tm_start>:
+000001a0 <display_verzending_aan>:
 
-// Display
-void tm_start() {
-    DIO_OUTPUT(); DIO_HIGH(); CLK_HIGH(); _delay_us(50);
+// Display klaarmaken om te ontvangen
+void display_verzending_aan(void) {
+    DIO_OUTPUT();
  1a0:	ea e0       	ldi	r30, 0x0A	; 10
  1a2:	f1 e0       	ldi	r31, 0x01	; 1
  1a4:	80 81       	ld	r24, Z
@@ -318,6 +324,7 @@ void tm_start() {
  1a8:	80 83       	st	Z, r24
 
 000001aa <.Loc.63>:
+    DIO_HIGH();
  1aa:	eb e0       	ldi	r30, 0x0B	; 11
  1ac:	f1 e0       	ldi	r31, 0x01	; 1
  1ae:	80 81       	ld	r24, Z
@@ -325,6 +332,7 @@ void tm_start() {
  1b2:	80 83       	st	Z, r24
 
 000001b4 <.Loc.64>:
+    CLK_HIGH();
  1b4:	80 81       	ld	r24, Z
  1b6:	80 64       	ori	r24, 0x40	; 64
  1b8:	80 83       	st	Z, r24
@@ -342,7 +350,8 @@ void tm_start() {
 	...
 
 000001c6 <.LBE29>:
-    DIO_LOW(); _delay_us(50); CLK_LOW();
+    _delay_us(50);
+    DIO_LOW();
  1c6:	80 81       	ld	r24, Z
  1c8:	8f 77       	andi	r24, 0x7F	; 127
  1ca:	80 83       	st	Z, r24
@@ -360,6 +369,8 @@ void tm_start() {
 	...
 
 000001d8 <.LBE31>:
+    _delay_us(50);
+    CLK_LOW();
  1d8:	80 81       	ld	r24, Z
  1da:	8f 7b       	andi	r24, 0xBF	; 191
  1dc:	80 83       	st	Z, r24
@@ -368,11 +379,11 @@ void tm_start() {
 }
  1de:	08 95       	ret
 
-000001e0 <tm_stop>:
+000001e0 <display_verzending_uit>:
 
-// Display
-void tm_stop() {
-    CLK_LOW(); DIO_LOW(); _delay_us(50);
+// Ontvangen weer uitzetten
+void display_verzending_uit(void) {
+    CLK_LOW();
  1e0:	eb e0       	ldi	r30, 0x0B	; 11
  1e2:	f1 e0       	ldi	r31, 0x01	; 1
  1e4:	80 81       	ld	r24, Z
@@ -380,6 +391,7 @@ void tm_stop() {
  1e8:	80 83       	st	Z, r24
 
 000001ea <.Loc.88>:
+    DIO_LOW();
  1ea:	80 81       	ld	r24, Z
  1ec:	8f 77       	andi	r24, 0x7F	; 127
  1ee:	80 83       	st	Z, r24
@@ -397,7 +409,8 @@ void tm_stop() {
 	...
 
 000001fc <.LBE33>:
-    CLK_HIGH(); _delay_us(50); DIO_HIGH();
+    _delay_us(50);
+    CLK_HIGH();
  1fc:	80 81       	ld	r24, Z
  1fe:	80 64       	ori	r24, 0x40	; 64
  200:	80 83       	st	Z, r24
@@ -415,6 +428,8 @@ void tm_stop() {
 	...
 
 0000020e <.LBE35>:
+    _delay_us(50);
+    DIO_HIGH();
  20e:	80 81       	ld	r24, Z
  210:	80 68       	ori	r24, 0x80	; 128
  212:	80 83       	st	Z, r24
@@ -425,7 +440,8 @@ void tm_stop() {
 
 00000216 <display>:
 
-// Print cijfers op display
+// Print cijfers op display. De eerste twee cijfers geven het aantal lege pakketten aan.
+// De laatste twee cijfers geven het aantal pakketten met pasje aan.
 void display(uint16_t teller_leeg, uint16_t teller_rfid) {
  216:	bf 92       	push	r11
  218:	cf 92       	push	r12
@@ -447,7 +463,7 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
  230:	98 01       	movw	r18, r16
  232:	ad ec       	ldi	r26, 0xCD	; 205
  234:	bc ec       	ldi	r27, 0xCC	; 204
- 236:	0e 94 57 05 	call	0xaae	; 0xaae <__umulhisi3>
+ 236:	0e 94 5f 04 	call	0x8be	; 0x8be <__umulhisi3>
 
 0000023a <.Loc.115>:
  23a:	6c 01       	movw	r12, r24
@@ -475,7 +491,7 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
 0000025e <.Loc.118>:
     digits[2] = teller_rfid / 10;
  25e:	9e 01       	movw	r18, r28
- 260:	0e 94 57 05 	call	0xaae	; 0xaae <__umulhisi3>
+ 260:	0e 94 5f 04 	call	0x8be	; 0x8be <__umulhisi3>
  264:	7c 01       	movw	r14, r24
  266:	f6 94       	lsr	r15
  268:	e7 94       	ror	r14
@@ -503,27 +519,31 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
 
 0000028a <.Loc.123>:
 
-    tm_start(); send_byte(0x40); tm_stop(); // Data command (auto increment)
- 28a:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <tm_start>
+    display_verzending_aan();
+ 28a:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <display_verzending_aan>
 
 0000028e <.LVL28>:
+    send_byte(0x40);
  28e:	80 e4       	ldi	r24, 0x40	; 64
  290:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
 
 00000294 <.LVL29>:
- 294:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <tm_stop>
+    display_verzending_uit(); // Data command (auto increment)
+ 294:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <display_verzending_uit>
 
 00000298 <.LVL30>:
-    tm_start(); send_byte(0xC0);            // Start adres (eerste digit)
- 298:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <tm_start>
+
+    display_verzending_aan();
+ 298:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <display_verzending_aan>
 
 0000029c <.LVL31>:
+    send_byte(0xC0);            // Start adres (eerste digit)
  29c:	80 ec       	ldi	r24, 0xC0	; 192
  29e:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
 
 000002a2 <.LVL32>:
 
-    if (digits[0] == 0) {
+    if (digits[0] == 0) { // Als linker cijfer 0 is dat cijfer niet laten zien
  2a2:	c1 10       	cpse	r12, r1
  2a4:	1f c0       	rjmp	.+62     	; 0x2e4 <.L10>
 
@@ -534,10 +554,10 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
 
 000002ac <.L11>:
     }
-    else {
+    else { // Print eerste cijfer
         send_byte(segmentMap[digits[0]]);
     }
-    send_byte(segmentMap[digits[1]]);
+    send_byte(segmentMap[digits[1]]); // Print tweede cijfer
  2ac:	f8 01       	movw	r30, r16
  2ae:	e0 50       	subi	r30, 0x00	; 0
  2b0:	fe 4f       	sbci	r31, 0xFE	; 254
@@ -547,7 +567,7 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
  2b4:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
 
 000002b8 <.LVL34>:
-    if (digits[2] == 0) {
+    if (digits[2] == 0) { // Als linker cijfer 0 is dat cijfer niet laten zien
  2b8:	b1 10       	cpse	r11, r1
  2ba:	1c c0       	rjmp	.+56     	; 0x2f4 <.L12>
 
@@ -558,10 +578,10 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
 
 000002c2 <.L13>:
     }
-    else {
+    else { // Print derde cijfer
         send_byte(segmentMap[digits[2]]);
     }
-    send_byte(segmentMap[digits[3]]);
+    send_byte(segmentMap[digits[3]]); // Print vierde cijfer
  2c2:	c0 50       	subi	r28, 0x00	; 0
  2c4:	de 4f       	sbci	r29, 0xFE	; 254
 
@@ -570,8 +590,8 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
  2c8:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
 
 000002cc <.LVL37>:
-    tm_stop();
- 2cc:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <tm_stop>
+    display_verzending_uit();
+ 2cc:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <display_verzending_uit>
 
 000002d0 <.LVL38>:
 }
@@ -627,12 +647,12 @@ void display(uint16_t teller_leeg, uint16_t teller_rfid) {
  302:	df cf       	rjmp	.-66     	; 0x2c2 <.L13>
 
 00000304 <initialisatie_communicatie>:
-    _delay_ms(500);
-    PORTB |= (1 << PB7);
-}*/
+#include "Sequence.h"
 
+// Initialisatie communicatiepinnen
 void initialisatie_communicatie(void) {
-    MODNUMMER_DDR |= (1 << MODNUMMER); // output
+    // Output
+    MODNUMMER_DDR |= (1 << MODNUMMER);
  304:	98 9a       	sbi	0x13, 0	; 19
 
 00000306 <.Loc.3>:
@@ -644,7 +664,9 @@ void initialisatie_communicatie(void) {
  308:	9a 9a       	sbi	0x13, 2	; 19
 
 0000030a <.Loc.7>:
-    LIJN_DDR &= ~(1 << LIJN); //input
+
+    // Input
+    LIJN_DDR &= ~(1 << LIJN);
  30a:	57 98       	cbi	0x0a, 7	; 10
 
 0000030c <.Loc.10>:
@@ -657,11 +679,12 @@ void initialisatie_communicatie(void) {
 
 00000310 <.Loc.13>:
 
-    MODNUMMER_PORT &= ~(1 << MODNUMMER); //Laag zetten, want detectiemodule
+    // Laag zetten
+    MODNUMMER_PORT &= ~(1 << MODNUMMER); //Detectiemodule = 0, dus laag
  310:	a0 98       	cbi	0x14, 0	; 20
 
 00000312 <.Loc.15>:
-    NEXT_MOD_PORT &= ~(1 << NEXT_MOD); // dit was modnummer, foutje
+    NEXT_MOD_PORT &= ~(1 << NEXT_MOD);
  312:	a1 98       	cbi	0x14, 1	; 20
 
 00000314 <.Loc.17>:
@@ -670,7 +693,8 @@ void initialisatie_communicatie(void) {
 
 00000316 <.Loc.19>:
 
-    LIJN_PORT |= (1 << LIJN); // PULL-UPS ACTIVEREN
+    // Pull-up weerstanden activeren
+    LIJN_PORT |= (1 << LIJN);
  316:	5f 9a       	sbi	0x0b, 7	; 11
 
 00000318 <.Loc.21>:
@@ -682,16 +706,12 @@ void initialisatie_communicatie(void) {
  31a:	58 9a       	sbi	0x0b, 0	; 11
 
 0000031c <.Loc.25>:
-    EICRA |= (1 << ISC01) | (1 << ISC00);
-
-    TCCR3B &= ~(1 << CS32);
-    TCCR3B |= (1 << CS31);
-    TCCR3B &= ~(1 << CS30);*/
 }
  31c:	08 95       	ret
 
 0000031e <initialisatie_RFID>:
 
+// Initialisatie RFID pinnen
 void initialisatie_RFID(void) {
     DDRB |= (1 << PB0); // SS-pin als output configureren voor spi
  31e:	20 9a       	sbi	0x04, 0	; 4
@@ -703,7 +723,7 @@ void initialisatie_RFID(void) {
 00000322 <.Loc.31>:
 
 
-    SSR_DDR |= (1 << SSR);//SS output
+    SSR_DDR |= (1 << SSR); // SS rechts output
  322:	ea e0       	ldi	r30, 0x0A	; 10
  324:	f1 e0       	ldi	r31, 0x01	; 1
  326:	80 81       	ld	r24, Z
@@ -713,7 +733,7 @@ void initialisatie_RFID(void) {
  32a:	80 83       	st	Z, r24
 
 0000032c <.Loc.33>:
-    SSL_DDR |= (1 << SSL);
+    SSL_DDR |= (1 << SSL); // SS links output
  32c:	80 81       	ld	r24, Z
 
 0000032e <.Loc.34>:
@@ -721,19 +741,19 @@ void initialisatie_RFID(void) {
  330:	80 83       	st	Z, r24
 
 00000332 <.Loc.35>:
-    SCK_DDR |= (1 << SCK);//SCK output
+    SCK_DDR |= (1 << SCK); // SCK output
  332:	21 9a       	sbi	0x04, 1	; 4
 
 00000334 <.Loc.37>:
-    MOSI_DDR |= (1 << MOSI);//MOSI output
+    MOSI_DDR |= (1 << MOSI); // MOSI output
  334:	22 9a       	sbi	0x04, 2	; 4
 
 00000336 <.Loc.39>:
-    MISO_DDR &= ~(1 << MISO);//MISO input
+    MISO_DDR &= ~(1 << MISO); // MISO input
  336:	23 98       	cbi	0x04, 3	; 4
 
 00000338 <.Loc.41>:
-    RSTR_DDR |= (1 << RSTR);//RST output
+    RSTR_DDR |= (1 << RSTR); // RST rechts output
  338:	80 81       	ld	r24, Z
 
 0000033a <.Loc.42>:
@@ -741,7 +761,7 @@ void initialisatie_RFID(void) {
  33c:	80 83       	st	Z, r24
 
 0000033e <.Loc.43>:
-    RSTL_DDR |= (1 << RSTL);
+    RSTL_DDR |= (1 << RSTL); // RST links output
  33e:	80 81       	ld	r24, Z
 
 00000340 <.Loc.44>:
@@ -750,7 +770,7 @@ void initialisatie_RFID(void) {
 
 00000344 <.Loc.45>:
 
-    SSR_PORT |= (1 << SSR); // slave niet selecten
+    SSR_PORT |= (1 << SSR); // Slave rechts niet selecteren
  344:	eb e0       	ldi	r30, 0x0B	; 11
  346:	f1 e0       	ldi	r31, 0x01	; 1
  348:	80 81       	ld	r24, Z
@@ -760,7 +780,7 @@ void initialisatie_RFID(void) {
  34c:	80 83       	st	Z, r24
 
 0000034e <.Loc.47>:
-    SSL_PORT |= (1 << SSL);
+    SSL_PORT |= (1 << SSL); // Slave links niet selecteren
  34e:	80 81       	ld	r24, Z
 
 00000350 <.Loc.48>:
@@ -841,2101 +861,1541 @@ void initialisatie_RFID(void) {
 }
  390:	08 95       	ret
 
-00000392 <initialisatie_IRsensor>:
+00000392 <RFID_aanzetten>:
 
-void initialisatie_IRsensor(void){
-    IR_R_DDR &= ~(1 << IR_R); //input
- 392:	ea e0       	ldi	r30, 0x0A	; 10
+// RFID sensor klaarmaken voor verzending
+void RFID_aanzetten() {
+    // Harde reset
+    RSTR_PORT |= (1 << RSTR);
+ 392:	eb e0       	ldi	r30, 0x0B	; 11
  394:	f1 e0       	ldi	r31, 0x01	; 1
  396:	80 81       	ld	r24, Z
- 398:	8f 7d       	andi	r24, 0xDF	; 223
+
+00000398 <.Loc.72>:
+ 398:	82 60       	ori	r24, 0x02	; 2
  39a:	80 83       	st	Z, r24
 
-0000039c <.Loc.73>:
-    IR_L_DDR &= ~(1 << IR_L); //input
- 39c:	80 81       	ld	r24, Z
- 39e:	8f 7e       	andi	r24, 0xEF	; 239
- 3a0:	80 83       	st	Z, r24
+0000039c <.LBB14>:
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 39c:	2f ef       	ldi	r18, 0xFF	; 255
+ 39e:	80 e7       	ldi	r24, 0x70	; 112
+ 3a0:	92 e0       	ldi	r25, 0x02	; 2
 
-000003a2 <.Loc.75>:
+000003a2 <.L1^B1>:
+ 3a2:	21 50       	subi	r18, 0x01	; 1
+ 3a4:	80 40       	sbci	r24, 0x00	; 0
+ 3a6:	90 40       	sbci	r25, 0x00	; 0
+ 3a8:	e1 f7       	brne	.-8      	; 0x3a2 <.L1^B1>
+ 3aa:	00 c0       	rjmp	.+0      	; 0x3ac <L0^A>
 
+000003ac <L0^A>:
+	...
+
+000003ae <.LBE14>:
+    _delay_ms(50);
+    RSTR_PORT &= ~(1 << RSTR);
+ 3ae:	80 81       	ld	r24, Z
+ 3b0:	8d 7f       	andi	r24, 0xFD	; 253
+ 3b2:	80 83       	st	Z, r24
+
+000003b4 <.LBB16>:
+ 3b4:	2f ef       	ldi	r18, 0xFF	; 255
+ 3b6:	80 e7       	ldi	r24, 0x70	; 112
+ 3b8:	92 e0       	ldi	r25, 0x02	; 2
+
+000003ba <.L1^B2>:
+ 3ba:	21 50       	subi	r18, 0x01	; 1
+ 3bc:	80 40       	sbci	r24, 0x00	; 0
+ 3be:	90 40       	sbci	r25, 0x00	; 0
+ 3c0:	e1 f7       	brne	.-8      	; 0x3ba <.L1^B2>
+ 3c2:	00 c0       	rjmp	.+0      	; 0x3c4 <L0^A>
+
+000003c4 <L0^A>:
+	...
+
+000003c6 <.LBE16>:
+    _delay_ms(50);
+    RSTR_PORT |= (1 << RSTR);
+ 3c6:	80 81       	ld	r24, Z
+
+000003c8 <.Loc.94>:
+ 3c8:	82 60       	ori	r24, 0x02	; 2
+ 3ca:	80 83       	st	Z, r24
+
+000003cc <.LBB18>:
+ 3cc:	2f ef       	ldi	r18, 0xFF	; 255
+ 3ce:	80 e7       	ldi	r24, 0x70	; 112
+ 3d0:	92 e0       	ldi	r25, 0x02	; 2
+
+000003d2 <.L1^B3>:
+ 3d2:	21 50       	subi	r18, 0x01	; 1
+ 3d4:	80 40       	sbci	r24, 0x00	; 0
+ 3d6:	90 40       	sbci	r25, 0x00	; 0
+ 3d8:	e1 f7       	brne	.-8      	; 0x3d2 <.L1^B3>
+ 3da:	00 c0       	rjmp	.+0      	; 0x3dc <L0^A>
+
+000003dc <L0^A>:
+	...
+
+000003de <.LBE18>:
+    _delay_ms(50);
+
+    RSTL_PORT |= (1 << RSTL);
+ 3de:	80 81       	ld	r24, Z
+
+000003e0 <.Loc.105>:
+ 3e0:	88 60       	ori	r24, 0x08	; 8
+ 3e2:	80 83       	st	Z, r24
+
+000003e4 <.LBB20>:
+ 3e4:	2f ef       	ldi	r18, 0xFF	; 255
+ 3e6:	80 e7       	ldi	r24, 0x70	; 112
+ 3e8:	92 e0       	ldi	r25, 0x02	; 2
+
+000003ea <.L1^B4>:
+ 3ea:	21 50       	subi	r18, 0x01	; 1
+ 3ec:	80 40       	sbci	r24, 0x00	; 0
+ 3ee:	90 40       	sbci	r25, 0x00	; 0
+ 3f0:	e1 f7       	brne	.-8      	; 0x3ea <.L1^B4>
+ 3f2:	00 c0       	rjmp	.+0      	; 0x3f4 <L0^A>
+
+000003f4 <L0^A>:
+	...
+
+000003f6 <.LBE20>:
+    _delay_ms(50);
+    RSTL_PORT &= ~(1 << RSTL);
+ 3f6:	80 81       	ld	r24, Z
+ 3f8:	87 7f       	andi	r24, 0xF7	; 247
+ 3fa:	80 83       	st	Z, r24
+
+000003fc <.LBB22>:
+ 3fc:	2f ef       	ldi	r18, 0xFF	; 255
+ 3fe:	80 e7       	ldi	r24, 0x70	; 112
+ 400:	92 e0       	ldi	r25, 0x02	; 2
+
+00000402 <.L1^B5>:
+ 402:	21 50       	subi	r18, 0x01	; 1
+ 404:	80 40       	sbci	r24, 0x00	; 0
+ 406:	90 40       	sbci	r25, 0x00	; 0
+ 408:	e1 f7       	brne	.-8      	; 0x402 <.L1^B5>
+ 40a:	00 c0       	rjmp	.+0      	; 0x40c <L0^A>
+
+0000040c <L0^A>:
+	...
+
+0000040e <.LBE22>:
+    _delay_ms(50);
+    RSTL_PORT |= (1 << RSTL);
+ 40e:	80 81       	ld	r24, Z
+
+00000410 <.Loc.127>:
+ 410:	88 60       	ori	r24, 0x08	; 8
+ 412:	80 83       	st	Z, r24
+
+00000414 <.LBB24>:
+ 414:	2f ef       	ldi	r18, 0xFF	; 255
+ 416:	80 e7       	ldi	r24, 0x70	; 112
+ 418:	92 e0       	ldi	r25, 0x02	; 2
+
+0000041a <.L1^B6>:
+ 41a:	21 50       	subi	r18, 0x01	; 1
+ 41c:	80 40       	sbci	r24, 0x00	; 0
+ 41e:	90 40       	sbci	r25, 0x00	; 0
+ 420:	e1 f7       	brne	.-8      	; 0x41a <.L1^B6>
+ 422:	00 c0       	rjmp	.+0      	; 0x424 <L0^A>
+
+00000424 <L0^A>:
+	...
+
+00000426 <.LBE24>:
+    _delay_ms(50);
+
+    // Interne transceivers aanzetten
+    RFID_write_rechts(ModeReg, 0x3D);
+ 426:	6d e3       	ldi	r22, 0x3D	; 61
+ 428:	81 e1       	ldi	r24, 0x11	; 17
+ 42a:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
+
+0000042e <.LVL12>:
+    RFID_write_rechts(TxASKReg, 0x40);
+ 42e:	60 e4       	ldi	r22, 0x40	; 64
+ 430:	85 e1       	ldi	r24, 0x15	; 21
+ 432:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
+
+00000436 <.LVL13>:
+
+    RFID_write_links(ModeReg, 0x3D);
+ 436:	6d e3       	ldi	r22, 0x3D	; 61
+ 438:	81 e1       	ldi	r24, 0x11	; 17
+ 43a:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
+
+0000043e <.LVL14>:
+    RFID_write_links(TxASKReg, 0x40);
+ 43e:	60 e4       	ldi	r22, 0x40	; 64
+ 440:	85 e1       	ldi	r24, 0x15	; 21
+ 442:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
+
+00000446 <.LVL15>:
+
+    // Antenne aanzetten
+    uint8_t currentR = RFID_read_rechts(TxControlReg);
+ 446:	84 e1       	ldi	r24, 0x14	; 20
+ 448:	0e 94 c3 02 	call	0x586	; 0x586 <RFID_read_rechts>
+
+0000044c <.LVL16>:
+    if ((currentR & 0x03) != 0x03) {
+ 44c:	98 2f       	mov	r25, r24
+ 44e:	93 70       	andi	r25, 0x03	; 3
+ 450:	93 30       	cpi	r25, 0x03	; 3
+ 452:	41 f4       	brne	.+16     	; 0x464 <.L6>
+
+00000454 <.L4>:
+        RFID_write_rechts(TxControlReg, currentR | 0x03);
+    }
+
+    uint8_t currentL = RFID_read_links(TxControlReg);
+ 454:	84 e1       	ldi	r24, 0x14	; 20
+ 456:	0e 94 d8 02 	call	0x5b0	; 0x5b0 <RFID_read_links>
+
+0000045a <.LVL18>:
+    if ((currentL & 0x03) != 0x03) {
+ 45a:	98 2f       	mov	r25, r24
+ 45c:	93 70       	andi	r25, 0x03	; 3
+ 45e:	93 30       	cpi	r25, 0x03	; 3
+ 460:	39 f4       	brne	.+14     	; 0x470 <.L7>
+
+00000462 <.L3>:
+        RFID_write_links(TxControlReg, currentL | 0x03);
+    }
+}
+ 462:	08 95       	ret
+
+00000464 <.L6>:
+        RFID_write_rechts(TxControlReg, currentR | 0x03);
+ 464:	68 2f       	mov	r22, r24
+ 466:	63 60       	ori	r22, 0x03	; 3
+ 468:	84 e1       	ldi	r24, 0x14	; 20
+
+0000046a <.Loc.151>:
+ 46a:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
+
+0000046e <.LVL22>:
+ 46e:	f2 cf       	rjmp	.-28     	; 0x454 <.L4>
+
+00000470 <.L7>:
+        RFID_write_links(TxControlReg, currentL | 0x03);
+ 470:	68 2f       	mov	r22, r24
+ 472:	63 60       	ori	r22, 0x03	; 3
+ 474:	84 e1       	ldi	r24, 0x14	; 20
+
+00000476 <.Loc.153>:
+ 476:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
+
+0000047a <.LVL25>:
+}
+ 47a:	f3 cf       	rjmp	.-26     	; 0x462 <.L3>
+
+0000047c <initialisatie_IRsensor>:
+
+void initialisatie_IRsensor(void){ // Initialisatie infraroodsensoren
+    // Input
+    IR_R_DDR &= ~(1 << IR_R);
+ 47c:	ea e0       	ldi	r30, 0x0A	; 10
+ 47e:	f1 e0       	ldi	r31, 0x01	; 1
+ 480:	80 81       	ld	r24, Z
+ 482:	8f 7d       	andi	r24, 0xDF	; 223
+ 484:	80 83       	st	Z, r24
+
+00000486 <.Loc.158>:
+    IR_L_DDR &= ~(1 << IR_L);
+ 486:	80 81       	ld	r24, Z
+ 488:	8f 7e       	andi	r24, 0xEF	; 239
+ 48a:	80 83       	st	Z, r24
+
+0000048c <.Loc.160>:
+
+    // Pull-up weerstanden activeren
     IR_R_PORT |= (1 << IR_R);
- 3a2:	eb e0       	ldi	r30, 0x0B	; 11
- 3a4:	f1 e0       	ldi	r31, 0x01	; 1
- 3a6:	80 81       	ld	r24, Z
+ 48c:	eb e0       	ldi	r30, 0x0B	; 11
+ 48e:	f1 e0       	ldi	r31, 0x01	; 1
+ 490:	80 81       	ld	r24, Z
 
-000003a8 <.Loc.76>:
- 3a8:	80 62       	ori	r24, 0x20	; 32
- 3aa:	80 83       	st	Z, r24
+00000492 <.Loc.161>:
+ 492:	80 62       	ori	r24, 0x20	; 32
+ 494:	80 83       	st	Z, r24
 
-000003ac <.Loc.77>:
+00000496 <.Loc.162>:
     IR_L_PORT |= (1 << IR_L);
- 3ac:	80 81       	ld	r24, Z
+ 496:	80 81       	ld	r24, Z
 
-000003ae <.Loc.78>:
- 3ae:	80 61       	ori	r24, 0x10	; 16
- 3b0:	80 83       	st	Z, r24
+00000498 <.Loc.163>:
+ 498:	80 61       	ori	r24, 0x10	; 16
+ 49a:	80 83       	st	Z, r24
 
-000003b2 <.Loc.79>:
+0000049c <.Loc.164>:
 }
- 3b2:	08 95       	ret
+ 49c:	08 95       	ret
 
-000003b4 <initialisatie_display>:
+0000049e <initialisatie_display>:
 
-void initialisatie_display(void){// initialisatie display
-    // Stel pinnen in als output
+void initialisatie_display(void){// Initialisatie display
+    // Output
     CLK_DDR |= (1 << CLK);
- 3b4:	ea e0       	ldi	r30, 0x0A	; 10
- 3b6:	f1 e0       	ldi	r31, 0x01	; 1
- 3b8:	80 81       	ld	r24, Z
+ 49e:	ea e0       	ldi	r30, 0x0A	; 10
+ 4a0:	f1 e0       	ldi	r31, 0x01	; 1
+ 4a2:	80 81       	ld	r24, Z
 
-000003ba <.Loc.82>:
- 3ba:	80 64       	ori	r24, 0x40	; 64
- 3bc:	80 83       	st	Z, r24
+000004a4 <.Loc.167>:
+ 4a4:	80 64       	ori	r24, 0x40	; 64
+ 4a6:	80 83       	st	Z, r24
 
-000003be <.Loc.83>:
+000004a8 <.Loc.168>:
     DIO_DDR |= (1 << DIO);
- 3be:	80 81       	ld	r24, Z
+ 4a8:	80 81       	ld	r24, Z
 
-000003c0 <.Loc.84>:
- 3c0:	80 68       	ori	r24, 0x80	; 128
- 3c2:	80 83       	st	Z, r24
+000004aa <.Loc.169>:
+ 4aa:	80 68       	ori	r24, 0x80	; 128
+ 4ac:	80 83       	st	Z, r24
 
-000003c4 <.Loc.85>:
+000004ae <.Loc.170>:
 
-    // Initialiseer display: Commando 0x8A zet display AAN en helderheid op een gemiddeld niveau
-    tm_start();
- 3c4:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <tm_start>
+    // Initialiseer display
+    display_verzending_aan();
+ 4ae:	0e 94 d0 00 	call	0x1a0	; 0x1a0 <display_verzending_aan>
 
-000003c8 <.LVL0>:
+000004b2 <.LVL26>:
     send_byte(0x8A);
- 3c8:	8a e8       	ldi	r24, 0x8A	; 138
- 3ca:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
+ 4b2:	8a e8       	ldi	r24, 0x8A	; 138
+ 4b4:	0e 94 8d 00 	call	0x11a	; 0x11a <send_byte>
 
-000003ce <.LVL1>:
-    tm_stop();
- 3ce:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <tm_stop>
+000004b8 <.LVL27>:
+    display_verzending_uit();
+ 4b8:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <display_verzending_uit>
 
-000003d2 <.LVL2>:
-    // start met 0 op het display
+000004bc <.LVL28>:
+
+    // Zet 0 en 0 op het display
     display(0,0);
- 3d2:	60 e0       	ldi	r22, 0x00	; 0
- 3d4:	70 e0       	ldi	r23, 0x00	; 0
- 3d6:	80 e0       	ldi	r24, 0x00	; 0
- 3d8:	90 e0       	ldi	r25, 0x00	; 0
- 3da:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+ 4bc:	60 e0       	ldi	r22, 0x00	; 0
+ 4be:	70 e0       	ldi	r23, 0x00	; 0
+ 4c0:	80 e0       	ldi	r24, 0x00	; 0
+ 4c2:	90 e0       	ldi	r25, 0x00	; 0
+ 4c4:	0e 94 0b 01 	call	0x216	; 0x216 <display>
 
-000003de <.LVL3>:
+000004c8 <.LVL29>:
 
 }
- 3de:	08 95       	ret
+ 4c8:	08 95       	ret
 
-000003e0 <initialisatie_leds>:
+000004ca <initialisatie_leds>:
 
-void initialisatie_leds(void) {
+void initialisatie_leds(void) { // Leds initialiseren
+    // Output
     LED_BLAUW_DDR |= (1 << LED_BLAUW);
- 3e0:	3a 9a       	sbi	0x07, 2	; 7
+ 4ca:	3a 9a       	sbi	0x07, 2	; 7
 
-000003e2 <.Loc.93>:
+000004cc <.Loc.178>:
     LED_GROEN_DDR |= (1 << LED_GROEN);
- 3e2:	3b 9a       	sbi	0x07, 3	; 7
+ 4cc:	3b 9a       	sbi	0x07, 3	; 7
 
-000003e4 <.Loc.95>:
+000004ce <.Loc.180>:
 
+    // LEDs uitzetten
     LED_BLAUW_PORT &= ~(1 << LED_BLAUW);
- 3e4:	42 98       	cbi	0x08, 2	; 8
+ 4ce:	42 98       	cbi	0x08, 2	; 8
 
-000003e6 <.Loc.97>:
+000004d0 <.Loc.182>:
     LED_GROEN_PORT &= ~(1 << LED_GROEN);
- 3e6:	43 98       	cbi	0x08, 3	; 8
+ 4d0:	43 98       	cbi	0x08, 3	; 8
 
-000003e8 <.Loc.99>:
+000004d2 <.Loc.184>:
 
+    // Timer voor knipperen leds initialiseren
     TCCR1B |= (1 << CS12);
- 3e8:	e1 e8       	ldi	r30, 0x81	; 129
- 3ea:	f0 e0       	ldi	r31, 0x00	; 0
- 3ec:	80 81       	ld	r24, Z
+ 4d2:	e1 e8       	ldi	r30, 0x81	; 129
+ 4d4:	f0 e0       	ldi	r31, 0x00	; 0
+ 4d6:	80 81       	ld	r24, Z
 
-000003ee <.Loc.100>:
- 3ee:	84 60       	ori	r24, 0x04	; 4
- 3f0:	80 83       	st	Z, r24
+000004d8 <.Loc.185>:
+ 4d8:	84 60       	ori	r24, 0x04	; 4
+ 4da:	80 83       	st	Z, r24
 
-000003f2 <.Loc.101>:
+000004dc <.Loc.186>:
     TCCR1B &= ~(1 << CS11);
- 3f2:	80 81       	ld	r24, Z
- 3f4:	8d 7f       	andi	r24, 0xFD	; 253
- 3f6:	80 83       	st	Z, r24
+ 4dc:	80 81       	ld	r24, Z
+ 4de:	8d 7f       	andi	r24, 0xFD	; 253
+ 4e0:	80 83       	st	Z, r24
 
-000003f8 <.Loc.103>:
+000004e2 <.Loc.188>:
     TCCR1B &= ~(1 << CS10);
- 3f8:	80 81       	ld	r24, Z
- 3fa:	8e 7f       	andi	r24, 0xFE	; 254
- 3fc:	80 83       	st	Z, r24
+ 4e2:	80 81       	ld	r24, Z
+ 4e4:	8e 7f       	andi	r24, 0xFE	; 254
+ 4e6:	80 83       	st	Z, r24
 
-000003fe <.Loc.105>:
+000004e8 <.Loc.190>:
 }
- 3fe:	08 95       	ret
+ 4e8:	08 95       	ret
 
-00000400 <initialisatie_knop>:
+000004ea <initialisatie_knop>:
 
-void initialisatie_knop(void) {
+void initialisatie_knop(void) { // Knop initialiseren
     KNOP_DDR &= ~(1 << KNOP); //INPUT
- 400:	3c 98       	cbi	0x07, 4	; 7
+ 4ea:	3c 98       	cbi	0x07, 4	; 7
 
-00000402 <.Loc.109>:
+000004ec <.Loc.194>:
 
     KNOP_PORT |= (1 << KNOP); //PULL-UP
- 402:	44 9a       	sbi	0x08, 4	; 8
+ 4ec:	44 9a       	sbi	0x08, 4	; 8
 
-00000404 <.Loc.111>:
+000004ee <.Loc.196>:
 }
- 404:	08 95       	ret
+ 4ee:	08 95       	ret
 
-00000406 <initialisatie>:
+000004f0 <initialisatie>:
 
-void initialisatie(void) { //pinnen initialiseren
+void initialisatie(void) { // Initialisatie
     initialisatie_communicatie();
- 406:	0e 94 82 01 	call	0x304	; 0x304 <initialisatie_communicatie>
+ 4f0:	0e 94 82 01 	call	0x304	; 0x304 <initialisatie_communicatie>
 
-0000040a <.LVL4>:
+000004f4 <.LVL30>:
     initialisatie_RFID();
- 40a:	0e 94 8f 01 	call	0x31e	; 0x31e <initialisatie_RFID>
+ 4f4:	0e 94 8f 01 	call	0x31e	; 0x31e <initialisatie_RFID>
 
-0000040e <.LVL5>:
+000004f8 <.LVL31>:
+    RFID_aanzetten();
+ 4f8:	0e 94 c9 01 	call	0x392	; 0x392 <RFID_aanzetten>
+
+000004fc <.LVL32>:
     initialisatie_IRsensor();
- 40e:	0e 94 c9 01 	call	0x392	; 0x392 <initialisatie_IRsensor>
+ 4fc:	0e 94 3e 02 	call	0x47c	; 0x47c <initialisatie_IRsensor>
 
-00000412 <.LVL6>:
+00000500 <.LVL33>:
     initialisatie_display();
- 412:	0e 94 da 01 	call	0x3b4	; 0x3b4 <initialisatie_display>
+ 500:	0e 94 4f 02 	call	0x49e	; 0x49e <initialisatie_display>
 
-00000416 <.LVL7>:
+00000504 <.LVL34>:
     initialisatie_leds();
- 416:	0e 94 f0 01 	call	0x3e0	; 0x3e0 <initialisatie_leds>
+ 504:	0e 94 65 02 	call	0x4ca	; 0x4ca <initialisatie_leds>
 
-0000041a <.LVL8>:
+00000508 <.LVL35>:
     initialisatie_knop();
- 41a:	0e 94 00 02 	call	0x400	; 0x400 <initialisatie_knop>
+ 508:	0e 94 75 02 	call	0x4ea	; 0x4ea <initialisatie_knop>
 
-0000041e <.LVL9>:
+0000050c <.LVL36>:
     sei();
- 41e:	78 94       	sei
+ 50c:	78 94       	sei
 
-00000420 <.Loc.120>:
+0000050e <.Loc.206>:
 }
- 420:	08 95       	ret
+ 50e:	08 95       	ret
 
-00000422 <main>:
-#include "Testen.h"
+00000510 <main>:
+#include "Sequence.h"
 
 int main(void)
 {
 
     initialisatie();
- 422:	0e 94 03 02 	call	0x406	; 0x406 <initialisatie>
+ 510:	0e 94 78 02 	call	0x4f0	; 0x4f0 <initialisatie>
 
-00000426 <.LBB4>:
-	__builtin_avr_delay_cycles(__ticks_dc);
- 426:	2f ef       	ldi	r18, 0xFF	; 255
- 428:	80 e7       	ldi	r24, 0x70	; 112
- 42a:	92 e0       	ldi	r25, 0x02	; 2
-
-0000042c <.L1^B1>:
- 42c:	21 50       	subi	r18, 0x01	; 1
- 42e:	80 40       	sbci	r24, 0x00	; 0
- 430:	90 40       	sbci	r25, 0x00	; 0
- 432:	e1 f7       	brne	.-8      	; 0x42c <.L1^B1>
- 434:	00 c0       	rjmp	.+0      	; 0x436 <L0^A>
-
-00000436 <L0^A>:
-	...
-
-00000438 <.L2>:
-    }
-
-    while(1);*/
+00000514 <.L2>:
 
     while(1) {
-        if ((KNOP_PIN & (1 << KNOP))== 0) {
- 438:	34 99       	sbic	0x06, 4	; 6
- 43a:	fe cf       	rjmp	.-4      	; 0x438 <.L2>
+        if ((KNOP_PIN & (1 << KNOP))== 0) { // Wachten tot de knop is ingedrukt
+ 514:	34 99       	sbic	0x06, 4	; 6
+ 516:	fe cf       	rjmp	.-4      	; 0x514 <.L2>
 
-0000043c <.Loc.14>:
-            sequence();
- 43c:	0e 94 be 03 	call	0x77c	; 0x77c <sequence>
+00000518 <.Loc.5>:
+            detectie(); // Start programma
+ 518:	0e 94 9c 03 	call	0x738	; 0x738 <detectie>
 
-00000440 <.LVL2>:
- 440:	fb cf       	rjmp	.-10     	; 0x438 <.L2>
+0000051c <.LVL1>:
+ 51c:	fb cf       	rjmp	.-10     	; 0x514 <.L2>
 
-00000442 <spi_transfer>:
+0000051e <spi_transfer>:
 #include "Display.h"
 #include "Sequence.h"
 
 // SPI Basic Transceiver
 uint8_t spi_transfer(uint8_t data) {
     SPDR = data;
- 442:	8e bd       	out	0x2e, r24	; 46
+ 51e:	8e bd       	out	0x2e, r24	; 46
 
-00000444 <.L2>:
-    while (!(SPSR & (1 << SPIF))); /// HIER ZIT EEN FOUT///
- 444:	0d b4       	in	r0, 0x2d	; 45
- 446:	07 fe       	sbrs	r0, 7
- 448:	fd cf       	rjmp	.-6      	; 0x444 <.L2>
+00000520 <.L2>:
+    while (!(SPSR & (1 << SPIF)));
+ 520:	0d b4       	in	r0, 0x2d	; 45
+ 522:	07 fe       	sbrs	r0, 7
+ 524:	fd cf       	rjmp	.-6      	; 0x520 <.L2>
 
-0000044a <.Loc.5>:
+00000526 <.Loc.5>:
     return SPDR;
- 44a:	8e b5       	in	r24, 0x2e	; 46
+ 526:	8e b5       	in	r24, 0x2e	; 46
 
-0000044c <.Loc.7>:
+00000528 <.Loc.7>:
 }
- 44c:	08 95       	ret
+ 528:	08 95       	ret
 
-0000044e <write_reg_R>:
+0000052a <RFID_write_rechts>:
 
-// Write to RC522 Register rechts
-void write_reg_R(uint8_t reg, uint8_t value) {
- 44e:	1f 93       	push	r17
- 450:	cf 93       	push	r28
- 452:	df 93       	push	r29
- 454:	16 2f       	mov	r17, r22
+// Naar sensor schrijven rechts
+void RFID_write_rechts(uint8_t reg, uint8_t value) {
+ 52a:	1f 93       	push	r17
+ 52c:	cf 93       	push	r28
+ 52e:	df 93       	push	r29
+ 530:	16 2f       	mov	r17, r22
 
-00000456 <.Loc.10>:
+00000532 <.Loc.10>:
     SSR_PORT &= ~(1 << SSR); //ss laag is slave geactiveerd
- 456:	cb e0       	ldi	r28, 0x0B	; 11
- 458:	d1 e0       	ldi	r29, 0x01	; 1
- 45a:	98 81       	ld	r25, Y
- 45c:	9e 7f       	andi	r25, 0xFE	; 254
- 45e:	98 83       	st	Y, r25
+ 532:	cb e0       	ldi	r28, 0x0B	; 11
+ 534:	d1 e0       	ldi	r29, 0x01	; 1
+ 536:	98 81       	ld	r25, Y
+ 538:	9e 7f       	andi	r25, 0xFE	; 254
+ 53a:	98 83       	st	Y, r25
 
-00000460 <.Loc.12>:
+0000053c <.Loc.12>:
     spi_transfer((reg << 1) & 0x7E);
- 460:	88 0f       	add	r24, r24
+ 53c:	88 0f       	add	r24, r24
 
-00000462 <.Loc.14>:
- 462:	8e 77       	andi	r24, 0x7E	; 126
- 464:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
+0000053e <.Loc.14>:
+ 53e:	8e 77       	andi	r24, 0x7E	; 126
+ 540:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
 
-00000468 <.LVL4>:
+00000544 <.LVL4>:
     spi_transfer(value);
- 468:	81 2f       	mov	r24, r17
- 46a:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
+ 544:	81 2f       	mov	r24, r17
+ 546:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
 
-0000046e <.LVL5>:
+0000054a <.LVL5>:
     SSR_PORT |= (1 << SSR);
- 46e:	88 81       	ld	r24, Y
+ 54a:	88 81       	ld	r24, Y
 
-00000470 <.Loc.17>:
- 470:	81 60       	ori	r24, 0x01	; 1
- 472:	88 83       	st	Y, r24
+0000054c <.Loc.17>:
+ 54c:	81 60       	ori	r24, 0x01	; 1
+ 54e:	88 83       	st	Y, r24
 
-00000474 <.Loc.18>:
+00000550 <.Loc.18>:
 }
- 474:	df 91       	pop	r29
- 476:	cf 91       	pop	r28
- 478:	1f 91       	pop	r17
+ 550:	df 91       	pop	r29
+ 552:	cf 91       	pop	r28
+ 554:	1f 91       	pop	r17
 
-0000047a <.Loc.19>:
- 47a:	08 95       	ret
+00000556 <.Loc.19>:
+ 556:	08 95       	ret
 
-0000047c <read_reg_R>:
+00000558 <RFID_write_links>:
 
-// Read from RC522 Register rechts
-uint8_t read_reg_R(uint8_t reg) {
- 47c:	cf 93       	push	r28
- 47e:	df 93       	push	r29
+// Naar sensor schrijven links
+void RFID_write_links(uint8_t reg, uint8_t value) {
+ 558:	1f 93       	push	r17
+ 55a:	cf 93       	push	r28
+ 55c:	df 93       	push	r29
+ 55e:	16 2f       	mov	r17, r22
 
-00000480 <.Loc.22>:
+00000560 <.Loc.22>:
+    SSL_PORT &= ~(1 << SSL);
+ 560:	cb e0       	ldi	r28, 0x0B	; 11
+ 562:	d1 e0       	ldi	r29, 0x01	; 1
+ 564:	98 81       	ld	r25, Y
+ 566:	9b 7f       	andi	r25, 0xFB	; 251
+ 568:	98 83       	st	Y, r25
+
+0000056a <.Loc.24>:
+    spi_transfer((reg << 1) & 0x7E);
+ 56a:	88 0f       	add	r24, r24
+
+0000056c <.Loc.26>:
+ 56c:	8e 77       	andi	r24, 0x7E	; 126
+ 56e:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
+
+00000572 <.LVL9>:
+    spi_transfer(value);
+ 572:	81 2f       	mov	r24, r17
+ 574:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
+
+00000578 <.LVL10>:
+    SSL_PORT |= (1 << SSL);
+ 578:	88 81       	ld	r24, Y
+
+0000057a <.Loc.29>:
+ 57a:	84 60       	ori	r24, 0x04	; 4
+ 57c:	88 83       	st	Y, r24
+
+0000057e <.Loc.30>:
+}
+ 57e:	df 91       	pop	r29
+ 580:	cf 91       	pop	r28
+ 582:	1f 91       	pop	r17
+
+00000584 <.Loc.31>:
+ 584:	08 95       	ret
+
+00000586 <RFID_read_rechts>:
+
+// Sensor uitlezen rechts
+uint8_t RFID_read_rechts(uint8_t reg) {
+ 586:	cf 93       	push	r28
+ 588:	df 93       	push	r29
+
+0000058a <.Loc.34>:
     uint8_t value;
     SSR_PORT &= ~(1 << SSR);
- 480:	cb e0       	ldi	r28, 0x0B	; 11
- 482:	d1 e0       	ldi	r29, 0x01	; 1
- 484:	98 81       	ld	r25, Y
- 486:	9e 7f       	andi	r25, 0xFE	; 254
- 488:	98 83       	st	Y, r25
+ 58a:	cb e0       	ldi	r28, 0x0B	; 11
+ 58c:	d1 e0       	ldi	r29, 0x01	; 1
+ 58e:	98 81       	ld	r25, Y
+ 590:	9e 7f       	andi	r25, 0xFE	; 254
+ 592:	98 83       	st	Y, r25
 
-0000048a <.Loc.25>:
+00000594 <.Loc.37>:
     spi_transfer(((reg << 1) & 0x7E) | 0x80);
- 48a:	88 0f       	add	r24, r24
+ 594:	88 0f       	add	r24, r24
 
-0000048c <.Loc.27>:
- 48c:	8e 77       	andi	r24, 0x7E	; 126
+00000596 <.Loc.39>:
+ 596:	8e 77       	andi	r24, 0x7E	; 126
 
-0000048e <.Loc.28>:
- 48e:	80 68       	ori	r24, 0x80	; 128
- 490:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
+00000598 <.Loc.40>:
+ 598:	80 68       	ori	r24, 0x80	; 128
+ 59a:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
 
-00000494 <.LVL9>:
+0000059e <.LVL14>:
     value = spi_transfer(0x00);
- 494:	80 e0       	ldi	r24, 0x00	; 0
- 496:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
+ 59e:	80 e0       	ldi	r24, 0x00	; 0
+ 5a0:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
 
-0000049a <.LVL10>:
+000005a4 <.LVL15>:
     SSR_PORT |= (1 << SSR);
- 49a:	98 81       	ld	r25, Y
+ 5a4:	98 81       	ld	r25, Y
 
-0000049c <.Loc.32>:
- 49c:	91 60       	ori	r25, 0x01	; 1
- 49e:	98 83       	st	Y, r25
+000005a6 <.Loc.44>:
+ 5a6:	91 60       	ori	r25, 0x01	; 1
+ 5a8:	98 83       	st	Y, r25
 
-000004a0 <.Loc.33>:
+000005aa <.Loc.45>:
     return value;
 }
- 4a0:	df 91       	pop	r29
- 4a2:	cf 91       	pop	r28
- 4a4:	08 95       	ret
+ 5aa:	df 91       	pop	r29
+ 5ac:	cf 91       	pop	r28
+ 5ae:	08 95       	ret
 
-000004a6 <write_reg_L>:
+000005b0 <RFID_read_links>:
 
-// Write to RC522 Register links
-void write_reg_L(uint8_t reg, uint8_t value) {
- 4a6:	1f 93       	push	r17
- 4a8:	cf 93       	push	r28
- 4aa:	df 93       	push	r29
- 4ac:	16 2f       	mov	r17, r22
+// Sensor uitlezen links
+uint8_t RFID_read_links(uint8_t reg) {
+ 5b0:	cf 93       	push	r28
+ 5b2:	df 93       	push	r29
 
-000004ae <.Loc.37>:
-    SSL_PORT &= ~(1 << SSL);
- 4ae:	cb e0       	ldi	r28, 0x0B	; 11
- 4b0:	d1 e0       	ldi	r29, 0x01	; 1
- 4b2:	98 81       	ld	r25, Y
- 4b4:	9b 7f       	andi	r25, 0xFB	; 251
- 4b6:	98 83       	st	Y, r25
-
-000004b8 <.Loc.39>:
-    spi_transfer((reg << 1) & 0x7E);
- 4b8:	88 0f       	add	r24, r24
-
-000004ba <.Loc.41>:
- 4ba:	8e 77       	andi	r24, 0x7E	; 126
- 4bc:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
-
-000004c0 <.LVL13>:
-    spi_transfer(value);
- 4c0:	81 2f       	mov	r24, r17
- 4c2:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
-
-000004c6 <.LVL14>:
-    SSL_PORT |= (1 << SSL);
- 4c6:	88 81       	ld	r24, Y
-
-000004c8 <.Loc.44>:
- 4c8:	84 60       	ori	r24, 0x04	; 4
- 4ca:	88 83       	st	Y, r24
-
-000004cc <.Loc.45>:
-}
- 4cc:	df 91       	pop	r29
- 4ce:	cf 91       	pop	r28
- 4d0:	1f 91       	pop	r17
-
-000004d2 <.Loc.46>:
- 4d2:	08 95       	ret
-
-000004d4 <read_reg_L>:
-
-// Read from RC522 Register links
-uint8_t read_reg_L(uint8_t reg) {
- 4d4:	cf 93       	push	r28
- 4d6:	df 93       	push	r29
-
-000004d8 <.Loc.49>:
+000005b4 <.Loc.49>:
     uint8_t value;
     SSL_PORT &= ~(1 << SSL);
- 4d8:	cb e0       	ldi	r28, 0x0B	; 11
- 4da:	d1 e0       	ldi	r29, 0x01	; 1
- 4dc:	98 81       	ld	r25, Y
- 4de:	9b 7f       	andi	r25, 0xFB	; 251
- 4e0:	98 83       	st	Y, r25
+ 5b4:	cb e0       	ldi	r28, 0x0B	; 11
+ 5b6:	d1 e0       	ldi	r29, 0x01	; 1
+ 5b8:	98 81       	ld	r25, Y
+ 5ba:	9b 7f       	andi	r25, 0xFB	; 251
+ 5bc:	98 83       	st	Y, r25
 
-000004e2 <.Loc.52>:
+000005be <.Loc.52>:
     spi_transfer(((reg << 1) & 0x7E) | 0x80);
- 4e2:	88 0f       	add	r24, r24
+ 5be:	88 0f       	add	r24, r24
 
-000004e4 <.Loc.54>:
- 4e4:	8e 77       	andi	r24, 0x7E	; 126
+000005c0 <.Loc.54>:
+ 5c0:	8e 77       	andi	r24, 0x7E	; 126
 
-000004e6 <.Loc.55>:
- 4e6:	80 68       	ori	r24, 0x80	; 128
- 4e8:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
+000005c2 <.Loc.55>:
+ 5c2:	80 68       	ori	r24, 0x80	; 128
+ 5c4:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
 
-000004ec <.LVL18>:
+000005c8 <.LVL18>:
     value = spi_transfer(0x00);
- 4ec:	80 e0       	ldi	r24, 0x00	; 0
- 4ee:	0e 94 21 02 	call	0x442	; 0x442 <spi_transfer>
+ 5c8:	80 e0       	ldi	r24, 0x00	; 0
+ 5ca:	0e 94 8f 02 	call	0x51e	; 0x51e <spi_transfer>
 
-000004f2 <.LVL19>:
+000005ce <.LVL19>:
     SSL_PORT |= (1 << SSL);
- 4f2:	98 81       	ld	r25, Y
+ 5ce:	98 81       	ld	r25, Y
 
-000004f4 <.Loc.59>:
- 4f4:	94 60       	ori	r25, 0x04	; 4
- 4f6:	98 83       	st	Y, r25
+000005d0 <.Loc.59>:
+ 5d0:	94 60       	ori	r25, 0x04	; 4
+ 5d2:	98 83       	st	Y, r25
 
-000004f8 <.Loc.60>:
+000005d4 <.Loc.60>:
     return value;
 }
- 4f8:	df 91       	pop	r29
- 4fa:	cf 91       	pop	r28
- 4fc:	08 95       	ret
+ 5d4:	df 91       	pop	r29
+ 5d6:	cf 91       	pop	r28
+ 5d8:	08 95       	ret
 
-000004fe <rc522_init>:
+000005da <pasje_checken_rechts>:
 
-// Initialize the RC522
-void rc522_init() {
-    // Perform a hard reset by cycling the RST pin
+// Scannen voor pasje rechts
+int pasje_checken_rechts() {
+ 5da:	cf 93       	push	r28
+ 5dc:	df 93       	push	r29
 
-    RSTR_PORT |= (1 << RSTR);
- 4fe:	eb e0       	ldi	r30, 0x0B	; 11
- 500:	f1 e0       	ldi	r31, 0x01	; 1
- 502:	80 81       	ld	r24, Z
+000005de <.Loc.63>:
+    RFID_write_rechts(CommandReg, PCD_IDLE);
+ 5de:	60 e0       	ldi	r22, 0x00	; 0
+ 5e0:	81 e0       	ldi	r24, 0x01	; 1
+ 5e2:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
 
-00000504 <.Loc.64>:
- 504:	82 60       	ori	r24, 0x02	; 2
- 506:	80 83       	st	Z, r24
+000005e6 <.LVL20>:
+    RFID_write_rechts(ComIrqReg, 0x7F);
+ 5e6:	6f e7       	ldi	r22, 0x7F	; 127
+ 5e8:	84 e0       	ldi	r24, 0x04	; 4
+ 5ea:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
 
-00000508 <.LBB28>:
- 508:	2f ef       	ldi	r18, 0xFF	; 255
- 50a:	80 e7       	ldi	r24, 0x70	; 112
- 50c:	92 e0       	ldi	r25, 0x02	; 2
+000005ee <.LVL21>:
+    RFID_write_rechts(FIFOLevelReg, 0x80); // Flush FIFO
+ 5ee:	60 e8       	ldi	r22, 0x80	; 128
+ 5f0:	8a e0       	ldi	r24, 0x0A	; 10
+ 5f2:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
 
-0000050e <.L1^B1>:
- 50e:	21 50       	subi	r18, 0x01	; 1
- 510:	80 40       	sbci	r24, 0x00	; 0
- 512:	90 40       	sbci	r25, 0x00	; 0
- 514:	e1 f7       	brne	.-8      	; 0x50e <.L1^B1>
- 516:	00 c0       	rjmp	.+0      	; 0x518 <L0^A>
+000005f6 <.LVL22>:
 
-00000518 <L0^A>:
-	...
+    RFID_write_rechts(FIFODataReg, PICC_REQIDL);
+ 5f6:	66 e2       	ldi	r22, 0x26	; 38
+ 5f8:	89 e0       	ldi	r24, 0x09	; 9
+ 5fa:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
 
-0000051a <.LBE28>:
-    _delay_ms(50);
-    RSTR_PORT &= ~(1 << RSTR);
- 51a:	80 81       	ld	r24, Z
- 51c:	8d 7f       	andi	r24, 0xFD	; 253
- 51e:	80 83       	st	Z, r24
+000005fe <.LVL23>:
+    RFID_write_rechts(CommandReg, PCD_TRANSCEIVE);
+ 5fe:	6c e0       	ldi	r22, 0x0C	; 12
+ 600:	81 e0       	ldi	r24, 0x01	; 1
+ 602:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
 
-00000520 <.LBB30>:
- 520:	2f ef       	ldi	r18, 0xFF	; 255
- 522:	80 e7       	ldi	r24, 0x70	; 112
- 524:	92 e0       	ldi	r25, 0x02	; 2
+00000606 <.LVL24>:
+    RFID_write_rechts(BitFramingReg, 0x87); // Start communicatie
+ 606:	67 e8       	ldi	r22, 0x87	; 135
+ 608:	8d e0       	ldi	r24, 0x0D	; 13
+ 60a:	0e 94 95 02 	call	0x52a	; 0x52a <RFID_write_rechts>
 
-00000526 <.L1^B2>:
- 526:	21 50       	subi	r18, 0x01	; 1
- 528:	80 40       	sbci	r24, 0x00	; 0
- 52a:	90 40       	sbci	r25, 0x00	; 0
- 52c:	e1 f7       	brne	.-8      	; 0x526 <.L1^B2>
- 52e:	00 c0       	rjmp	.+0      	; 0x530 <L0^A>
+0000060e <.LVL25>:
 
-00000530 <L0^A>:
-	...
-
-00000532 <.LBE30>:
-    _delay_ms(50);
-    RSTR_PORT |= (1 << RSTR);
- 532:	80 81       	ld	r24, Z
-
-00000534 <.Loc.86>:
- 534:	82 60       	ori	r24, 0x02	; 2
- 536:	80 83       	st	Z, r24
-
-00000538 <.LBB32>:
- 538:	2f ef       	ldi	r18, 0xFF	; 255
- 53a:	80 e7       	ldi	r24, 0x70	; 112
- 53c:	92 e0       	ldi	r25, 0x02	; 2
-
-0000053e <.L1^B3>:
- 53e:	21 50       	subi	r18, 0x01	; 1
- 540:	80 40       	sbci	r24, 0x00	; 0
- 542:	90 40       	sbci	r25, 0x00	; 0
- 544:	e1 f7       	brne	.-8      	; 0x53e <.L1^B3>
- 546:	00 c0       	rjmp	.+0      	; 0x548 <L0^A>
-
-00000548 <L0^A>:
-	...
-
-0000054a <.LBE32>:
-    _delay_ms(50);
-
-    RSTL_PORT |= (1 << RSTL);
- 54a:	80 81       	ld	r24, Z
-
-0000054c <.Loc.97>:
- 54c:	88 60       	ori	r24, 0x08	; 8
- 54e:	80 83       	st	Z, r24
-
-00000550 <.LBB34>:
- 550:	2f ef       	ldi	r18, 0xFF	; 255
- 552:	80 e7       	ldi	r24, 0x70	; 112
- 554:	92 e0       	ldi	r25, 0x02	; 2
-
-00000556 <.L1^B4>:
- 556:	21 50       	subi	r18, 0x01	; 1
- 558:	80 40       	sbci	r24, 0x00	; 0
- 55a:	90 40       	sbci	r25, 0x00	; 0
- 55c:	e1 f7       	brne	.-8      	; 0x556 <.L1^B4>
- 55e:	00 c0       	rjmp	.+0      	; 0x560 <L0^A>
-
-00000560 <L0^A>:
-	...
-
-00000562 <.LBE34>:
-    _delay_ms(50);
-    RSTL_PORT &= ~(1 << RSTL);
- 562:	80 81       	ld	r24, Z
- 564:	87 7f       	andi	r24, 0xF7	; 247
- 566:	80 83       	st	Z, r24
-
-00000568 <.LBB36>:
- 568:	2f ef       	ldi	r18, 0xFF	; 255
- 56a:	80 e7       	ldi	r24, 0x70	; 112
- 56c:	92 e0       	ldi	r25, 0x02	; 2
-
-0000056e <.L1^B5>:
- 56e:	21 50       	subi	r18, 0x01	; 1
- 570:	80 40       	sbci	r24, 0x00	; 0
- 572:	90 40       	sbci	r25, 0x00	; 0
- 574:	e1 f7       	brne	.-8      	; 0x56e <.L1^B5>
- 576:	00 c0       	rjmp	.+0      	; 0x578 <L0^A>
-
-00000578 <L0^A>:
-	...
-
-0000057a <.LBE36>:
-    _delay_ms(50);
-    RSTL_PORT |= (1 << RSTL);
- 57a:	80 81       	ld	r24, Z
-
-0000057c <.Loc.119>:
- 57c:	88 60       	ori	r24, 0x08	; 8
- 57e:	80 83       	st	Z, r24
-
-00000580 <.LBB38>:
- 580:	2f ef       	ldi	r18, 0xFF	; 255
- 582:	80 e7       	ldi	r24, 0x70	; 112
- 584:	92 e0       	ldi	r25, 0x02	; 2
-
-00000586 <.L1^B6>:
- 586:	21 50       	subi	r18, 0x01	; 1
- 588:	80 40       	sbci	r24, 0x00	; 0
- 58a:	90 40       	sbci	r25, 0x00	; 0
- 58c:	e1 f7       	brne	.-8      	; 0x586 <.L1^B6>
- 58e:	00 c0       	rjmp	.+0      	; 0x590 <L0^A>
-
-00000590 <L0^A>:
-	...
-
-00000592 <.LBE38>:
-    _delay_ms(50);
-
-    // Default configuration to wake up internal transceivers
-    write_reg_R(ModeReg, 0x3D);
- 592:	6d e3       	ldi	r22, 0x3D	; 61
- 594:	81 e1       	ldi	r24, 0x11	; 17
- 596:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-0000059a <.LVL32>:
-    write_reg_R(TxASKReg, 0x40);
- 59a:	60 e4       	ldi	r22, 0x40	; 64
- 59c:	85 e1       	ldi	r24, 0x15	; 21
- 59e:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-000005a2 <.LVL33>:
-
-    write_reg_L(ModeReg, 0x3D);
- 5a2:	6d e3       	ldi	r22, 0x3D	; 61
- 5a4:	81 e1       	ldi	r24, 0x11	; 17
- 5a6:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
-
-000005aa <.LVL34>:
-    write_reg_L(TxASKReg, 0x40);
- 5aa:	60 e4       	ldi	r22, 0x40	; 64
- 5ac:	85 e1       	ldi	r24, 0x15	; 21
- 5ae:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
-
-000005b2 <.LVL35>:
-
-    // Turn on the reading antenna
-    uint8_t currentR = read_reg_R(TxControlReg);
- 5b2:	84 e1       	ldi	r24, 0x14	; 20
- 5b4:	0e 94 3e 02 	call	0x47c	; 0x47c <read_reg_R>
-
-000005b8 <.LVL36>:
-    if ((currentR & 0x03) != 0x03) {
- 5b8:	98 2f       	mov	r25, r24
- 5ba:	93 70       	andi	r25, 0x03	; 3
- 5bc:	93 30       	cpi	r25, 0x03	; 3
- 5be:	41 f4       	brne	.+16     	; 0x5d0 <.L11>
-
-000005c0 <.L9>:
-        write_reg_R(TxControlReg, currentR | 0x03);
-    }
-
-    uint8_t currentL = read_reg_L(TxControlReg);
- 5c0:	84 e1       	ldi	r24, 0x14	; 20
- 5c2:	0e 94 6a 02 	call	0x4d4	; 0x4d4 <read_reg_L>
-
-000005c6 <.LVL38>:
-    if ((currentL & 0x03) != 0x03) {
- 5c6:	98 2f       	mov	r25, r24
- 5c8:	93 70       	andi	r25, 0x03	; 3
- 5ca:	93 30       	cpi	r25, 0x03	; 3
- 5cc:	39 f4       	brne	.+14     	; 0x5dc <.L12>
-
-000005ce <.L8>:
-        write_reg_L(TxControlReg, currentL | 0x03);
-    }
-}
- 5ce:	08 95       	ret
-
-000005d0 <.L11>:
-        write_reg_R(TxControlReg, currentR | 0x03);
- 5d0:	68 2f       	mov	r22, r24
- 5d2:	63 60       	ori	r22, 0x03	; 3
- 5d4:	84 e1       	ldi	r24, 0x14	; 20
-
-000005d6 <.Loc.143>:
- 5d6:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-000005da <.LVL42>:
- 5da:	f2 cf       	rjmp	.-28     	; 0x5c0 <.L9>
-
-000005dc <.L12>:
-        write_reg_L(TxControlReg, currentL | 0x03);
- 5dc:	68 2f       	mov	r22, r24
- 5de:	63 60       	ori	r22, 0x03	; 3
- 5e0:	84 e1       	ldi	r24, 0x14	; 20
-
-000005e2 <.Loc.145>:
- 5e2:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
-
-000005e6 <.LVL45>:
-}
- 5e6:	f3 cf       	rjmp	.-26     	; 0x5ce <.L8>
-
-000005e8 <tag_detectedR>:
-
-// Scan for a passive RFID tag rechts
-int tag_detectedR() {
- 5e8:	cf 93       	push	r28
- 5ea:	df 93       	push	r29
-
-000005ec <.Loc.148>:
-    write_reg_R(CommandReg, PCD_IDLE);
- 5ec:	60 e0       	ldi	r22, 0x00	; 0
- 5ee:	81 e0       	ldi	r24, 0x01	; 1
- 5f0:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-000005f4 <.LVL46>:
-    write_reg_R(ComIrqReg, 0x7F);
- 5f4:	6f e7       	ldi	r22, 0x7F	; 127
- 5f6:	84 e0       	ldi	r24, 0x04	; 4
- 5f8:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-000005fc <.LVL47>:
-    write_reg_R(FIFOLevelReg, 0x80); // Flush FIFO
- 5fc:	60 e8       	ldi	r22, 0x80	; 128
- 5fe:	8a e0       	ldi	r24, 0x0A	; 10
- 600:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-00000604 <.LVL48>:
-
-    write_reg_R(FIFODataReg, PICC_REQIDL);
- 604:	66 e2       	ldi	r22, 0x26	; 38
- 606:	89 e0       	ldi	r24, 0x09	; 9
- 608:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-0000060c <.LVL49>:
-    write_reg_R(CommandReg, PCD_TRANSCEIVE);
- 60c:	6c e0       	ldi	r22, 0x0C	; 12
- 60e:	81 e0       	ldi	r24, 0x01	; 1
- 610:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-00000614 <.LVL50>:
-    write_reg_R(BitFramingReg, 0x87); // Start communication
- 614:	67 e8       	ldi	r22, 0x87	; 135
- 616:	8d e0       	ldi	r24, 0x0D	; 13
- 618:	0e 94 27 02 	call	0x44e	; 0x44e <write_reg_R>
-
-0000061c <.LVL51>:
-
-    // Wait for the operations to complete or timeout
+    // Wacht tot pasje gedetecteerd is of er een timeout is
     uint16_t timeout = 1000;
- 61c:	c8 ee       	ldi	r28, 0xE8	; 232
- 61e:	d3 e0       	ldi	r29, 0x03	; 3
+ 60e:	c8 ee       	ldi	r28, 0xE8	; 232
+ 610:	d3 e0       	ldi	r29, 0x03	; 3
 
-00000620 <.L15>:
+00000612 <.L10>:
     while (timeout > 0) {
-        uint8_t irq = read_reg_R(ComIrqReg);
- 620:	84 e0       	ldi	r24, 0x04	; 4
- 622:	0e 94 3e 02 	call	0x47c	; 0x47c <read_reg_R>
+        uint8_t irq = RFID_read_rechts(ComIrqReg);
+ 612:	84 e0       	ldi	r24, 0x04	; 4
+ 614:	0e 94 c3 02 	call	0x586	; 0x586 <RFID_read_rechts>
 
-00000626 <.LVL53>:
-        if (irq & 0x30) { // Check if Rx and Idle IRQs are set
- 626:	80 73       	andi	r24, 0x30	; 48
+00000618 <.LVL27>:
+        if (irq & 0x30) { // Kijken of Rx and Idle IRQs hoog zijn, als dat zo is dan is er een pasje gedetecteerd
+ 618:	80 73       	andi	r24, 0x30	; 48
 
-00000628 <.Loc.162>:
- 628:	81 11       	cpse	r24, r1
- 62a:	0a c0       	rjmp	.+20     	; 0x640 <.L14>
+0000061a <.Loc.77>:
+ 61a:	81 11       	cpse	r24, r1
+ 61c:	0a c0       	rjmp	.+20     	; 0x632 <.L9>
 
-0000062c <.Loc.163>:
+0000061e <.Loc.78>:
             break;
         }
         timeout--;
- 62c:	21 97       	sbiw	r28, 0x01	; 1
+ 61e:	21 97       	sbiw	r28, 0x01	; 1
 
-0000062e <.LBB41>:
+00000620 <.LBB9>:
 	__builtin_avr_delay_cycles(__ticks_dc);
- 62e:	85 e3       	ldi	r24, 0x35	; 53
+ 620:	85 e3       	ldi	r24, 0x35	; 53
 
-00000630 <.L1^B7>:
- 630:	8a 95       	dec	r24
- 632:	f1 f7       	brne	.-4      	; 0x630 <.L1^B7>
+00000622 <.L1^B1>:
+ 622:	8a 95       	dec	r24
+ 624:	f1 f7       	brne	.-4      	; 0x622 <.L1^B1>
 	...
 
-00000636 <.LBE40>:
+00000628 <.LBE8>:
     while (timeout > 0) {
- 636:	20 97       	sbiw	r28, 0x00	; 0
- 638:	99 f7       	brne	.-26     	; 0x620 <.L15>
+ 628:	20 97       	sbiw	r28, 0x00	; 0
+ 62a:	99 f7       	brne	.-26     	; 0x612 <.L10>
 
-0000063a <.Loc.175>:
+0000062c <.Loc.90>:
         _delay_us(10);
     }
 
-    if (timeout == 0) return 0;
- 63a:	80 e0       	ldi	r24, 0x00	; 0
- 63c:	90 e0       	ldi	r25, 0x00	; 0
- 63e:	0d c0       	rjmp	.+26     	; 0x65a <.L13>
+    if (timeout == 0)  { // Reactie duurt te lang, dus geen pasje
+        return 0;
+ 62c:	80 e0       	ldi	r24, 0x00	; 0
+ 62e:	90 e0       	ldi	r25, 0x00	; 0
+ 630:	0d c0       	rjmp	.+26     	; 0x64c <.L8>
 
-00000640 <.L14>:
- 640:	80 e0       	ldi	r24, 0x00	; 0
- 642:	90 e0       	ldi	r25, 0x00	; 0
+00000632 <.L9>:
+ 632:	80 e0       	ldi	r24, 0x00	; 0
+ 634:	90 e0       	ldi	r25, 0x00	; 0
 
-00000644 <.Loc.178>:
- 644:	cd 2b       	or	r28, r29
- 646:	49 f0       	breq	.+18     	; 0x65a <.L13>
+00000636 <.Loc.93>:
+    if (timeout == 0)  { // Reactie duurt te lang, dus geen pasje
+ 636:	cd 2b       	or	r28, r29
+ 638:	49 f0       	breq	.+18     	; 0x64c <.L8>
 
-00000648 <.Loc.179>:
+0000063a <.Loc.94>:
+    }
 
-    // Check for operational or buffer errors
-    uint8_t error = read_reg_R(ErrorReg);
- 648:	86 e0       	ldi	r24, 0x06	; 6
- 64a:	0e 94 3e 02 	call	0x47c	; 0x47c <read_reg_R>
+    // Error checken
+    uint8_t error = RFID_read_rechts(ErrorReg);
+ 63a:	86 e0       	ldi	r24, 0x06	; 6
+ 63c:	0e 94 c3 02 	call	0x586	; 0x586 <RFID_read_rechts>
 
-0000064e <.LVL57>:
-    if (error & 0x13) return 0;
- 64e:	28 2f       	mov	r18, r24
- 650:	23 71       	andi	r18, 0x13	; 19
- 652:	81 e0       	ldi	r24, 0x01	; 1
+00000640 <.LVL31>:
+    if (error & 0x13) {
+ 640:	28 2f       	mov	r18, r24
+ 642:	23 71       	andi	r18, 0x13	; 19
+ 644:	81 e0       	ldi	r24, 0x01	; 1
 
-00000654 <.Loc.183>:
- 654:	90 e0       	ldi	r25, 0x00	; 0
- 656:	21 11       	cpse	r18, r1
- 658:	80 e0       	ldi	r24, 0x00	; 0
+00000646 <.Loc.98>:
+ 646:	90 e0       	ldi	r25, 0x00	; 0
+ 648:	21 11       	cpse	r18, r1
+ 64a:	80 e0       	ldi	r24, 0x00	; 0
 
-0000065a <.L13>:
+0000064c <.L8>:
+        return 0;
+    }
 
-    return 1;
+    return 1; //  Wel pasje
 }
- 65a:	df 91       	pop	r29
- 65c:	cf 91       	pop	r28
+ 64c:	df 91       	pop	r29
+ 64e:	cf 91       	pop	r28
 
-0000065e <.Loc.185>:
- 65e:	08 95       	ret
+00000650 <.Loc.100>:
+ 650:	08 95       	ret
 
-00000660 <tag_detectedL>:
+00000652 <pasje_checken_links>:
 
-// Scan for a passive RFID tag links
-int tag_detectedL() {
- 660:	cf 93       	push	r28
- 662:	df 93       	push	r29
+// Scannen voor pasje links
+int pasje_checken_links() {
+ 652:	cf 93       	push	r28
+ 654:	df 93       	push	r29
 
-00000664 <.Loc.187>:
-    write_reg_L(CommandReg, PCD_IDLE);
- 664:	60 e0       	ldi	r22, 0x00	; 0
- 666:	81 e0       	ldi	r24, 0x01	; 1
- 668:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
+00000656 <.Loc.102>:
+    RFID_write_links(CommandReg, PCD_IDLE);
+ 656:	60 e0       	ldi	r22, 0x00	; 0
+ 658:	81 e0       	ldi	r24, 0x01	; 1
+ 65a:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
 
-0000066c <.LVL61>:
-    write_reg_L(ComIrqReg, 0x7F);
- 66c:	6f e7       	ldi	r22, 0x7F	; 127
- 66e:	84 e0       	ldi	r24, 0x04	; 4
- 670:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
+0000065e <.LVL35>:
+    RFID_write_links(ComIrqReg, 0x7F);
+ 65e:	6f e7       	ldi	r22, 0x7F	; 127
+ 660:	84 e0       	ldi	r24, 0x04	; 4
+ 662:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
 
-00000674 <.LVL62>:
-    write_reg_L(FIFOLevelReg, 0x80); // Flush FIFO
- 674:	60 e8       	ldi	r22, 0x80	; 128
- 676:	8a e0       	ldi	r24, 0x0A	; 10
- 678:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
+00000666 <.LVL36>:
+    RFID_write_links(FIFOLevelReg, 0x80); // Flush FIFO
+ 666:	60 e8       	ldi	r22, 0x80	; 128
+ 668:	8a e0       	ldi	r24, 0x0A	; 10
+ 66a:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
 
-0000067c <.LVL63>:
+0000066e <.LVL37>:
 
-    write_reg_L(FIFODataReg, PICC_REQIDL);
- 67c:	66 e2       	ldi	r22, 0x26	; 38
- 67e:	89 e0       	ldi	r24, 0x09	; 9
- 680:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
+    RFID_write_links(FIFODataReg, PICC_REQIDL);
+ 66e:	66 e2       	ldi	r22, 0x26	; 38
+ 670:	89 e0       	ldi	r24, 0x09	; 9
+ 672:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
 
-00000684 <.LVL64>:
-    write_reg_L(CommandReg, PCD_TRANSCEIVE);
- 684:	6c e0       	ldi	r22, 0x0C	; 12
- 686:	81 e0       	ldi	r24, 0x01	; 1
- 688:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
+00000676 <.LVL38>:
+    RFID_write_links(CommandReg, PCD_TRANSCEIVE);
+ 676:	6c e0       	ldi	r22, 0x0C	; 12
+ 678:	81 e0       	ldi	r24, 0x01	; 1
+ 67a:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
 
-0000068c <.LVL65>:
-    write_reg_L(BitFramingReg, 0x87); // Start communication
- 68c:	67 e8       	ldi	r22, 0x87	; 135
- 68e:	8d e0       	ldi	r24, 0x0D	; 13
- 690:	0e 94 53 02 	call	0x4a6	; 0x4a6 <write_reg_L>
+0000067e <.LVL39>:
+    RFID_write_links(BitFramingReg, 0x87); // Start communicatie
+ 67e:	67 e8       	ldi	r22, 0x87	; 135
+ 680:	8d e0       	ldi	r24, 0x0D	; 13
+ 682:	0e 94 ac 02 	call	0x558	; 0x558 <RFID_write_links>
 
-00000694 <.LVL66>:
+00000686 <.LVL40>:
 
-    // Wait for the operations to complete or timeout
+    // Wacht tot pasje gedetecteerd is of er een timeout is
     uint16_t timeout = 1000;
- 694:	c8 ee       	ldi	r28, 0xE8	; 232
- 696:	d3 e0       	ldi	r29, 0x03	; 3
+ 686:	c8 ee       	ldi	r28, 0xE8	; 232
+ 688:	d3 e0       	ldi	r29, 0x03	; 3
 
-00000698 <.L22>:
+0000068a <.L17>:
     while (timeout > 0) {
-        uint8_t irq = read_reg_L(ComIrqReg);
- 698:	84 e0       	ldi	r24, 0x04	; 4
- 69a:	0e 94 6a 02 	call	0x4d4	; 0x4d4 <read_reg_L>
+        uint8_t irq = RFID_read_links(ComIrqReg);
+ 68a:	84 e0       	ldi	r24, 0x04	; 4
+ 68c:	0e 94 d8 02 	call	0x5b0	; 0x5b0 <RFID_read_links>
 
-0000069e <.LVL68>:
-        if (irq & 0x30) { // Check if Rx and Idle IRQs are set
- 69e:	80 73       	andi	r24, 0x30	; 48
+00000690 <.LVL42>:
+        if (irq & 0x30) { // Kijken of Rx and Idle IRQs hoog zijn, als dat zo is dan is er een pasje gedetecteerd
+ 690:	80 73       	andi	r24, 0x30	; 48
 
-000006a0 <.Loc.201>:
- 6a0:	81 11       	cpse	r24, r1
- 6a2:	0a c0       	rjmp	.+20     	; 0x6b8 <.L21>
+00000692 <.Loc.116>:
+ 692:	81 11       	cpse	r24, r1
+ 694:	0a c0       	rjmp	.+20     	; 0x6aa <.L16>
 
-000006a4 <.Loc.202>:
+00000696 <.Loc.117>:
             break;
         }
         timeout--;
- 6a4:	21 97       	sbiw	r28, 0x01	; 1
+ 696:	21 97       	sbiw	r28, 0x01	; 1
 
-000006a6 <.LBB44>:
- 6a6:	85 e3       	ldi	r24, 0x35	; 53
+00000698 <.LBB12>:
+ 698:	85 e3       	ldi	r24, 0x35	; 53
 
-000006a8 <.L1^B8>:
- 6a8:	8a 95       	dec	r24
- 6aa:	f1 f7       	brne	.-4      	; 0x6a8 <.L1^B8>
+0000069a <.L1^B2>:
+ 69a:	8a 95       	dec	r24
+ 69c:	f1 f7       	brne	.-4      	; 0x69a <.L1^B2>
 	...
 
-000006ae <.LBE43>:
+000006a0 <.LBE11>:
     while (timeout > 0) {
- 6ae:	20 97       	sbiw	r28, 0x00	; 0
- 6b0:	99 f7       	brne	.-26     	; 0x698 <.L22>
+ 6a0:	20 97       	sbiw	r28, 0x00	; 0
+ 6a2:	99 f7       	brne	.-26     	; 0x68a <.L17>
 
-000006b2 <.Loc.214>:
+000006a4 <.Loc.129>:
         _delay_us(10);
     }
 
-    if (timeout == 0) return 0;
- 6b2:	80 e0       	ldi	r24, 0x00	; 0
- 6b4:	90 e0       	ldi	r25, 0x00	; 0
- 6b6:	0d c0       	rjmp	.+26     	; 0x6d2 <.L20>
+    if (timeout == 0) { // Reactie duurt te lang, dus geen pasje
+        return 0;
+ 6a4:	80 e0       	ldi	r24, 0x00	; 0
+ 6a6:	90 e0       	ldi	r25, 0x00	; 0
+ 6a8:	0d c0       	rjmp	.+26     	; 0x6c4 <.L15>
 
-000006b8 <.L21>:
- 6b8:	80 e0       	ldi	r24, 0x00	; 0
- 6ba:	90 e0       	ldi	r25, 0x00	; 0
+000006aa <.L16>:
+ 6aa:	80 e0       	ldi	r24, 0x00	; 0
+ 6ac:	90 e0       	ldi	r25, 0x00	; 0
 
-000006bc <.Loc.217>:
- 6bc:	cd 2b       	or	r28, r29
- 6be:	49 f0       	breq	.+18     	; 0x6d2 <.L20>
+000006ae <.Loc.132>:
+    if (timeout == 0) { // Reactie duurt te lang, dus geen pasje
+ 6ae:	cd 2b       	or	r28, r29
+ 6b0:	49 f0       	breq	.+18     	; 0x6c4 <.L15>
 
-000006c0 <.Loc.218>:
+000006b2 <.Loc.133>:
+    }
 
-    // Check for operational or buffer errors
-    uint8_t error = read_reg_L(ErrorReg);
- 6c0:	86 e0       	ldi	r24, 0x06	; 6
- 6c2:	0e 94 6a 02 	call	0x4d4	; 0x4d4 <read_reg_L>
+    // Error checken
+    uint8_t error = RFID_read_links(ErrorReg);
+ 6b2:	86 e0       	ldi	r24, 0x06	; 6
+ 6b4:	0e 94 d8 02 	call	0x5b0	; 0x5b0 <RFID_read_links>
 
-000006c6 <.LVL72>:
-    if (error & 0x13) return 0;
- 6c6:	28 2f       	mov	r18, r24
- 6c8:	23 71       	andi	r18, 0x13	; 19
- 6ca:	81 e0       	ldi	r24, 0x01	; 1
+000006b8 <.LVL46>:
+    if (error & 0x13) {
+ 6b8:	28 2f       	mov	r18, r24
+ 6ba:	23 71       	andi	r18, 0x13	; 19
+ 6bc:	81 e0       	ldi	r24, 0x01	; 1
 
-000006cc <.Loc.222>:
- 6cc:	90 e0       	ldi	r25, 0x00	; 0
- 6ce:	21 11       	cpse	r18, r1
- 6d0:	80 e0       	ldi	r24, 0x00	; 0
+000006be <.Loc.137>:
+ 6be:	90 e0       	ldi	r25, 0x00	; 0
+ 6c0:	21 11       	cpse	r18, r1
+ 6c2:	80 e0       	ldi	r24, 0x00	; 0
 
-000006d2 <.L20>:
+000006c4 <.L15>:
+        return 0;
+    }
 
-    return 1;
+    return 1; // Wel pasje
 }
- 6d2:	df 91       	pop	r29
- 6d4:	cf 91       	pop	r28
+ 6c4:	df 91       	pop	r29
+ 6c6:	cf 91       	pop	r28
 
-000006d6 <.Loc.224>:
- 6d6:	08 95       	ret
+000006c8 <.Loc.139>:
+ 6c8:	08 95       	ret
 
-000006d8 <RFID_opstarten>:
+000006ca <RFID_checken>:
 
-void RFID_opstarten(void) {
-    initialisatie_RFID();
- 6d8:	0e 94 8f 01 	call	0x31e	; 0x31e <initialisatie_RFID>
+int RFID_checken(int kant){ // Rechts = 0, links = 1
+    if (kant == 0) { // Pakket rechts checken
+ 6ca:	89 2b       	or	r24, r25
+ 6cc:	49 f4       	brne	.+18     	; 0x6e0 <.L23>
 
-000006dc <.LVL76>:
-    rc522_init();
- 6dc:	0e 94 7f 02 	call	0x4fe	; 0x4fe <rc522_init>
+000006ce <.Loc.143>:
+        if (pasje_checken_rechts()) { // Tag gedetecteerd
+ 6ce:	0e 94 ed 02 	call	0x5da	; 0x5da <pasje_checken_rechts>
 
-000006e0 <.LVL77>:
-            else {
-                LED_BLAUW_PORT &= ~(1 << LED_BLAUW);
-            }
-        }
-    }*/
-}
- 6e0:	08 95       	ret
+000006d2 <.LVL51>:
+ 6d2:	ac 01       	movw	r20, r24
 
-000006e2 <RFID_scannen>:
+000006d4 <.Loc.146>:
+ 6d4:	81 e0       	ldi	r24, 0x01	; 1
+ 6d6:	90 e0       	ldi	r25, 0x00	; 0
+ 6d8:	45 2b       	or	r20, r21
+ 6da:	51 f4       	brne	.+20     	; 0x6f0 <.L22>
+ 6dc:	80 e0       	ldi	r24, 0x00	; 0
+ 6de:	08 95       	ret
 
-// hoe zorg je dat je hier na 2 sec weer uit bent? Is 1 keer checken genoeg?
-int RFID_scannen(int kant){ // kant = 0 = rechts, kant = 1 = links
-    if (kant == 0) { //doosje rechts
- 6e2:	89 2b       	or	r24, r25
- 6e4:	a1 f4       	brne	.+40     	; 0x70e <.L29>
-
-000006e6 <.Loc.232>:
-        if (tag_detectedR()) { //tag gedetecteerd
- 6e6:	0e 94 f4 02 	call	0x5e8	; 0x5e8 <tag_detectedR>
-
-000006ea <.LVL79>:
- 6ea:	00 97       	sbiw	r24, 0x00	; 0
- 6ec:	49 f0       	breq	.+18     	; 0x700 <.L30>
-
-000006ee <.LBB46>:
-	__builtin_avr_delay_cycles(__ticks_dc);
- 6ee:	8f e1       	ldi	r24, 0x1F	; 31
- 6f0:	9e e4       	ldi	r25, 0x4E	; 78
-
-000006f2 <.L1^B9>:
- 6f2:	01 97       	sbiw	r24, 0x01	; 1
- 6f4:	f1 f7       	brne	.-4      	; 0x6f2 <.L1^B9>
- 6f6:	00 c0       	rjmp	.+0      	; 0x6f8 <L0^A>
-
-000006f8 <L0^A>:
-	...
-
-000006fa <.LBE46>:
-            _delay_ms(5);
-            return 1;
- 6fa:	81 e0       	ldi	r24, 0x01	; 1
- 6fc:	90 e0       	ldi	r25, 0x00	; 0
- 6fe:	08 95       	ret
-
-00000700 <.L30>:
- 700:	ef e1       	ldi	r30, 0x1F	; 31
- 702:	fe e4       	ldi	r31, 0x4E	; 78
-
-00000704 <.L1^B10>:
- 704:	31 97       	sbiw	r30, 0x01	; 1
- 706:	f1 f7       	brne	.-4      	; 0x704 <.L1^B10>
- 708:	00 c0       	rjmp	.+0      	; 0x70a <L0^A>
-
-0000070a <L0^A>:
-	...
-
-0000070c <.LBE48>:
-        }
-        else { // geen tag
-            _delay_ms(5);
+000006e0 <.L23>:
+        else { // Geen tag
             return 0;
- 70c:	08 95       	ret
-
-0000070e <.L29>:
         }
     }
-    else { // doosje links
-        if (tag_detectedL()) { // tag gedetecteerd
- 70e:	0e 94 30 03 	call	0x660	; 0x660 <tag_detectedL>
+    else { // Pakket links checken
+        if (pasje_checken_links()) { // Tag gedetecteerd
+ 6e0:	0e 94 29 03 	call	0x652	; 0x652 <pasje_checken_links>
 
-00000712 <.LVL85>:
- 712:	00 97       	sbiw	r24, 0x00	; 0
- 714:	49 f0       	breq	.+18     	; 0x728 <.L32>
+000006e4 <.LVL53>:
+ 6e4:	ac 01       	movw	r20, r24
 
-00000716 <.LBB50>:
- 716:	8f e1       	ldi	r24, 0x1F	; 31
- 718:	9e e4       	ldi	r25, 0x4E	; 78
+000006e6 <.Loc.150>:
+ 6e6:	81 e0       	ldi	r24, 0x01	; 1
+ 6e8:	90 e0       	ldi	r25, 0x00	; 0
+ 6ea:	45 2b       	or	r20, r21
+ 6ec:	09 f4       	brne	.+2      	; 0x6f0 <.L22>
+ 6ee:	80 e0       	ldi	r24, 0x00	; 0
 
-0000071a <.L1^B11>:
- 71a:	01 97       	sbiw	r24, 0x01	; 1
- 71c:	f1 f7       	brne	.-4      	; 0x71a <.L1^B11>
- 71e:	00 c0       	rjmp	.+0      	; 0x720 <L0^A>
-
-00000720 <L0^A>:
-	...
-
-00000722 <.LBE50>:
-            _delay_ms(5);
-            return 1;
- 722:	81 e0       	ldi	r24, 0x01	; 1
- 724:	90 e0       	ldi	r25, 0x00	; 0
- 726:	08 95       	ret
-
-00000728 <.L32>:
- 728:	ef e1       	ldi	r30, 0x1F	; 31
- 72a:	fe e4       	ldi	r31, 0x4E	; 78
-
-0000072c <.L1^B12>:
- 72c:	31 97       	sbiw	r30, 0x01	; 1
- 72e:	f1 f7       	brne	.-4      	; 0x72c <.L1^B12>
- 730:	00 c0       	rjmp	.+0      	; 0x732 <L0^A>
-
-00000732 <L0^A>:
-	...
-
-00000734 <.LBE52>:
-        else { // geen tag
-            _delay_ms(5);
+000006f0 <.L22>:
+        }
+        else { // Geen tag
             return 0;
         }
     }
 }
- 734:	08 95       	ret
+ 6f0:	08 95       	ret
 
-00000736 <stoppen>:
-void rijden(void) {
-    NEXT_MOD_PORT |= (1 << NEXT_MOD); // Volgende naar agv signaleren
-}*/
+000006f2 <stopsignaal_hoog>:
+#include "Display.h"
+#include "Sequence.h"
 
-void stoppen(void) {
+// Signaleren naar AGV dat hij moet stoppen
+void stopsignaal_hoog(void) {
     ACK_MOD_PORT |= (1 << ACK_MOD);
- 736:	a2 9a       	sbi	0x14, 2	; 20
+ 6f2:	a2 9a       	sbi	0x14, 2	; 20
 
-00000738 <.Loc.3>:
-    //_delay_ms(2000);
-    //ACK_MOD_PORT &= ~(1 << ACK_MOD);
+000006f4 <.Loc.3>:
 }
- 738:	08 95       	ret
+ 6f4:	08 95       	ret
 
-0000073a <starten>:
- 73a:	2f ef       	ldi	r18, 0xFF	; 255
- 73c:	89 e6       	ldi	r24, 0x69	; 105
- 73e:	98 e1       	ldi	r25, 0x18	; 24
+000006f6 <stopsignaal_laag>:
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 6f6:	2f ef       	ldi	r18, 0xFF	; 255
+ 6f8:	89 e6       	ldi	r24, 0x69	; 105
+ 6fa:	98 e1       	ldi	r25, 0x18	; 24
 
-00000740 <.L1^B1>:
- 740:	21 50       	subi	r18, 0x01	; 1
- 742:	80 40       	sbci	r24, 0x00	; 0
- 744:	90 40       	sbci	r25, 0x00	; 0
- 746:	e1 f7       	brne	.-8      	; 0x740 <.L1^B1>
- 748:	00 c0       	rjmp	.+0      	; 0x74a <L0^A>
+000006fc <.L1^B1>:
+ 6fc:	21 50       	subi	r18, 0x01	; 1
+ 6fe:	80 40       	sbci	r24, 0x00	; 0
+ 700:	90 40       	sbci	r25, 0x00	; 0
+ 702:	e1 f7       	brne	.-8      	; 0x6fc <.L1^B1>
+ 704:	00 c0       	rjmp	.+0      	; 0x706 <L0^A>
 
-0000074a <L0^A>:
+00000706 <L0^A>:
 	...
 
-0000074c <.LBE16>:
+00000708 <.LBE16>:
 
-void starten(void) {
+// Stopsignaal naar AGV weer laag zetten
+void stopsignaal_laag(void) {
     _delay_ms(500);
     ACK_MOD_PORT &= ~(1 << ACK_MOD);
- 74c:	a2 98       	cbi	0x14, 2	; 20
+ 708:	a2 98       	cbi	0x14, 2	; 20
 
-0000074e <.Loc.16>:
+0000070a <.Loc.16>:
 }
- 74e:	08 95       	ret
+ 70a:	08 95       	ret
 
-00000750 <led_blauw>:
+0000070c <led_blauw>:
 
-void led_blauw(void) { //leeg
+// Blauwe led knipperen omdat pakket leeg is
+void led_blauw(void) {
     TCNT1 = 0;
- 750:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x700085>
- 754:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x700084>
+ 70c:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x700085>
+ 710:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x700084>
 
-00000758 <.Loc.20>:
-    TIFR1 = (1 << TOV1); // flag verwijderen
- 758:	81 e0       	ldi	r24, 0x01	; 1
- 75a:	86 bb       	out	0x16, r24	; 22
+00000714 <.Loc.20>:
+    TIFR1 = (1 << TOV1); // Flag verwijderen
+ 714:	81 e0       	ldi	r24, 0x01	; 1
+ 716:	86 bb       	out	0x16, r24	; 22
 
-0000075c <.Loc.22>:
+00000718 <.Loc.22>:
     int klaar = 0;
-    LED_BLAUW_PORT |= (1 << LED_BLAUW); // led aan
- 75c:	42 9a       	sbi	0x08, 2	; 8
+    LED_BLAUW_PORT |= (1 << LED_BLAUW); // Led aan
+ 718:	42 9a       	sbi	0x08, 2	; 8
 
-0000075e <.L4>:
-    while (klaar == 0) {
+0000071a <.L4>:
+    while (klaar == 0) { // Wacht tot led weer uit moet
         if ((TIFR1 & (1 << TOV1)) != 0) {
- 75e:	b0 9b       	sbis	0x16, 0	; 22
- 760:	fe cf       	rjmp	.-4      	; 0x75e <.L4>
+ 71a:	b0 9b       	sbis	0x16, 0	; 22
+ 71c:	fe cf       	rjmp	.-4      	; 0x71a <.L4>
 
-00000762 <.Loc.29>:
-            LED_BLAUW_PORT &= ~(1 << LED_BLAUW); // led uit
- 762:	42 98       	cbi	0x08, 2	; 8
+0000071e <.Loc.29>:
+            LED_BLAUW_PORT &= ~(1 << LED_BLAUW); // Led uit
+ 71e:	42 98       	cbi	0x08, 2	; 8
 
-00000764 <.Loc.31>:
+00000720 <.Loc.31>:
             klaar = 1;
         }
     }
 }
- 764:	08 95       	ret
+ 720:	08 95       	ret
 
-00000766 <led_groen>:
+00000722 <led_groen>:
 
-void led_groen(void) { // rfid
+// Groene led knipperen omdat pakket RFID pasje bevat
+void led_groen(void) {
     TCNT1 = 0;
- 766:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x700085>
- 76a:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x700084>
+ 722:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x700085>
+ 726:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x700084>
 
-0000076e <.Loc.37>:
-    TIFR1 = (1 << TOV1); // flag verwijderen
- 76e:	81 e0       	ldi	r24, 0x01	; 1
- 770:	86 bb       	out	0x16, r24	; 22
+0000072a <.Loc.37>:
+    TIFR1 = (1 << TOV1); // Flag verwijderen
+ 72a:	81 e0       	ldi	r24, 0x01	; 1
+ 72c:	86 bb       	out	0x16, r24	; 22
 
-00000772 <.Loc.39>:
+0000072e <.Loc.39>:
     int klaar = 0;
-    LED_GROEN_PORT |= (1 << LED_GROEN); // led aan
- 772:	43 9a       	sbi	0x08, 3	; 8
+    LED_GROEN_PORT |= (1 << LED_GROEN); // Led aan
+ 72e:	43 9a       	sbi	0x08, 3	; 8
 
-00000774 <.L8>:
-    while (klaar == 0) {
+00000730 <.L8>:
+    while (klaar == 0) { // Wacht tot led weer uit moet
         if ((TIFR1 & (1 << TOV1)) != 0) {
- 774:	b0 9b       	sbis	0x16, 0	; 22
- 776:	fe cf       	rjmp	.-4      	; 0x774 <.L8>
+ 730:	b0 9b       	sbis	0x16, 0	; 22
+ 732:	fe cf       	rjmp	.-4      	; 0x730 <.L8>
 
-00000778 <.Loc.46>:
-            LED_GROEN_PORT &= ~(1 << LED_GROEN); // led uit
- 778:	43 98       	cbi	0x08, 3	; 8
+00000734 <.Loc.46>:
+            LED_GROEN_PORT &= ~(1 << LED_GROEN); // Led uit
+ 734:	43 98       	cbi	0x08, 3	; 8
 
-0000077a <.Loc.48>:
+00000736 <.Loc.48>:
             klaar = 1;
         }
     }
 }
- 77a:	08 95       	ret
+ 736:	08 95       	ret
 
-0000077c <sequence>:
+00000738 <detectie>:
 
-void sequence(void) {
- 77c:	8f 92       	push	r8
- 77e:	9f 92       	push	r9
- 780:	af 92       	push	r10
- 782:	bf 92       	push	r11
- 784:	cf 92       	push	r12
- 786:	df 92       	push	r13
- 788:	ef 92       	push	r14
- 78a:	ff 92       	push	r15
- 78c:	0f 93       	push	r16
- 78e:	1f 93       	push	r17
- 790:	cf 93       	push	r28
- 792:	df 93       	push	r29
+// Loop die pakketten detecteert
+void detectie(void) {
+ 738:	8f 92       	push	r8
+ 73a:	9f 92       	push	r9
+ 73c:	af 92       	push	r10
+ 73e:	bf 92       	push	r11
+ 740:	cf 92       	push	r12
+ 742:	df 92       	push	r13
+ 744:	ef 92       	push	r14
+ 746:	ff 92       	push	r15
+ 748:	0f 93       	push	r16
+ 74a:	1f 93       	push	r17
+ 74c:	cf 93       	push	r28
+ 74e:	df 93       	push	r29
 
-00000794 <.Loc.52>:
-    RFID_opstarten();
- 794:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <RFID_opstarten>
+00000750 <.Loc.52>:
+    NEXT_MOD_PORT |= (1 << NEXT_MOD); // Signaleren naar AGV dat hij moet gaan rijden
+ 750:	a1 9a       	sbi	0x14, 1	; 20
 
-00000798 <.LVL6>:
-    NEXT_MOD_PORT |= (1 << NEXT_MOD); // agv moet gaan rijden
- 798:	a1 9a       	sbi	0x14, 1	; 20
-
-0000079a <.Loc.55>:
-    int links = 0;
-    int testen = 0;
-    //rijden();
-    //LED_GROEN_PORT ^= (1 << LED_GROEN);
-
-    while ((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus
- 79a:	30 99       	sbic	0x06, 0	; 6
- 79c:	a7 c0       	rjmp	.+334    	; 0x8ec <.L11>
-
-0000079e <.Loc.62>:
-    int links = 0;
- 79e:	e1 2c       	mov	r14, r1
- 7a0:	f1 2c       	mov	r15, r1
-
-000007a2 <.Loc.63>:
-    int rechts = 0;
- 7a2:	00 e0       	ldi	r16, 0x00	; 0
- 7a4:	10 e0       	ldi	r17, 0x00	; 0
-
-000007a6 <.Loc.64>:
-    int teller_rfid = 0;
- 7a6:	a1 2c       	mov	r10, r1
- 7a8:	b1 2c       	mov	r11, r1
-
-000007aa <.Loc.65>:
+00000752 <.Loc.54>:
     int teller_leeg = 0;
- 7aa:	c1 2c       	mov	r12, r1
- 7ac:	d1 2c       	mov	r13, r1
+    int teller_rfid = 0;
+    int rechts = 0; // Zorgt dat pakketten niet dubbel geteld worden
+    int links = 0; // Zorgt dat pekketten niet dubbel geteld worden
 
-000007ae <.Loc.66>:
-        //_delay_ms(500);
-        if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
- 7ae:	c9 e0       	ldi	r28, 0x09	; 9
- 7b0:	d1 e0       	ldi	r29, 0x01	; 1
+    while ((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { // Detecteren zolang AGV niet heeft gesignaleerd dat er gestopt moet worden
+ 752:	30 99       	sbic	0x06, 0	; 6
+ 754:	a7 c0       	rjmp	.+334    	; 0x8a4 <.L11>
 
-000007b2 <.Loc.67>:
-            stoppen();
+00000756 <.Loc.60>:
+    int links = 0; // Zorgt dat pekketten niet dubbel geteld worden
+ 756:	e1 2c       	mov	r14, r1
+ 758:	f1 2c       	mov	r15, r1
+
+0000075a <.Loc.61>:
+    int rechts = 0; // Zorgt dat pakketten niet dubbel geteld worden
+ 75a:	00 e0       	ldi	r16, 0x00	; 0
+ 75c:	10 e0       	ldi	r17, 0x00	; 0
+
+0000075e <.Loc.62>:
+    int teller_rfid = 0;
+ 75e:	a1 2c       	mov	r10, r1
+ 760:	b1 2c       	mov	r11, r1
+
+00000762 <.Loc.63>:
+    int teller_leeg = 0;
+ 762:	c1 2c       	mov	r12, r1
+ 764:	d1 2c       	mov	r13, r1
+
+00000766 <.Loc.64>:
+        if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // Rechts pakket gedetecteerd
+ 766:	c9 e0       	ldi	r28, 0x09	; 9
+ 768:	d1 e0       	ldi	r29, 0x01	; 1
+
+0000076a <.Loc.65>:
+            stopsignaal_hoog(); // Naar AGV signaleren dat die moet stoppen met rijden
             rechts = 1;
- 7b2:	88 24       	eor	r8, r8
- 7b4:	83 94       	inc	r8
- 7b6:	91 2c       	mov	r9, r1
- 7b8:	72 c0       	rjmp	.+228    	; 0x89e <.L21>
+ 76a:	88 24       	eor	r8, r8
+ 76c:	83 94       	inc	r8
+ 76e:	91 2c       	mov	r9, r1
+ 770:	72 c0       	rjmp	.+228    	; 0x856 <.L21>
 
-000007ba <.L23>:
-            stoppen();
- 7ba:	0e 94 9b 03 	call	0x736	; 0x736 <stoppen>
+00000772 <.L23>:
+            stopsignaal_hoog(); // Naar AGV signaleren dat die moet stoppen met rijden
+ 772:	0e 94 79 03 	call	0x6f2	; 0x6f2 <stopsignaal_hoog>
 
-000007be <.LVL9>:
-            if (RFID_scannen(0) != 0) {// doosje bevat tag
- 7be:	80 e0       	ldi	r24, 0x00	; 0
- 7c0:	90 e0       	ldi	r25, 0x00	; 0
- 7c2:	0e 94 71 03 	call	0x6e2	; 0x6e2 <RFID_scannen>
+00000776 <.LVL8>:
+            if (RFID_checken(0) != 0) { // Pakket bevat pasje
+ 776:	80 e0       	ldi	r24, 0x00	; 0
+ 778:	90 e0       	ldi	r25, 0x00	; 0
+ 77a:	0e 94 65 03 	call	0x6ca	; 0x6ca <RFID_checken>
 
-000007c6 <.LVL10>:
- 7c6:	89 2b       	or	r24, r25
- 7c8:	b9 f0       	breq	.+46     	; 0x7f8 <.L14>
+0000077e <.LVL9>:
+ 77e:	89 2b       	or	r24, r25
+ 780:	b9 f0       	breq	.+46     	; 0x7b0 <.L14>
 
-000007ca <.Loc.73>:
+00000782 <.Loc.71>:
                 teller_rfid++;
- 7ca:	2f ef       	ldi	r18, 0xFF	; 255
- 7cc:	a2 1a       	sub	r10, r18
- 7ce:	b2 0a       	sbc	r11, r18
+ 782:	2f ef       	ldi	r18, 0xFF	; 255
+ 784:	a2 1a       	sub	r10, r18
+ 786:	b2 0a       	sbc	r11, r18
 
-000007d0 <.Loc.75>:
+00000788 <.Loc.73>:
                 display(teller_leeg, teller_rfid);
- 7d0:	b5 01       	movw	r22, r10
- 7d2:	c6 01       	movw	r24, r12
- 7d4:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+ 788:	b5 01       	movw	r22, r10
+ 78a:	c6 01       	movw	r24, r12
+ 78c:	0e 94 0b 01 	call	0x216	; 0x216 <display>
 
-000007d8 <.LVL12>:
-                //display(links, rechts);
+00000790 <.LVL11>:
                 led_groen();
- 7d8:	0e 94 b3 03 	call	0x766	; 0x766 <led_groen>
+ 790:	0e 94 91 03 	call	0x722	; 0x722 <led_groen>
 
-000007dc <.LBB18>:
- 7dc:	8f ef       	ldi	r24, 0xFF	; 255
- 7de:	90 e7       	ldi	r25, 0x70	; 112
- 7e0:	22 e0       	ldi	r18, 0x02	; 2
+00000794 <.LBB18>:
+ 794:	8f ef       	ldi	r24, 0xFF	; 255
+ 796:	90 e7       	ldi	r25, 0x70	; 112
+ 798:	22 e0       	ldi	r18, 0x02	; 2
 
-000007e2 <.L1^B2>:
- 7e2:	81 50       	subi	r24, 0x01	; 1
- 7e4:	90 40       	sbci	r25, 0x00	; 0
- 7e6:	20 40       	sbci	r18, 0x00	; 0
- 7e8:	e1 f7       	brne	.-8      	; 0x7e2 <.L1^B2>
- 7ea:	00 c0       	rjmp	.+0      	; 0x7ec <L0^A>
+0000079a <.L1^B2>:
+ 79a:	81 50       	subi	r24, 0x01	; 1
+ 79c:	90 40       	sbci	r25, 0x00	; 0
+ 79e:	20 40       	sbci	r18, 0x00	; 0
+ 7a0:	e1 f7       	brne	.-8      	; 0x79a <.L1^B2>
+ 7a2:	00 c0       	rjmp	.+0      	; 0x7a4 <L0^A>
 
-000007ec <L0^A>:
+000007a4 <L0^A>:
 	...
 
-000007ee <.L15>:
+000007a6 <.L15>:
+                teller_leeg++;
                 display(teller_leeg, teller_rfid);
-                //display(links, rechts);
+                led_blauw();
+                _delay_ms(50); // Debounce
+            }
+            stopsignaal_laag(); // Stopsignaal weer laag zetten
+ 7a6:	0e 94 7b 03 	call	0x6f6	; 0x6f6 <stopsignaal_laag>
+
+000007aa <.LVL14>:
+            rechts = 1;
+ 7aa:	08 2d       	mov	r16, r8
+ 7ac:	19 2d       	mov	r17, r9
+ 7ae:	5a c0       	rjmp	.+180    	; 0x864 <.L13>
+
+000007b0 <.L14>:
+                teller_leeg++;
+ 7b0:	8f ef       	ldi	r24, 0xFF	; 255
+ 7b2:	c8 1a       	sub	r12, r24
+ 7b4:	d8 0a       	sbc	r13, r24
+
+000007b6 <.Loc.88>:
+                display(teller_leeg, teller_rfid);
+ 7b6:	b5 01       	movw	r22, r10
+ 7b8:	c6 01       	movw	r24, r12
+ 7ba:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+
+000007be <.LVL16>:
+                led_blauw();
+ 7be:	0e 94 86 03 	call	0x70c	; 0x70c <led_blauw>
+
+000007c2 <.LBB20>:
+ 7c2:	9f ef       	ldi	r25, 0xFF	; 255
+ 7c4:	20 e7       	ldi	r18, 0x70	; 112
+ 7c6:	82 e0       	ldi	r24, 0x02	; 2
+
+000007c8 <.L1^B3>:
+ 7c8:	91 50       	subi	r25, 0x01	; 1
+ 7ca:	20 40       	sbci	r18, 0x00	; 0
+ 7cc:	80 40       	sbci	r24, 0x00	; 0
+ 7ce:	e1 f7       	brne	.-8      	; 0x7c8 <.L1^B3>
+ 7d0:	00 c0       	rjmp	.+0      	; 0x7d2 <L0^A>
+
+000007d2 <L0^A>:
+	...
+
+000007d4 <.Loc.98>:
+}
+ 7d4:	e8 cf       	rjmp	.-48     	; 0x7a6 <.L15>
+
+000007d6 <.L24>:
+        }
+        if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // Links pakket gedetecteerd
+            stopsignaal_hoog(); // Naar AGV signaleren dat die moet stoppen met rijden
+ 7d6:	0e 94 79 03 	call	0x6f2	; 0x6f2 <stopsignaal_hoog>
+
+000007da <.LVL19>:
+            links = 1;
+            if (RFID_checken(1) != 0) { // Pakket bevat pasje
+ 7da:	88 2d       	mov	r24, r8
+ 7dc:	99 2d       	mov	r25, r9
+ 7de:	0e 94 65 03 	call	0x6ca	; 0x6ca <RFID_checken>
+
+000007e2 <.LVL20>:
+ 7e2:	89 2b       	or	r24, r25
+ 7e4:	b9 f0       	breq	.+46     	; 0x814 <.L17>
+
+000007e6 <.Loc.105>:
+                teller_rfid++;
+ 7e6:	9f ef       	ldi	r25, 0xFF	; 255
+ 7e8:	a9 1a       	sub	r10, r25
+ 7ea:	b9 0a       	sbc	r11, r25
+
+000007ec <.Loc.107>:
+                display(teller_leeg, teller_rfid);
+ 7ec:	b5 01       	movw	r22, r10
+ 7ee:	c6 01       	movw	r24, r12
+ 7f0:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+
+000007f4 <.LVL22>:
+                led_groen();
+ 7f4:	0e 94 91 03 	call	0x722	; 0x722 <led_groen>
+
+000007f8 <.LBB22>:
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 7f8:	2f ef       	ldi	r18, 0xFF	; 255
+ 7fa:	80 e7       	ldi	r24, 0x70	; 112
+ 7fc:	92 e0       	ldi	r25, 0x02	; 2
+
+000007fe <.L1^B4>:
+ 7fe:	21 50       	subi	r18, 0x01	; 1
+ 800:	80 40       	sbci	r24, 0x00	; 0
+ 802:	90 40       	sbci	r25, 0x00	; 0
+ 804:	e1 f7       	brne	.-8      	; 0x7fe <.L1^B4>
+ 806:	00 c0       	rjmp	.+0      	; 0x808 <L0^A>
+
+00000808 <L0^A>:
+	...
+
+0000080a <.L18>:
+                teller_leeg++;
+                display(teller_leeg, teller_rfid);
                 led_blauw();
                 _delay_ms(50);
             }
-            starten();
- 7ee:	0e 94 9d 03 	call	0x73a	; 0x73a <starten>
+            stopsignaal_laag(); // Stopsignaal weer laag zetten
+ 80a:	0e 94 7b 03 	call	0x6f6	; 0x6f6 <stopsignaal_laag>
 
-000007f2 <.LVL15>:
-            rechts = 1;
- 7f2:	08 2d       	mov	r16, r8
- 7f4:	19 2d       	mov	r17, r9
- 7f6:	5a c0       	rjmp	.+180    	; 0x8ac <.L13>
-
-000007f8 <.L14>:
-                teller_leeg++;
- 7f8:	8f ef       	ldi	r24, 0xFF	; 255
- 7fa:	c8 1a       	sub	r12, r24
- 7fc:	d8 0a       	sbc	r13, r24
-
-000007fe <.Loc.90>:
-                display(teller_leeg, teller_rfid);
- 7fe:	b5 01       	movw	r22, r10
- 800:	c6 01       	movw	r24, r12
- 802:	0e 94 0b 01 	call	0x216	; 0x216 <display>
-
-00000806 <.LVL17>:
-                led_blauw();
- 806:	0e 94 a8 03 	call	0x750	; 0x750 <led_blauw>
-
-0000080a <.LBB20>:
- 80a:	9f ef       	ldi	r25, 0xFF	; 255
- 80c:	20 e7       	ldi	r18, 0x70	; 112
- 80e:	82 e0       	ldi	r24, 0x02	; 2
-
-00000810 <.L1^B3>:
- 810:	91 50       	subi	r25, 0x01	; 1
- 812:	20 40       	sbci	r18, 0x00	; 0
- 814:	80 40       	sbci	r24, 0x00	; 0
- 816:	e1 f7       	brne	.-8      	; 0x810 <.L1^B3>
- 818:	00 c0       	rjmp	.+0      	; 0x81a <L0^A>
-
-0000081a <L0^A>:
-	...
-
-0000081c <.Loc.100>:
-}
- 81c:	e8 cf       	rjmp	.-48     	; 0x7ee <.L15>
-
-0000081e <.L24>:
-        }
-        if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
-            stoppen();
- 81e:	0e 94 9b 03 	call	0x736	; 0x736 <stoppen>
-
-00000822 <.LVL20>:
+0000080e <.LVL25>:
             links = 1;
-            if (RFID_scannen(1) != 0) { //doosje bevat tag
- 822:	88 2d       	mov	r24, r8
- 824:	99 2d       	mov	r25, r9
- 826:	0e 94 71 03 	call	0x6e2	; 0x6e2 <RFID_scannen>
+ 80e:	e8 2c       	mov	r14, r8
+ 810:	f9 2c       	mov	r15, r9
+ 812:	2f c0       	rjmp	.+94     	; 0x872 <.L16>
 
-0000082a <.LVL21>:
- 82a:	89 2b       	or	r24, r25
- 82c:	b9 f0       	breq	.+46     	; 0x85c <.L17>
-
-0000082e <.Loc.107>:
-                teller_rfid++;
- 82e:	9f ef       	ldi	r25, 0xFF	; 255
- 830:	a9 1a       	sub	r10, r25
- 832:	b9 0a       	sbc	r11, r25
-
-00000834 <.Loc.109>:
-                display(teller_leeg, teller_rfid);
- 834:	b5 01       	movw	r22, r10
- 836:	c6 01       	movw	r24, r12
- 838:	0e 94 0b 01 	call	0x216	; 0x216 <display>
-
-0000083c <.LVL23>:
-                //display(links, rechts);
-                led_groen();
- 83c:	0e 94 b3 03 	call	0x766	; 0x766 <led_groen>
-
-00000840 <.LBB22>:
-	__builtin_avr_delay_cycles(__ticks_dc);
- 840:	2f ef       	ldi	r18, 0xFF	; 255
- 842:	80 e7       	ldi	r24, 0x70	; 112
- 844:	92 e0       	ldi	r25, 0x02	; 2
-
-00000846 <.L1^B4>:
- 846:	21 50       	subi	r18, 0x01	; 1
- 848:	80 40       	sbci	r24, 0x00	; 0
- 84a:	90 40       	sbci	r25, 0x00	; 0
- 84c:	e1 f7       	brne	.-8      	; 0x846 <.L1^B4>
- 84e:	00 c0       	rjmp	.+0      	; 0x850 <L0^A>
-
-00000850 <L0^A>:
-	...
-
-00000852 <.L18>:
-                display(teller_leeg, teller_rfid);
-                //display(links, rechts);
-                led_blauw();
-                _delay_ms(50);
-            }
-            starten();
- 852:	0e 94 9d 03 	call	0x73a	; 0x73a <starten>
-
-00000856 <.LVL26>:
-            links = 1;
- 856:	e8 2c       	mov	r14, r8
- 858:	f9 2c       	mov	r15, r9
- 85a:	2f c0       	rjmp	.+94     	; 0x8ba <.L16>
-
-0000085c <.L17>:
+00000814 <.L17>:
                 teller_leeg++;
- 85c:	2f ef       	ldi	r18, 0xFF	; 255
- 85e:	c2 1a       	sub	r12, r18
- 860:	d2 0a       	sbc	r13, r18
+ 814:	2f ef       	ldi	r18, 0xFF	; 255
+ 816:	c2 1a       	sub	r12, r18
+ 818:	d2 0a       	sbc	r13, r18
 
-00000862 <.Loc.124>:
+0000081a <.Loc.122>:
                 display(teller_leeg, teller_rfid);
- 862:	b5 01       	movw	r22, r10
- 864:	c6 01       	movw	r24, r12
- 866:	0e 94 0b 01 	call	0x216	; 0x216 <display>
+ 81a:	b5 01       	movw	r22, r10
+ 81c:	c6 01       	movw	r24, r12
+ 81e:	0e 94 0b 01 	call	0x216	; 0x216 <display>
 
-0000086a <.LVL28>:
+00000822 <.LVL27>:
                 led_blauw();
- 86a:	0e 94 a8 03 	call	0x750	; 0x750 <led_blauw>
+ 822:	0e 94 86 03 	call	0x70c	; 0x70c <led_blauw>
 
-0000086e <.LBB24>:
- 86e:	8f ef       	ldi	r24, 0xFF	; 255
- 870:	90 e7       	ldi	r25, 0x70	; 112
- 872:	22 e0       	ldi	r18, 0x02	; 2
+00000826 <.LBB24>:
+ 826:	8f ef       	ldi	r24, 0xFF	; 255
+ 828:	90 e7       	ldi	r25, 0x70	; 112
+ 82a:	22 e0       	ldi	r18, 0x02	; 2
 
-00000874 <.L1^B5>:
- 874:	81 50       	subi	r24, 0x01	; 1
- 876:	90 40       	sbci	r25, 0x00	; 0
- 878:	20 40       	sbci	r18, 0x00	; 0
- 87a:	e1 f7       	brne	.-8      	; 0x874 <.L1^B5>
- 87c:	00 c0       	rjmp	.+0      	; 0x87e <L0^A>
+0000082c <.L1^B5>:
+ 82c:	81 50       	subi	r24, 0x01	; 1
+ 82e:	90 40       	sbci	r25, 0x00	; 0
+ 830:	20 40       	sbci	r18, 0x00	; 0
+ 832:	e1 f7       	brne	.-8      	; 0x82c <.L1^B5>
+ 834:	00 c0       	rjmp	.+0      	; 0x836 <L0^A>
 
-0000087e <L0^A>:
+00000836 <L0^A>:
 	...
 
-00000880 <.Loc.134>:
+00000838 <.Loc.132>:
 }
- 880:	e8 cf       	rjmp	.-48     	; 0x852 <.L18>
+ 838:	e8 cf       	rjmp	.-48     	; 0x80a <.L18>
 
-00000882 <.L25>:
+0000083a <.L25>:
 	__builtin_avr_delay_cycles(__ticks_dc);
- 882:	8f ef       	ldi	r24, 0xFF	; 255
- 884:	90 e7       	ldi	r25, 0x70	; 112
- 886:	22 e0       	ldi	r18, 0x02	; 2
+ 83a:	8f ef       	ldi	r24, 0xFF	; 255
+ 83c:	90 e7       	ldi	r25, 0x70	; 112
+ 83e:	22 e0       	ldi	r18, 0x02	; 2
 
-00000888 <.L1^B6>:
- 888:	81 50       	subi	r24, 0x01	; 1
- 88a:	90 40       	sbci	r25, 0x00	; 0
- 88c:	20 40       	sbci	r18, 0x00	; 0
- 88e:	e1 f7       	brne	.-8      	; 0x888 <.L1^B6>
- 890:	00 c0       	rjmp	.+0      	; 0x892 <L0^A>
+00000840 <.L1^B6>:
+ 840:	81 50       	subi	r24, 0x01	; 1
+ 842:	90 40       	sbci	r25, 0x00	; 0
+ 844:	20 40       	sbci	r18, 0x00	; 0
+ 846:	e1 f7       	brne	.-8      	; 0x840 <.L1^B6>
+ 848:	00 c0       	rjmp	.+0      	; 0x84a <L0^A>
 
-00000892 <L0^A>:
+0000084a <L0^A>:
 	...
 
-00000894 <.Loc.145>:
+0000084c <.Loc.143>:
         }
-        if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
+        if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // Rechts pakket niet meer gedetecteerd
             rechts = 0;
- 894:	00 e0       	ldi	r16, 0x00	; 0
- 896:	10 e0       	ldi	r17, 0x00	; 0
+ 84c:	00 e0       	ldi	r16, 0x00	; 0
+ 84e:	10 e0       	ldi	r17, 0x00	; 0
 
-00000898 <.Loc.146>:
+00000850 <.Loc.144>:
 }
- 898:	16 c0       	rjmp	.+44     	; 0x8c6 <.L19>
+ 850:	16 c0       	rjmp	.+44     	; 0x87e <.L19>
 
-0000089a <.L20>:
-    while ((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { //detectiemodus
- 89a:	30 99       	sbic	0x06, 0	; 6
- 89c:	27 c0       	rjmp	.+78     	; 0x8ec <.L11>
+00000852 <.L20>:
+    while ((NEXT_AGV_PIN & (1 << NEXT_AGV)) == 0) { // Detecteren zolang AGV niet heeft gesignaleerd dat er gestopt moet worden
+ 852:	30 99       	sbic	0x06, 0	; 6
+ 854:	27 c0       	rjmp	.+78     	; 0x8a4 <.L11>
 
-0000089e <.L21>:
-        if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
- 89e:	88 81       	ld	r24, Y
+00000856 <.L21>:
+        if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // Rechts pakket gedetecteerd
+ 856:	88 81       	ld	r24, Y
 
-000008a0 <.Loc.151>:
- 8a0:	85 fd       	sbrc	r24, 5
- 8a2:	04 c0       	rjmp	.+8      	; 0x8ac <.L13>
+00000858 <.Loc.149>:
+ 858:	85 fd       	sbrc	r24, 5
+ 85a:	04 c0       	rjmp	.+8      	; 0x864 <.L13>
 
-000008a4 <.Loc.152>:
- 8a4:	01 15       	cp	r16, r1
- 8a6:	11 05       	cpc	r17, r1
- 8a8:	09 f4       	brne	.+2      	; 0x8ac <.L13>
+0000085c <.Loc.150>:
+ 85c:	01 15       	cp	r16, r1
+ 85e:	11 05       	cpc	r17, r1
+ 860:	09 f4       	brne	.+2      	; 0x864 <.L13>
 
-000008aa <L0^A>:
- 8aa:	87 cf       	rjmp	.-242    	; 0x7ba <.L23>
+00000862 <L0^A>:
+ 862:	87 cf       	rjmp	.-242    	; 0x772 <.L23>
 
-000008ac <.L13>:
-        if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
- 8ac:	88 81       	ld	r24, Y
+00000864 <.L13>:
+        if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // Links pakket gedetecteerd
+ 864:	88 81       	ld	r24, Y
 
-000008ae <.Loc.155>:
- 8ae:	84 fd       	sbrc	r24, 4
- 8b0:	04 c0       	rjmp	.+8      	; 0x8ba <.L16>
+00000866 <.Loc.153>:
+ 866:	84 fd       	sbrc	r24, 4
+ 868:	04 c0       	rjmp	.+8      	; 0x872 <.L16>
 
-000008b2 <.Loc.156>:
- 8b2:	e1 14       	cp	r14, r1
- 8b4:	f1 04       	cpc	r15, r1
- 8b6:	09 f4       	brne	.+2      	; 0x8ba <.L16>
+0000086a <.Loc.154>:
+ 86a:	e1 14       	cp	r14, r1
+ 86c:	f1 04       	cpc	r15, r1
+ 86e:	09 f4       	brne	.+2      	; 0x872 <.L16>
 
-000008b8 <L0^A>:
- 8b8:	b2 cf       	rjmp	.-156    	; 0x81e <.L24>
+00000870 <L0^A>:
+ 870:	b2 cf       	rjmp	.-156    	; 0x7d6 <.L24>
 
-000008ba <.L16>:
-        if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
- 8ba:	88 81       	ld	r24, Y
+00000872 <.L16>:
+        if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // Rechts pakket niet meer gedetecteerd
+ 872:	88 81       	ld	r24, Y
 
-000008bc <.Loc.159>:
- 8bc:	85 ff       	sbrs	r24, 5
- 8be:	03 c0       	rjmp	.+6      	; 0x8c6 <.L19>
+00000874 <.Loc.157>:
+ 874:	85 ff       	sbrs	r24, 5
+ 876:	03 c0       	rjmp	.+6      	; 0x87e <.L19>
 
-000008c0 <.Loc.160>:
- 8c0:	01 30       	cpi	r16, 0x01	; 1
- 8c2:	11 05       	cpc	r17, r1
- 8c4:	f1 f2       	breq	.-68     	; 0x882 <.L25>
+00000878 <.Loc.158>:
+ 878:	01 30       	cpi	r16, 0x01	; 1
+ 87a:	11 05       	cpc	r17, r1
+ 87c:	f1 f2       	breq	.-68     	; 0x83a <.L25>
 
-000008c6 <.L19>:
-           // display(links, rechts);
-            _delay_ms(50); // debouncen
+0000087e <.L19>:
+            _delay_ms(50); // Debouncen
         }
-        if (((IR_L_PIN & (1 << IR_L)) != 0) && (links == 1)) { // links doosje niet meer gedetecteerd
- 8c6:	88 81       	ld	r24, Y
+        if (((IR_L_PIN & (1 << IR_L)) != 0) && (links == 1)) { // Links pakket niet meer gedetecteerd
+ 87e:	88 81       	ld	r24, Y
 
-000008c8 <.Loc.163>:
- 8c8:	84 ff       	sbrs	r24, 4
- 8ca:	e7 cf       	rjmp	.-50     	; 0x89a <.L20>
+00000880 <.Loc.161>:
+ 880:	84 ff       	sbrs	r24, 4
+ 882:	e7 cf       	rjmp	.-50     	; 0x852 <.L20>
 
-000008cc <.Loc.164>:
- 8cc:	81 e0       	ldi	r24, 0x01	; 1
- 8ce:	e8 16       	cp	r14, r24
- 8d0:	f1 04       	cpc	r15, r1
- 8d2:	19 f7       	brne	.-58     	; 0x89a <.L20>
+00000884 <.Loc.162>:
+ 884:	81 e0       	ldi	r24, 0x01	; 1
+ 886:	e8 16       	cp	r14, r24
+ 888:	f1 04       	cpc	r15, r1
+ 88a:	19 f7       	brne	.-58     	; 0x852 <.L20>
 
-000008d4 <.LBI30>:
+0000088c <.LBI30>:
 	__builtin_avr_delay_cycles(__ticks_dc);
- 8d4:	9f ef       	ldi	r25, 0xFF	; 255
- 8d6:	20 e7       	ldi	r18, 0x70	; 112
- 8d8:	82 e0       	ldi	r24, 0x02	; 2
+ 88c:	9f ef       	ldi	r25, 0xFF	; 255
+ 88e:	20 e7       	ldi	r18, 0x70	; 112
+ 890:	82 e0       	ldi	r24, 0x02	; 2
 
-000008da <.L1^B7>:
- 8da:	91 50       	subi	r25, 0x01	; 1
- 8dc:	20 40       	sbci	r18, 0x00	; 0
- 8de:	80 40       	sbci	r24, 0x00	; 0
- 8e0:	e1 f7       	brne	.-8      	; 0x8da <.L1^B7>
- 8e2:	00 c0       	rjmp	.+0      	; 0x8e4 <L0^A>
+00000892 <.L1^B7>:
+ 892:	91 50       	subi	r25, 0x01	; 1
+ 894:	20 40       	sbci	r18, 0x00	; 0
+ 896:	80 40       	sbci	r24, 0x00	; 0
+ 898:	e1 f7       	brne	.-8      	; 0x892 <.L1^B7>
+ 89a:	00 c0       	rjmp	.+0      	; 0x89c <L0^A>
 
-000008e4 <L0^A>:
+0000089c <L0^A>:
 	...
 
-000008e6 <.Loc.174>:
+0000089e <.Loc.172>:
             links = 0;
- 8e6:	e1 2c       	mov	r14, r1
- 8e8:	f1 2c       	mov	r15, r1
+ 89e:	e1 2c       	mov	r14, r1
+ 8a0:	f1 2c       	mov	r15, r1
 
-000008ea <.Loc.175>:
+000008a2 <.Loc.173>:
 }
- 8ea:	d7 cf       	rjmp	.-82     	; 0x89a <.L20>
+ 8a2:	d7 cf       	rjmp	.-82     	; 0x852 <.L20>
 
-000008ec <.L11>:
-        //display(links,rechts);
-
-    }
-    //acknowledge_module();
-
-}
- 8ec:	df 91       	pop	r29
- 8ee:	cf 91       	pop	r28
- 8f0:	1f 91       	pop	r17
- 8f2:	0f 91       	pop	r16
- 8f4:	ff 90       	pop	r15
- 8f6:	ef 90       	pop	r14
- 8f8:	df 90       	pop	r13
- 8fa:	cf 90       	pop	r12
- 8fc:	bf 90       	pop	r11
- 8fe:	af 90       	pop	r10
- 900:	9f 90       	pop	r9
- 902:	8f 90       	pop	r8
- 904:	08 95       	ret
-
-00000906 <IRblauwtesten>:
-
-
-
-
-void IRblauwtesten (void) {
-    SIGNALIR_DDR &= ~(1 << SIGNALIR);
- 906:	ea e0       	ldi	r30, 0x0A	; 10
- 908:	f1 e0       	ldi	r31, 0x01	; 1
- 90a:	80 81       	ld	r24, Z
- 90c:	8f 7e       	andi	r24, 0xEF	; 239
- 90e:	80 83       	st	Z, r24
-
-00000910 <.Loc.3>:
-    while(1) {
-        if ((SIGNALIR_PIN & (1 << SIGNALIR))==0) {
- 910:	e9 e0       	ldi	r30, 0x09	; 9
- 912:	f1 e0       	ldi	r31, 0x01	; 1
- 914:	01 c0       	rjmp	.+2      	; 0x918 <.L2>
-
-00000916 <.L5>:
-            PORTC |= (1 << PC3);
- 916:	43 9a       	sbi	0x08, 3	; 8
-
-00000918 <.L2>:
-        if ((SIGNALIR_PIN & (1 << SIGNALIR))==0) {
- 918:	80 81       	ld	r24, Z
-
-0000091a <.Loc.9>:
- 91a:	84 ff       	sbrs	r24, 4
- 91c:	fc cf       	rjmp	.-8      	; 0x916 <.L5>
-
-0000091e <.Loc.10>:
+000008a4 <.L11>:
+            _delay_ms(50); // Debouncen
         }
-        else {
-            PORTC &= ~(1 << PC3);
- 91e:	43 98       	cbi	0x08, 3	; 8
- 920:	fb cf       	rjmp	.-10     	; 0x918 <.L2>
-
-00000922 <IRsensortesten>:
     }
 }
+ 8a4:	df 91       	pop	r29
+ 8a6:	cf 91       	pop	r28
+ 8a8:	1f 91       	pop	r17
+ 8aa:	0f 91       	pop	r16
+ 8ac:	ff 90       	pop	r15
+ 8ae:	ef 90       	pop	r14
+ 8b0:	df 90       	pop	r13
+ 8b2:	cf 90       	pop	r12
+ 8b4:	bf 90       	pop	r11
+ 8b6:	af 90       	pop	r10
+ 8b8:	9f 90       	pop	r9
+ 8ba:	8f 90       	pop	r8
+ 8bc:	08 95       	ret
 
-void IRsensortesten (void) {
-    int teller = 0;
-    SIGNALIR_DDR &= ~(1 << SIGNALIR);
- 922:	ea e0       	ldi	r30, 0x0A	; 10
- 924:	f1 e0       	ldi	r31, 0x01	; 1
- 926:	80 81       	ld	r24, Z
- 928:	8f 7e       	andi	r24, 0xEF	; 239
- 92a:	80 83       	st	Z, r24
-
-0000092c <.Loc.16>:
-    ENABLEIR_DDR |= (1 << ENABLEIR);
- 92c:	e1 e0       	ldi	r30, 0x01	; 1
- 92e:	f1 e0       	ldi	r31, 0x01	; 1
- 930:	80 81       	ld	r24, Z
-
-00000932 <.Loc.17>:
- 932:	88 60       	ori	r24, 0x08	; 8
- 934:	80 83       	st	Z, r24
-
-00000936 <.Loc.18>:
-    ENABLEIR_PORT &= ~(1 << ENABLEIR);
- 936:	e2 e0       	ldi	r30, 0x02	; 2
- 938:	f1 e0       	ldi	r31, 0x01	; 1
- 93a:	80 81       	ld	r24, Z
- 93c:	87 7f       	andi	r24, 0xF7	; 247
- 93e:	80 83       	st	Z, r24
-
-00000940 <.Loc.20>:
-    int teller = 0;
- 940:	00 e0       	ldi	r16, 0x00	; 0
- 942:	10 e0       	ldi	r17, 0x00	; 0
-
-00000944 <.Loc.21>:
-
-    while (1) {
-        ENABLEIR_PORT |= (1 << ENABLEIR);
- 944:	c2 e0       	ldi	r28, 0x02	; 2
- 946:	d1 e0       	ldi	r29, 0x01	; 1
-
-00000948 <.Loc.22>:
-        _delay_us(210);
-        if ((SIGNALIR_PIN & (1 << SIGNALIR)) != 0) {
- 948:	0f 2e       	mov	r0, r31
- 94a:	f9 e0       	ldi	r31, 0x09	; 9
- 94c:	ef 2e       	mov	r14, r31
- 94e:	ff 24       	eor	r15, r15
- 950:	f3 94       	inc	r15
- 952:	f0 2d       	mov	r31, r0
- 954:	17 c0       	rjmp	.+46     	; 0x984 <.L10>
-
-00000956 <.L7>:
-	__builtin_avr_delay_cycles(__ticks_dc);
- 956:	8b e2       	ldi	r24, 0x2B	; 43
- 958:	96 e0       	ldi	r25, 0x06	; 6
-
-0000095a <.L1^B1>:
- 95a:	01 97       	sbiw	r24, 0x01	; 1
- 95c:	f1 f7       	brne	.-4      	; 0x95a <.L1^B1>
- 95e:	00 c0       	rjmp	.+0      	; 0x960 <L0^A>
-
-00000960 <L0^A>:
-	...
-
-00000962 <.LBE12>:
-            PORTC &= ~(1 << PC3);
-        }
-        else {
-            _delay_us(395);
-            if ((SIGNALIR_PIN & (1 << SIGNALIR)) != 0) {
- 962:	80 81       	ld	r24, Z
-
-00000964 <.Loc.34>:
- 964:	84 ff       	sbrs	r24, 4
- 966:	1d c0       	rjmp	.+58     	; 0x9a2 <.L9>
-
-00000968 <.Loc.35>:
-                PORTC &= ~(1 << PC3);
- 968:	43 98       	cbi	0x08, 3	; 8
-
-0000096a <.L8>:
-            else {
-                teller++;
-                PORTC |= (1 << PC3);
-            }
-        }
-        ENABLEIR_PORT &= ~(1 << ENABLEIR);
- 96a:	88 81       	ld	r24, Y
- 96c:	87 7f       	andi	r24, 0xF7	; 247
- 96e:	88 83       	st	Y, r24
-
-00000970 <.LBB14>:
- 970:	8f ea       	ldi	r24, 0xAF	; 175
- 972:	94 e0       	ldi	r25, 0x04	; 4
-
-00000974 <.L1^B2>:
- 974:	01 97       	sbiw	r24, 0x01	; 1
- 976:	f1 f7       	brne	.-4      	; 0x974 <.L1^B2>
- 978:	00 c0       	rjmp	.+0      	; 0x97a <L0^A>
-
-0000097a <L0^A>:
-	...
-
-0000097c <.LBE14>:
-        _delay_us(300);
-        display(teller, teller);
- 97c:	b8 01       	movw	r22, r16
- 97e:	c8 01       	movw	r24, r16
- 980:	0e 94 0b 01 	call	0x216	; 0x216 <display>
-
-00000984 <.L10>:
-        ENABLEIR_PORT |= (1 << ENABLEIR);
- 984:	88 81       	ld	r24, Y
-
-00000986 <.Loc.52>:
- 986:	88 60       	ori	r24, 0x08	; 8
- 988:	88 83       	st	Y, r24
-
-0000098a <.LBB16>:
- 98a:	87 e4       	ldi	r24, 0x47	; 71
- 98c:	93 e0       	ldi	r25, 0x03	; 3
-
-0000098e <.L1^B3>:
- 98e:	01 97       	sbiw	r24, 0x01	; 1
- 990:	f1 f7       	brne	.-4      	; 0x98e <.L1^B3>
- 992:	00 c0       	rjmp	.+0      	; 0x994 <L0^A>
-
-00000994 <L0^A>:
-	...
-
-00000996 <.LBE16>:
-        if ((SIGNALIR_PIN & (1 << SIGNALIR)) != 0) {
- 996:	f7 01       	movw	r30, r14
- 998:	80 81       	ld	r24, Z
-
-0000099a <.Loc.64>:
- 99a:	84 ff       	sbrs	r24, 4
- 99c:	dc cf       	rjmp	.-72     	; 0x956 <.L7>
-
-0000099e <.Loc.65>:
-            PORTC &= ~(1 << PC3);
- 99e:	43 98       	cbi	0x08, 3	; 8
- 9a0:	e4 cf       	rjmp	.-56     	; 0x96a <.L8>
-
-000009a2 <.L9>:
-                teller++;
- 9a2:	0f 5f       	subi	r16, 0xFF	; 255
- 9a4:	1f 4f       	sbci	r17, 0xFF	; 255
-
-000009a6 <.Loc.69>:
-                PORTC |= (1 << PC3);
- 9a6:	43 9a       	sbi	0x08, 3	; 8
- 9a8:	e0 cf       	rjmp	.-64     	; 0x96a <.L8>
-
-000009aa <testen>:
-    }*/
-
-
-    int teller_leeg = 0;
-    int teller_rfid = 0;
-    RFID_opstarten();
- 9aa:	0e 94 6c 03 	call	0x6d8	; 0x6d8 <RFID_opstarten>
-
-000009ae <.LVL10>:
-    //int tagrechts = 0;
-    //int taglinks = 0;
-    int rechts = 0;
-    int links = 0;
- 9ae:	a1 2c       	mov	r10, r1
- 9b0:	b1 2c       	mov	r11, r1
-
-000009b2 <.Loc.78>:
-    int rechts = 0;
- 9b2:	00 e0       	ldi	r16, 0x00	; 0
- 9b4:	10 e0       	ldi	r17, 0x00	; 0
-
-000009b6 <.Loc.79>:
-    int teller_rfid = 0;
- 9b6:	c1 2c       	mov	r12, r1
- 9b8:	d1 2c       	mov	r13, r1
-
-000009ba <.Loc.80>:
-    int teller_leeg = 0;
- 9ba:	e1 2c       	mov	r14, r1
- 9bc:	f1 2c       	mov	r15, r1
-
-000009be <.Loc.81>:
-
-
-    while (1) { //detectiemodus
-        if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
- 9be:	c9 e0       	ldi	r28, 0x09	; 9
- 9c0:	d1 e0       	ldi	r29, 0x01	; 1
-
-000009c2 <.Loc.82>:
-            stoppen();
-            rechts = 1;
- 9c2:	88 24       	eor	r8, r8
- 9c4:	83 94       	inc	r8
- 9c6:	91 2c       	mov	r9, r1
- 9c8:	47 c0       	rjmp	.+142    	; 0xa58 <.L12>
-
-000009ca <.L20>:
-            stoppen();
- 9ca:	0e 94 9b 03 	call	0x736	; 0x736 <stoppen>
-
-000009ce <.LVL12>:
-            if (RFID_scannen(0) != 0) {// doosje bevat tag
- 9ce:	80 e0       	ldi	r24, 0x00	; 0
- 9d0:	90 e0       	ldi	r25, 0x00	; 0
- 9d2:	0e 94 71 03 	call	0x6e2	; 0x6e2 <RFID_scannen>
-
-000009d6 <.LVL13>:
- 9d6:	89 2b       	or	r24, r25
- 9d8:	61 f0       	breq	.+24     	; 0x9f2 <.L14>
-
-000009da <.Loc.88>:
-                teller_rfid++;
- 9da:	2f ef       	ldi	r18, 0xFF	; 255
- 9dc:	c2 1a       	sub	r12, r18
- 9de:	d2 0a       	sbc	r13, r18
-
-000009e0 <.Loc.90>:
-                display(teller_leeg, teller_rfid);
- 9e0:	b6 01       	movw	r22, r12
- 9e2:	c7 01       	movw	r24, r14
- 9e4:	0e 94 0b 01 	call	0x216	; 0x216 <display>
-
-000009e8 <.LVL15>:
-                led_groen();
- 9e8:	0e 94 b3 03 	call	0x766	; 0x766 <led_groen>
-
-000009ec <.LVL16>:
-            rechts = 1;
- 9ec:	08 2d       	mov	r16, r8
- 9ee:	19 2d       	mov	r17, r9
- 9f0:	3a c0       	rjmp	.+116    	; 0xa66 <.L13>
-
-000009f2 <.L14>:
-            }
-            else { // doosje is leeg
-                teller_leeg++;
- 9f2:	8f ef       	ldi	r24, 0xFF	; 255
- 9f4:	e8 1a       	sub	r14, r24
- 9f6:	f8 0a       	sbc	r15, r24
-
-000009f8 <.Loc.95>:
-                display(teller_leeg, teller_rfid);
- 9f8:	b6 01       	movw	r22, r12
- 9fa:	c7 01       	movw	r24, r14
- 9fc:	0e 94 0b 01 	call	0x216	; 0x216 <display>
-
-00000a00 <.LVL18>:
-                led_blauw();
- a00:	0e 94 a8 03 	call	0x750	; 0x750 <led_blauw>
-
-00000a04 <.LVL19>:
-            rechts = 1;
- a04:	08 2d       	mov	r16, r8
- a06:	19 2d       	mov	r17, r9
- a08:	2e c0       	rjmp	.+92     	; 0xa66 <.L13>
-
-00000a0a <.L21>:
-            }
-        }
-        if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
-            stoppen();
- a0a:	0e 94 9b 03 	call	0x736	; 0x736 <stoppen>
-
-00000a0e <.LVL21>:
-            links = 1;
-            if (RFID_scannen(1) != 0) { //doosje bevat tag
- a0e:	88 2d       	mov	r24, r8
- a10:	99 2d       	mov	r25, r9
- a12:	0e 94 71 03 	call	0x6e2	; 0x6e2 <RFID_scannen>
-
-00000a16 <.LVL22>:
- a16:	89 2b       	or	r24, r25
- a18:	61 f0       	breq	.+24     	; 0xa32 <.L16>
-
-00000a1a <.Loc.103>:
-                teller_rfid++;
- a1a:	9f ef       	ldi	r25, 0xFF	; 255
- a1c:	c9 1a       	sub	r12, r25
- a1e:	d9 0a       	sbc	r13, r25
-
-00000a20 <.Loc.105>:
-                display(teller_leeg, teller_rfid);
- a20:	b6 01       	movw	r22, r12
- a22:	c7 01       	movw	r24, r14
- a24:	0e 94 0b 01 	call	0x216	; 0x216 <display>
-
-00000a28 <.LVL24>:
-                led_groen();
- a28:	0e 94 b3 03 	call	0x766	; 0x766 <led_groen>
-
-00000a2c <.LVL25>:
-            links = 1;
- a2c:	a8 2c       	mov	r10, r8
- a2e:	b9 2c       	mov	r11, r9
- a30:	20 c0       	rjmp	.+64     	; 0xa72 <.L15>
-
-00000a32 <.L16>:
-            }
-            else { // doosje is leeg
-                teller_leeg++;
- a32:	2f ef       	ldi	r18, 0xFF	; 255
- a34:	e2 1a       	sub	r14, r18
- a36:	f2 0a       	sbc	r15, r18
-
-00000a38 <.Loc.110>:
-                display(teller_leeg, teller_rfid);
- a38:	b6 01       	movw	r22, r12
- a3a:	c7 01       	movw	r24, r14
- a3c:	0e 94 0b 01 	call	0x216	; 0x216 <display>
-
-00000a40 <.LVL27>:
-                led_blauw();
- a40:	0e 94 a8 03 	call	0x750	; 0x750 <led_blauw>
-
-00000a44 <.LVL28>:
-            links = 1;
- a44:	a8 2c       	mov	r10, r8
- a46:	b9 2c       	mov	r11, r9
- a48:	14 c0       	rjmp	.+40     	; 0xa72 <.L15>
-
-00000a4a <.L17>:
-        }
-        if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
-            rechts = 0;
-            _delay_ms(50); // debouncen
-        }
-        if (((IR_L_PIN & (1 << IR_L)) != 0) && (links == 1)) { // links doosje niet meer gedetecteerd
- a4a:	88 81       	ld	r24, Y
-
-00000a4c <.Loc.115>:
- a4c:	84 ff       	sbrs	r24, 4
- a4e:	04 c0       	rjmp	.+8      	; 0xa58 <.L12>
-
-00000a50 <.Loc.116>:
- a50:	81 e0       	ldi	r24, 0x01	; 1
- a52:	a8 16       	cp	r10, r24
- a54:	b1 04       	cpc	r11, r1
- a56:	f9 f0       	breq	.+62     	; 0xa96 <.L19>
-
-00000a58 <.L12>:
-        if (((IR_R_PIN & (1 << IR_R)) == 0) && (rechts == 0)) { // rechts doosje gedetecteerd
- a58:	88 81       	ld	r24, Y
-
-00000a5a <.Loc.120>:
- a5a:	85 fd       	sbrc	r24, 5
- a5c:	04 c0       	rjmp	.+8      	; 0xa66 <.L13>
-
-00000a5e <.Loc.121>:
- a5e:	01 15       	cp	r16, r1
- a60:	11 05       	cpc	r17, r1
- a62:	09 f4       	brne	.+2      	; 0xa66 <.L13>
-
-00000a64 <L0^A>:
- a64:	b2 cf       	rjmp	.-156    	; 0x9ca <.L20>
-
-00000a66 <.L13>:
-        if (((IR_L_PIN & (1 << IR_L)) == 0)&& (links == 0)) { // links doosje gedetecteerd
- a66:	88 81       	ld	r24, Y
-
-00000a68 <.Loc.124>:
- a68:	84 fd       	sbrc	r24, 4
- a6a:	03 c0       	rjmp	.+6      	; 0xa72 <.L15>
-
-00000a6c <.Loc.125>:
- a6c:	a1 14       	cp	r10, r1
- a6e:	b1 04       	cpc	r11, r1
- a70:	61 f2       	breq	.-104    	; 0xa0a <.L21>
-
-00000a72 <.L15>:
-        if (((IR_R_PIN & (1 << IR_R)) != 0) && (rechts == 1)) { // rechts doosje niet meer gedetecteerd
- a72:	88 81       	ld	r24, Y
-
-00000a74 <.Loc.128>:
- a74:	85 ff       	sbrs	r24, 5
- a76:	e9 cf       	rjmp	.-46     	; 0xa4a <.L17>
-
-00000a78 <.Loc.129>:
- a78:	01 30       	cpi	r16, 0x01	; 1
- a7a:	11 05       	cpc	r17, r1
- a7c:	31 f7       	brne	.-52     	; 0xa4a <.L17>
-
-00000a7e <.LBI18>:
-	__builtin_avr_delay_cycles(__ticks_dc);
- a7e:	8f ef       	ldi	r24, 0xFF	; 255
- a80:	90 e7       	ldi	r25, 0x70	; 112
- a82:	22 e0       	ldi	r18, 0x02	; 2
-
-00000a84 <.L1^B4>:
- a84:	81 50       	subi	r24, 0x01	; 1
- a86:	90 40       	sbci	r25, 0x00	; 0
- a88:	20 40       	sbci	r18, 0x00	; 0
- a8a:	e1 f7       	brne	.-8      	; 0xa84 <.L1^B4>
- a8c:	00 c0       	rjmp	.+0      	; 0xa8e <L0^A>
-
-00000a8e <L0^A>:
-	...
-
-00000a90 <.Loc.139>:
-            rechts = 0;
- a90:	00 e0       	ldi	r16, 0x00	; 0
- a92:	10 e0       	ldi	r17, 0x00	; 0
-
-00000a94 <.Loc.140>:
-}
- a94:	da cf       	rjmp	.-76     	; 0xa4a <.L17>
-
-00000a96 <.L19>:
-	__builtin_avr_delay_cycles(__ticks_dc);
- a96:	9f ef       	ldi	r25, 0xFF	; 255
- a98:	20 e7       	ldi	r18, 0x70	; 112
- a9a:	82 e0       	ldi	r24, 0x02	; 2
-
-00000a9c <.L1^B5>:
- a9c:	91 50       	subi	r25, 0x01	; 1
- a9e:	20 40       	sbci	r18, 0x00	; 0
- aa0:	80 40       	sbci	r24, 0x00	; 0
- aa2:	e1 f7       	brne	.-8      	; 0xa9c <.L1^B5>
- aa4:	00 c0       	rjmp	.+0      	; 0xaa6 <L0^A>
-
-00000aa6 <L0^A>:
-	...
-
-00000aa8 <.Loc.151>:
-            links = 0;
- aa8:	a1 2c       	mov	r10, r1
- aaa:	b1 2c       	mov	r11, r1
-
-00000aac <.Loc.152>:
-}
- aac:	d5 cf       	rjmp	.-86     	; 0xa58 <.L12>
-
-00000aae <__umulhisi3>:
- aae:	a2 9f       	mul	r26, r18
-
-00000ab0 <.Loc.1>:
- ab0:	b0 01       	movw	r22, r0
-
-00000ab2 <.Loc.2>:
- ab2:	b3 9f       	mul	r27, r19
-
-00000ab4 <.Loc.3>:
- ab4:	c0 01       	movw	r24, r0
-
-00000ab6 <.Loc.4>:
- ab6:	a3 9f       	mul	r26, r19
-
-00000ab8 <.Loc.5>:
- ab8:	70 0d       	add	r23, r0
-
-00000aba <.Loc.6>:
- aba:	81 1d       	adc	r24, r1
-
-00000abc <.Loc.7>:
- abc:	11 24       	eor	r1, r1
-
-00000abe <.Loc.8>:
- abe:	91 1d       	adc	r25, r1
-
-00000ac0 <.Loc.9>:
- ac0:	b2 9f       	mul	r27, r18
-
-00000ac2 <.Loc.10>:
- ac2:	70 0d       	add	r23, r0
-
-00000ac4 <.Loc.11>:
- ac4:	81 1d       	adc	r24, r1
-
-00000ac6 <.Loc.12>:
- ac6:	11 24       	eor	r1, r1
-
-00000ac8 <.Loc.13>:
- ac8:	91 1d       	adc	r25, r1
-
-00000aca <.Loc.14>:
- aca:	08 95       	ret
-
-00000acc <_exit>:
- acc:	f8 94       	cli
-
-00000ace <__stop_program>:
- ace:	ff cf       	rjmp	.-2      	; 0xace <__stop_program>
+000008be <__umulhisi3>:
+ 8be:	a2 9f       	mul	r26, r18
+
+000008c0 <.Loc.1>:
+ 8c0:	b0 01       	movw	r22, r0
+
+000008c2 <.Loc.2>:
+ 8c2:	b3 9f       	mul	r27, r19
+
+000008c4 <.Loc.3>:
+ 8c4:	c0 01       	movw	r24, r0
+
+000008c6 <.Loc.4>:
+ 8c6:	a3 9f       	mul	r26, r19
+
+000008c8 <.Loc.5>:
+ 8c8:	70 0d       	add	r23, r0
+
+000008ca <.Loc.6>:
+ 8ca:	81 1d       	adc	r24, r1
+
+000008cc <.Loc.7>:
+ 8cc:	11 24       	eor	r1, r1
+
+000008ce <.Loc.8>:
+ 8ce:	91 1d       	adc	r25, r1
+
+000008d0 <.Loc.9>:
+ 8d0:	b2 9f       	mul	r27, r18
+
+000008d2 <.Loc.10>:
+ 8d2:	70 0d       	add	r23, r0
+
+000008d4 <.Loc.11>:
+ 8d4:	81 1d       	adc	r24, r1
+
+000008d6 <.Loc.12>:
+ 8d6:	11 24       	eor	r1, r1
+
+000008d8 <.Loc.13>:
+ 8d8:	91 1d       	adc	r25, r1
+
+000008da <.Loc.14>:
+ 8da:	08 95       	ret
+
+000008dc <_exit>:
+ 8dc:	f8 94       	cli
+
+000008de <__stop_program>:
+ 8de:	ff cf       	rjmp	.-2      	; 0x8de <__stop_program>

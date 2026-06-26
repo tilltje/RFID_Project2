@@ -2,7 +2,7 @@
 1781856463 source:c:\users\annev\documents\github\rfid_project2\fuse.c
 	<avr/io.h>
 
-1782311565 source:c:\users\annev\documents\github\rfid_project2\initialisatie.c
+1782474959 source:c:\users\annev\documents\github\rfid_project2\initialisatie.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -11,19 +11,9 @@
 	"Display.h"
 	"Sequence.h"
 
-1782137179 c:\users\annev\documents\github\rfid_project2\initialisatie.h
+1782473273 c:\users\annev\documents\github\rfid_project2\initialisatie.h
 
-1782386299 source:c:\users\annev\documents\github\rfid_project2\main.c
-	<avr/io.h>
-	<avr/interrupt.h>
-	<util/delay.h>
-	"Initialisatie.h"
-	"RFID_sensor.h"
-	"Display.h"
-	"Sequence.h"
-	"Testen.h"
-
-1782121558 source:c:\users\annev\documents\github\rfid_project2\display.c
+1782473066 source:c:\users\annev\documents\github\rfid_project2\main.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -32,7 +22,7 @@
 	"Display.h"
 	"Sequence.h"
 
-1782388145 source:c:\users\annev\documents\github\rfid_project2\rfid_sensor.c
+1782474076 source:c:\users\annev\documents\github\rfid_project2\display.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -41,13 +31,22 @@
 	"Display.h"
 	"Sequence.h"
 
-1782155674 c:\users\annev\documents\github\rfid_project2\rfid_sensor.h
+1782474959 source:c:\users\annev\documents\github\rfid_project2\rfid_sensor.c
+	<avr/io.h>
+	<avr/interrupt.h>
+	<util/delay.h>
+	"Initialisatie.h"
+	"RFID_sensor.h"
+	"Display.h"
+	"Sequence.h"
 
-1782048191 c:\users\annev\documents\github\rfid_project2\display.h
+1782474959 c:\users\annev\documents\github\rfid_project2\rfid_sensor.h
 
-1782123167 c:\users\annev\documents\github\rfid_project2\sequence.h
+1782473672 c:\users\annev\documents\github\rfid_project2\display.h
 
-1782390354 source:c:\users\annev\documents\github\rfid_project2\sequence.c
+1782473449 c:\users\annev\documents\github\rfid_project2\sequence.h
+
+1782473200 source:c:\users\annev\documents\github\rfid_project2\sequence.c
 	<avr/io.h>
 	<avr/interrupt.h>
 	<util/delay.h>
@@ -66,5 +65,5 @@
 	"Sequence.h"
 	"Testen.h"
 
-1782223745 c:\users\annev\documents\github\rfid_project2\testen.h
+1782468351 c:\users\annev\documents\github\rfid_project2\testen.h
 
